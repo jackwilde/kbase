@@ -1,3 +1,7 @@
+### App ignores
+postgres_setup.sql
+
+
 ### Django template
 *.log
 *.pot
