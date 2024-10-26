@@ -1,0 +1,72 @@
+html, body {
+    margin: 0 auto;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    height: 75px;
+    background-color: #0c626b;
+    display: block;
+    width: 100%;
+}
+
+#main-content {
+    max-width: 1200px;
+    padding: 0 20px;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    border-radius: 5px;
+    padding: 2%;
+    background-color: #F5F5F5;
+    box-shadow: 0 4px 8px 0 #DCDCDC;
+}
+
+/*#sign-in-container {*/
+/*    display: block;*/
+/*    border: 1px grey solid;*/
+/*    width: auto;*/
+/*    text-align: center;*/
+/*    height: auto;*/
+/*    & label {*/
+/*        display: block;*/
+/*    }*/
+/*    & button {*/
+/*        display: block;*/
+/*    }*/
+/*}*/
+
+/*#sign-up-container {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    box-sizing: border-box;*/
+/*    border: 1px grey solid;*/
+/*    width: auto;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    height: auto;*/
+/*    max-width: 50%;*/
+/*}*/
+
+.errorlist {
+    list-style: none;
+    color: red;
+    display: inline-block;
+}
+
+#sign-in-form label {
+    display: none;
+}

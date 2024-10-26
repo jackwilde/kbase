@@ -7,7 +7,10 @@
     <link rel="stylesheet" href="{% static 'styles/style.css' %}"/>
 </head>
 <body>
-{% block content %}
-{% endblock %}
+{% include 'header.html' %}
+<div id="main-content">
+    {% block content %}
+    {% endblock %}
+</div>
 </body>
 </html>

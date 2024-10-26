@@ -15,6 +15,10 @@ class CustomUserManager(BaseUserManager):
         """
         if not email:
             raise ValueError("Users must have an email address")
+        if not first_name:
+            raise ValueError("Users must have a first name")
+        if not last_name:
+            raise ValueError("Users must have a last name")
 
         email = self.normalize_email(email)
         user = self.model(email=email, first_name=first_name, last_name=last_name)

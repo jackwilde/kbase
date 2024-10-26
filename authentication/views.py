@@ -1,41 +1,30 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_not_required
 from django.contrib.auth.views import LoginView, LogoutView
-from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, FormView
-from .forms import SignupForm
+from django.utils.decorators import method_decorator
+from django.views.generic import FormView
+from .forms import SignUpForm, SignInForm
 
 
 # Create your views here.
-class IndexView(LoginRequiredMixin, TemplateView):
-    template_name = 'authentication/index.html'
-    login_url = reverse_lazy('login')
+@method_decorator(login_not_required, name='dispatch')
+class SignInView(LoginView):
+    template_name = 'authentication/sign-in.html'
+    next_page = reverse_lazy('dashboard')
+    form_class = SignInForm
 
 
-class AppLoginView(LoginView):
-    template_name = 'authentication/login.html'
-    next_page = reverse_lazy('home')
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return redirect(self.next_page)
-        return super().dispatch(request, *args, **kwargs)
+class SignOutView(LogoutView):
+    next_page = reverse_lazy('sign-in')
 
 
-class AppLogoutView(LogoutView):
-    next_page = reverse_lazy('login')
-
-
-class SignupView(FormView):
-    template_name = 'authentication/signup.html'
-    form_class = SignupForm
-    success_url = reverse_lazy(viewname='login')
-    next_page = reverse_lazy(viewname='home')
+@method_decorator(login_not_required, name='dispatch')
+class SignUpView(FormView):
+    template_name = 'authentication/sign-up.html'
+    form_class = SignUpForm
+    success_url = reverse_lazy(viewname='sign-in')
+    next_page = reverse_lazy(viewname='dashboard')
 
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
-
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return redirect(self.next_page)
-        return super().dispatch(request, *args, **kwargs)

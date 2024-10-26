@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <div class="center">
+    <div class="form-box">
+        <h1>Sign in</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+                {{ field.label_tag}}
+                {{  field }}
+                {{  field.errors }}
+            {% endfor %}
+            <button type="submit">Sign in</button>
+        </form>
+        <a class="fw-bold" href="{% url 'sign-up' %}">Create account</a>
+    </div>
+    </div>
+{% endblock %}
