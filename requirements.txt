@@ -1,3 +1,4 @@
-psycopg~=3.2.3
-python-dotenv~=1.0.1
-Django~=5.1.2
+psycopg
+python-dotenv
+Django
+Pillow

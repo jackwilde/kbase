@@ -117,6 +117,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LOGIN_URL = '/sign-in/'
 
+AUTH_USER_MODEL = "authentication.User"
+
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 7
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -142,4 +146,6 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = "authentication.User"
+MEDIA_ROOT = BASE_DIR / 'uploads'
+MEDIA_URL = '/media/'
+
