@@ -5,7 +5,7 @@ from authentication.models import User
 
 # Create your models here.
 class Article(models.Model):
-    title = models.CharField(max_length=255)
+    title = models.CharField(unique=True, max_length=255)
     slug = models.SlugField(unique=True, max_length=255)
     content = models.TextField()
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True)
@@ -18,6 +18,7 @@ class Article(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+
 
     def __str__(self):
         return self.title

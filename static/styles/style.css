@@ -1,6 +1,14 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 html, body {
-    margin: 0 auto;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 header {
@@ -8,13 +16,26 @@ header {
     top: 0;
     height: 75px;
     background-color: #0c626b;
-    display: block;
-    width: 100%;
+    width: 100vw;
+    border-bottom: 0.1rem solid red;
+}
+
+#header-content {
+    display: grid;
+    grid-template-columns: 40% 30% 30%;
+    align-items: center;
+    padding: 0 65px;
+    color: white;
+    max-width: 1200px;
+    height: 100%;
 }
 
 #main-content {
     max-width: 1200px;
-    padding: 0 20px;
+    padding: 20px;
+    margin: 0 150px;
+    background-color: white;
+    height: 100vh;
 }
 
 .center {
@@ -35,32 +56,6 @@ header {
     box-shadow: 0 4px 8px 0 #DCDCDC;
 }
 
-/*#sign-in-container {*/
-/*    display: block;*/
-/*    border: 1px grey solid;*/
-/*    width: auto;*/
-/*    text-align: center;*/
-/*    height: auto;*/
-/*    & label {*/
-/*        display: block;*/
-/*    }*/
-/*    & button {*/
-/*        display: block;*/
-/*    }*/
-/*}*/
-
-/*#sign-up-container {*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    box-sizing: border-box;*/
-/*    border: 1px grey solid;*/
-/*    width: auto;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*    height: auto;*/
-/*    max-width: 50%;*/
-/*}*/
-
 .errorlist {
     list-style: none;
     color: red;
@@ -69,4 +64,48 @@ header {
 
 #sign-in-form label {
     display: none;
+}
+
+#searchbar {
+    position: relative;
+    width: 100%;
+    & label {
+        display: none;
+    }
+    & input[type=text] {
+        height: 40px;
+        padding-left: 40px;
+        border-radius: 20px;
+        border: none;
+        width: 100%;
+        position: relative;
+        &[type=text]::placeholder {
+            color: grey;
+            opacity: 1;
+        }
+        &[type="text"]:focus {
+            outline: none;
+        }
+    }
+}
+
+#search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: grey; /* Icon color */
+    pointer-events: none;
+}
+
+#header-right {
+    text-align: right;
+}
+
+#sign-out-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    font: inherit;
 }

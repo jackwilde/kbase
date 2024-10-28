@@ -12,8 +12,4 @@
         <li>{{ user.last_login }}</li>
         <li>{{ user.groups }}</li>
     </ul>
-    <form method="POST" action="{% url 'sign-out' %}">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-    </form>
 {% endblock %}
