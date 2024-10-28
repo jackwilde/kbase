@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.title }}
+        {{ form.content }}
+        <p>Created on {{ article.created_at }} by {{ article.created_by.full_name }}</p>
+        <p>Last modified on {{ article.modified_at }} by {{ article.modified_by.first_name }}</p>
+        <button type="submit">Save</button>
+        <button type="button" onclick="window.history.back()">Cancel</button>
+    </form>
+
+{% endblock %}

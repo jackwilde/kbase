@@ -3,13 +3,16 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    <h1>Hello {{ user.first_name }}</h1>
-    <ul>
-        <li>{{ user.first_name }}</li>
-        <li>{{ user.last_name }}</li>
-        <li>{{ user.email }}</li>
-        <li>{{ user.date_joined }}</li>
-        <li>{{ user.last_login }}</li>
-        <li>{{ user.groups }}</li>
-    </ul>
+    <h1>Dashboard</h1>
+    <h2>Latest articles</h2>
+    <div class="article-list">
+    <h3>Title</h3>
+    <h3>Author</h3>
+    <h3>Last updated</h3>
+    {% for article in articles %}
+        <a href="{% url "article" article.slug %}"><p>{{ article.title }}</p></a>
+        <p>{{ article.modified_by.full_name }}</p>
+        <p>{{ article.modified_at }}</p>
+    {% endfor %}
+    </div>
 {% endblock %}

@@ -1,13 +1,15 @@
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, FormView, CreateView, DetailView
+from django.views.generic import TemplateView, FormView, CreateView, DetailView, UpdateView, ListView
 from .forms import ArticleForm
 from .models import Article
 
 
 # Create your views here.
-class DashboardView(TemplateView):
+class DashboardView(ListView):
     template_name = 'kbase/dashboard.html'
     login_url = reverse_lazy('sign-in')
+    model = Article
+    context_object_name = 'articles'
 
 
 class NewArticleView(CreateView):
@@ -28,3 +30,9 @@ class ArticleView(DetailView):
     model = Article
     context_object_name = 'article'
 
+
+
+class EditArticleView(UpdateView):
+    model = Article
+    fields = ['title', 'category', 'content']
+    template_name = 'kbase/edit.html'

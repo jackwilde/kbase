@@ -1,7 +1,7 @@
 <header>
     <div id="header-content">
         <div id="header-left">
-            Knowledge Base
+            <a href="{% url 'dashboard' %}">Knowledge Base</a>
         </div>
         <div id="header-search">
             {% if user.is_authenticated  %}

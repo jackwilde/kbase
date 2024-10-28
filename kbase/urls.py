@@ -6,5 +6,6 @@ from . import views
 urlpatterns = [
     path('', views.DashboardView.as_view(), name='dashboard'),
     path('new/', views.NewArticleView.as_view(), name='new-article'),
-    path('<slug:slug>/', views.ArticleView.as_view()),
+    path('<slug:slug>/', views.ArticleView.as_view(), name='article'),
+    path('<slug:slug>/edit/', views.EditArticleView.as_view(), name='edit-article'),
 ]
