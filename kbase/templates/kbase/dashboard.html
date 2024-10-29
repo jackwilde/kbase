@@ -3,16 +3,36 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    <h1>Dashboard</h1>
-    <h2>Latest articles</h2>
+    {% if search %}
+        <h2>Search results</h2>
+    {% else %}
+        <h2>All articles</h2>
+    {% endif %}
     <div class="article-list">
-    <h3>Title</h3>
-    <h3>Author</h3>
-    <h3>Last updated</h3>
-    {% for article in articles %}
-        <a href="{% url "article" article.slug %}"><p>{{ article.title }}</p></a>
-        <p>{{ article.modified_by.full_name }}</p>
-        <p>{{ article.modified_at }}</p>
-    {% endfor %}
+        <ul>
+            <li>
+                <h3>Title</h3>
+                <h3>Category</h3>
+                <h3>Author</h3>
+                <h3>Last updated</h3>
+            </li>
+            {% for article in articles %}
+                <li>
+                    <a href="{% url "article" article.slug %}"><p>{{ article.title }}</p></a>
+                    <p>{{ article.modified_by.category }}</p>
+                    <p>{{ article.modified_by.full_name }}</p>
+                    <p>{{ article.modified_date }}</p>
+                </li>
+            {% empty %}
+                {% if search %}
+                    <li>No results match your search.</li>
+                {% else %}
+                    <li>No articles yet.</li>]
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% for article in articles %}
+
+        {% endfor %}
     </div>
 {% endblock %}

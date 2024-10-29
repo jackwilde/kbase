@@ -5,7 +5,9 @@
 {% block content %}
     <h1>{{ article.title }}</h1>
     <p>{{ article.content }}</p>
-    <p>Created on {{ article.created_at }} by {{ article.created_by.full_name }}</p>
-    <p>Last modified on {{ article.modified_at }} by {{ article.modified_by.first_name }}</p>
+    <p>Created on {{ article.created_date }} by {{ article.created_by.full_name }}</p>
+    <p>Last modified on {{ article.modified_date }} by {{ article.modified_by.first_name }}</p>
+    {% if can_edit %}
     <a href="{% url 'edit-article' article.slug %}">Edit</a>
+    {% endif %}
 {% endblock %}

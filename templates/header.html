@@ -6,9 +6,9 @@
         <div id="header-search">
             {% if user.is_authenticated  %}
                 <div id="searchbar">
-                    <form>
-                        <label for="query">Search</label>
-                        <input type="text" name="query" id="query" placeholder="Search..."/>
+                    <form action="{% url 'dashboard' %}">
+                        <label for="search">Search</label>
+                        <input type="text" name="search" id="search" placeholder="Search..." value="{% if search %}{{ search }}{% endif %}"/>
                         <svg    id="search-icon"
                                 width="24"
                                 height="24"
@@ -25,9 +25,9 @@
                         </svg>
                     </form>
                 </div>
-
             </div>
             <div id="header-right">
+                <p><a href="{% url 'new-article' %}">NEW</a></p>
                 <form method="POST" action="{% url 'sign-out' %}">
                     {% csrf_token %}
                     <button id="sign-out-btn" type="submit">Sign out</button>
@@ -35,4 +35,5 @@
             </div>
         {% endif %}
     </div>
+{# TODO Add my articles to header#}
 </header>

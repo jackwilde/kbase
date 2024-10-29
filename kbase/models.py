@@ -10,14 +10,18 @@ class Article(models.Model):
     content = models.TextField()
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True)
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='created_articles')
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_date = models.DateTimeField(auto_now_add=True)
     modified_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='modified_articles')
-    modified_at = models.DateTimeField(auto_now=True)
+    modified_date = models.DateTimeField(auto_now=True)
     # images = models.ManyToManyField('Image', blank=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+
+
+    def can_user_edit(self, user):
+        return user == self.modified_by or user == self.created_by
 
 
     def __str__(self):
