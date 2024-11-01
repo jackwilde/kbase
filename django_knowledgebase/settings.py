@@ -36,6 +36,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'authentication',
     'kbase',
+    'kb_admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

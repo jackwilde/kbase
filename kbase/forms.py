@@ -4,7 +4,7 @@ from .models import Article
 
 
 class ArticleForm(ModelForm):
-    reserved_slugs = [ 'new', 'edit' ]
+    reserved_slugs = [ 'new', 'edit', 'admin', 'account' ]
     class Meta:
         model = Article
         fields = [
