@@ -1,27 +1,42 @@
-<header>
-    <div id="header-content">
-        <div id="header-left">
-            <a href="{% url 'dashboard' %}">Knowledge Base</a>
+<header class="sticky-top w-100 mb-3">
+    <div id="header-content" class="container d-flex justify-content-between align-items-center py-3">
+        <div class="text-white">
+            <span class="fs-5 me-3">Knowledge Base</span>
         </div>
-        <div id="header-search">
-            {% if user.is_authenticated  %}
-                <div id="searchbar">
-                    <form action="{% url 'dashboard' %}">
-                        <label for="search">Search</label>
-                        <input type="text" name="search" id="search" placeholder="Search..." value="{% if search %}{{ search }}{% endif %}"/>
+        {% if user.is_authenticated  %}
+        <div class="d-flex flex-grow-1 justify-content-center">
+            <form action="{% url 'dashboard' %}" class="w-75">
+                <div class="input-group">
+                    <span class="input-group-text rounded-start-5 bg-white border-0 text-muted">
                         {% include 'includes/search.svg' with height="18" width="18" %}
-                    </form>
+                    </span>
+                    <label for="search" class="d-none">Search</label>
+                    <input type="text" name="search" id="search" class="form-control rounded-end-5" placeholder="Search..." value="{% if search %}{{ search }}{% endif %}"/>
                 </div>
+            </form>
+        </div>
+
+        <div class="d-flex">
+            <a href="{% url 'dashboard' %}" class="text-decoration-none text-white me-2" data-bs-toggle="tooltip" title="Dashboard">{% include 'includes/dashboard.svg' with height="24" width="24" %}</a>
+            <a href="{% url 'new-article' %}" class="text-decoration-none text-white me-2" data-bs-toggle="tooltip" title="New article">{% include 'includes/plus-square.svg' with height="24" width="24" %}</a>
+
+            <div class="dropdown">
+                <a href="#" class="text-decoration-none dropdown-toggle text-white text-center" data-bs-toggle="dropdown" aria-expanded="false" data-bs-toggle="tooltip" title="Account">
+                        {% include 'includes/person-square.svg' with height="24" width="24" %}
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">My articles</a></li>
+                    <li><a class="dropdown-item" href="#">My profile</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <form method="POST" action="{% url 'sign-out' %}">
+                            {% csrf_token %}
+                            <button id="sign-out-btn" class="btn dropdown-item" type="submit">Sign out</button>
+                        </form>
+                    </li>
+                </ul>
             </div>
-            <div id="header-right">
-                <a href="{% url 'new-article' %}">{% include 'includes/plus-square.svg' with height="24" width="24" %}</a>
-                {% include 'includes/person-square.svg' with height="24" width="24" %}
-                <form method="POST" action="{% url 'sign-out' %}">
-                    {% csrf_token %}
-                    <button id="sign-out-btn" type="submit">Sign out</button>
-                </form>
-            </div>
+        </div>
         {% endif %}
     </div>
-{# TODO Add my articles to header#}
 </header>

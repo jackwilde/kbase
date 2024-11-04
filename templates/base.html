@@ -4,13 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'styles/bootstrap.min.css' %}"/>
     <link rel="stylesheet" href="{% static 'styles/style.css' %}"/>
 </head>
 <body>
 {% include 'includes/header.html' %}
-<div id="main-content">
+<div id="main-content" class="container">
     {% block content %}
     {% endblock %}
 </div>
+<script src="{% static 'scripts/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>
