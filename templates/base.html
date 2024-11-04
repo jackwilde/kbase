@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="{% static 'styles/bootstrap.min.css' %}"/>
     <link rel="stylesheet" href="{% static 'styles/style.css' %}"/>
 </head>
-<body>
+<body class="d-flex flex-column vh-100">
 {% include 'includes/header.html' %}
-<div id="main-content" class="container">
+<div id="main-content" class="container pt-4 h-100">
     {% block content %}
     {% endblock %}
 </div>
