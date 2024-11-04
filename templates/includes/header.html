@@ -9,12 +9,13 @@
                     <form action="{% url 'dashboard' %}">
                         <label for="search">Search</label>
                         <input type="text" name="search" id="search" placeholder="Search..." value="{% if search %}{{ search }}{% endif %}"/>
+                        {% include 'includes/search.svg' with height="20" width="20" %}
                     </form>
                 </div>
             </div>
             <div id="header-right">
-                <a href="{% url 'new-article' %}">{% include 'includes/plus-square.svg' %}</a>
-                {% include 'includes/person-square.svg' %}
+                <a href="{% url 'new-article' %}">{% include 'includes/plus-square.svg' with height="24" width="24" %}</a>
+                {% include 'includes/person-square.svg' with height="24" width="24" %}
                 <form method="POST" action="{% url 'sign-out' %}">
                     {% csrf_token %}
                     <button id="sign-out-btn" type="submit">Sign out</button>
