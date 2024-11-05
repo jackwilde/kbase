@@ -1,4 +1,8 @@
-header {
+* {
+    font-family: Open Sans, Arial, sans-serif;
+}
+
+.bg-teal {
     background-color: #0c626b;
 }
 
@@ -15,4 +19,22 @@ header {
 
 .small-text {
     font-size: 0.75rem;
+}
+
+.bg-purple {
+    background-color: #5d586f;
+}
+
+.btn-purple {
+    color: #5d586f;
+    border: 1px solid #fdc300;
+    border-radius: 2px;
+    background-color: #fdc300;
+}
+
+.btn-purple:hover {
+    color: #fdc300;
+    border: 1px solid #fdc300;
+    border-radius: 2px;
+    background-color: #5d586f;
 }

@@ -9,12 +9,12 @@ class ArticleForm(ModelForm):
         model = Article
         fields = [
             'title',
-            'category',
+            'tags',
             'content'
         ]
         labels = {
             'title': 'Title',
-            'category': 'Category',
+            'tags': 'Tags',
             'content': 'Article'
         }
         error_messages = {

@@ -9,8 +9,8 @@
         {{ form.content }}
         <p>Created on {{ article.created_date }} by {{ article.created_by.full_name }}</p>
         <p>Last modified on {{ article.modified_date }} by {{ article.modified_by.first_name }}</p>
-        <button type="submit">Save</button>
         <button type="button" onclick="window.history.back()">Cancel</button>
+        <button type="button" data-bs-toggle="modal" data-bs-target="#confirm-save">Save</button>
+        {% include 'includes/confirm-modal.html' with modal_id="confirm-save" action="edit" dismiss="Cancel" confirm="Save" %}
     </form>
-
 {% endblock %}

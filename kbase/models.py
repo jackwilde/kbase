@@ -8,7 +8,7 @@ class Article(models.Model):
     title = models.CharField(unique=True, max_length=255)
     slug = models.SlugField(unique=True, max_length=255)
     content = models.TextField()
-    category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True)
+    tags = models.ManyToManyField('Tags', blank=True)
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='created_articles')
     created_date = models.DateTimeField(auto_now_add=True)
     modified_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='modified_articles')
@@ -28,11 +28,11 @@ class Article(models.Model):
         return self.title
 
 
-class Category(models.Model):
-    name = models.CharField(max_length=100)
+class Tags(models.Model):
+    tag = models.CharField(max_length=25)
 
     def __str__(self):
-        return self.name
+        return self.tag
 
 
 # class Image(models.Model):
