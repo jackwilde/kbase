@@ -1,4 +1,4 @@
-from django.forms import ModelForm, ValidationError
+from django.forms import ModelForm, ValidationError, CharField, TextInput, Select
 from django.utils.text import slugify
 from .models import Article
 
@@ -23,6 +23,7 @@ class ArticleForm(ModelForm):
                 'required': 'Article title is required',
             },
         }
+
 
     def clean_title(self):
         title = self.cleaned_data.get('title')

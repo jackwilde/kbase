@@ -8,3 +8,11 @@ header {
     box-shadow: none;
     border: none;
 }
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.small-text {
+    font-size: 0.75rem;
+}

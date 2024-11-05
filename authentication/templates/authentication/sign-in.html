@@ -1,21 +1,18 @@
 {% extends 'base.html' %}
-
-{% block title %}Login{% endblock %}
+{% block title %}Sign in{% endblock %}
 
 {% block content %}
-    <div class="center">
-    <div class="form-box">
-        <h1>Sign in</h1>
+    <div class="text-center">
+        <h1 class="fs-1 fw-normal">Sign in</h1>
         <form method="POST">
             {% csrf_token %}
             {% for field in form %}
-                {{ field.label_tag}}
-                {{  field }}
+                <span class="d-none">{{ field.label_tag }}</span>
+                <span class="d-flex justify-content-center">{{  field }}</span>
                 {{  field.errors }}
             {% endfor %}
             <button type="submit">Sign in</button>
         </form>
-        <a class="fw-bold" href="{% url 'sign-up' %}">Create account</a>
-    </div>
+        <a class="fw-bold text-decoration-none fs-6" href="{% url 'sign-up' %}">Create account</a>
     </div>
 {% endblock %}

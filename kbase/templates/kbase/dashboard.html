@@ -8,31 +8,34 @@
     {% else %}
         <h2>All articles</h2>
     {% endif %}
-    <div class="article-list">
-        <ul>
-            <li>
-                <h3>Title</h3>
-                <h3>Category</h3>
-                <h3>Author</h3>
-                <h3>Last updated</h3>
-            </li>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Category</th>
+                <th scope="col">Author</th>
+                <th scope="col">Last Updated</th>
+            </tr>
+            </thead>
+            <tbody>
             {% for article in articles %}
-                <li>
-                    <a href="{% url "article" article.slug %}"><p>{{ article.title }}</p></a>
-                    <p>{{ article.modified_by.category }}</p>
-                    <p>{{ article.modified_by.full_name }}</p>
-                    <p>{{ article.modified_date }}</p>
-                </li>
+                <tr onclick="window.location.href='{% url 'article' article.slug %}'" class="cursor-pointer">
+                    <td>{{ article.title }}</td>
+                    <td>{{ article.modified_by.category }}</td>
+                    <td>{{ article.modified_by.full_name }}</td>
+                    <td>{{ article.modified_date }}</td>
+                </tr>
             {% empty %}
-                {% if search %}
-                    <li>No results match your search.</li>
-                {% else %}
-                    <li>No articles yet.</li>]
-                {% endif %}
+                <tr>
+                    <td colspan="4">
+                        {% if search %}
+                            No results found.
+                        {% else %}
+                            No articles yet.
+                        {% endif %}
+                    </td>
+                </tr>
             {% endfor %}
-        </ul>
-        {% for article in articles %}
-
-        {% endfor %}
-    </div>
+            </tbody>
+        </table>
 {% endblock %}
