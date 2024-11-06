@@ -10,27 +10,32 @@
         </div>
         <hr>
         <div>
-            {{ article.content|linebreaks }}
+            {{ form.content }}
         </div>
         <hr>
+        {{ form.tags }}
         <div class="d-flex small-text justify-content-between">
         </div>
-
 
         <button type="submit">Save</button>
         <button type="button" onclick="window.history.back()">Cancel</button>
         {% include 'includes/confirm-modal.html' with modal_id="confirm-save" action="edit" dismiss="Cancel" confirm="Save" %}
     </form>
 
-    <h1>New article</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {% for field in form %}
-            {{ field.label }}
-            {{ field }}
-            {{  field.errors }}
-        {% endfor %}
-        <button type="submit">Save</button>
-        <button type="button" onclick="window.history.back()">Cancel</button>
-    </form>
+{#    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>#}
+{#    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>#}
+{#    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>#}
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        // Initialize Select2 on elements with the class 'js-example-basic-multiple'
+        $('#id_tags').select2({
+            placeholder: "Select options",  // Optional placeholder text
+            allowClear: true                // Allow clearing selection
+        });
+    });
+</script>
 {% endblock %}

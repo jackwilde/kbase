@@ -1,4 +1,2 @@
-psycopg
-python-dotenv
 Django
 Pillow

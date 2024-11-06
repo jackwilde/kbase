@@ -8,7 +8,7 @@ class Article(models.Model):
     title = models.CharField(unique=True, max_length=255)
     slug = models.SlugField(unique=True, max_length=255)
     content = models.TextField()
-    tags = models.ManyToManyField('Tags', blank=True)
+    tags = models.ManyToManyField('Tag', blank=True)
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='created_articles')
     created_date = models.DateTimeField(auto_now_add=True)
     modified_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='modified_articles')
@@ -28,7 +28,7 @@ class Article(models.Model):
         return self.title
 
 
-class Tags(models.Model):
+class Tag(models.Model):
     tag = models.CharField(max_length=25)
 
     def __str__(self):

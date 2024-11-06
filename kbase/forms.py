@@ -1,10 +1,17 @@
-from django.forms import ModelForm, ValidationError, CharField, TextInput, Select
+from django.forms import ModelForm, ValidationError, CharField, TextInput, Select, CheckboxSelectMultiple, \
+    CheckboxInput, ModelMultipleChoiceField, SelectMultiple
 from django.utils.text import slugify
-from .models import Article
+from .models import Article, Tag
 
 
 class ArticleForm(ModelForm):
     reserved_slugs = [ 'new', 'edit', 'admin', 'account' ]
+    tags = ModelMultipleChoiceField(
+        queryset=Tag.objects.all(),
+        widget=SelectMultiple,
+        required=False,
+    )
+
     class Meta:
         model = Article
         fields = [

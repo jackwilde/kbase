@@ -7,6 +7,7 @@
         {% csrf_token %}
         {{ form.title }}
         {{ form.content }}
+        {{ form.tags }}
         <p>Created on {{ article.created_date }} by {{ article.created_by.full_name }}</p>
         <p>Last modified on {{ article.modified_date }} by {{ article.modified_by.first_name }}</p>
         <button type="button" onclick="window.history.back()">Cancel</button>
