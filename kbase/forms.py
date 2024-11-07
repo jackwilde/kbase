@@ -1,24 +1,12 @@
-from django.forms import ModelForm, ValidationError, CharField, TextInput, Select, CheckboxSelectMultiple, \
-    CheckboxInput, ModelMultipleChoiceField, SelectMultiple, Textarea
+from django.forms import ModelForm, ValidationError, TextInput, SelectMultiple, Textarea
 from django.utils.text import slugify
-from .models import Article, Tag
+from .models import Article
 
 
 class ArticleForm(ModelForm):
     reserved_slugs = [ 'new', 'edit', 'admin', 'account' ]
-    tags = ModelMultipleChoiceField(
-        queryset=Tag.objects.all(),
-        widget=SelectMultiple(attrs={'id': 'select_tags'}),
-        required=False,
-    )
-
     class Meta:
         model = Article
-        widgets = {
-            'title': TextInput(attrs={'id': 'custom_title_id'}),
-            'content': Textarea(attrs={'id': 'custom_content_id'}),
-            'tags': SelectMultiple(attrs={'id': 'custom_tags_id'}),
-        }
         fields = [
             'title',
             'tags',
@@ -34,6 +22,17 @@ class ArticleForm(ModelForm):
                 'unique': 'An article with this title already exists.',
                 'required': 'Article title is required',
             },
+        }
+        widgets = {
+            'title': TextInput(attrs={
+                'id': 'input_title',
+            }),
+            'content': Textarea(attrs={
+                'id': 'input_content',
+            }),
+            'tags': SelectMultiple(attrs={
+                'id': 'input_tags',
+            }),
         }
 
 

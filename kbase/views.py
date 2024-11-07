@@ -65,11 +65,9 @@ class ArticleView(DetailView):
         return context
 
 
-
-
 class EditArticleView(UpdateView):
     model = Article
-    fields = ['title', 'category', 'content']
+    form_class = ArticleForm
     template_name = 'kbase/edit.html'
 
     def get_success_url(self):
