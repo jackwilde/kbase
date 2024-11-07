@@ -31,10 +31,9 @@
 {% block scripts %}
 <script>
     $(document).ready(function() {
-        // Initialize Select2 on elements with the class 'js-example-basic-multiple'
-        $('#id_tags').select2({
-            placeholder: "Select options",  // Optional placeholder text
-            allowClear: true                // Allow clearing selection
+        $('#select_tags').select2({
+            placeholder: "Select tags",
+            allowClear: true
         });
     });
 </script>

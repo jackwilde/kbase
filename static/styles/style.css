@@ -6,13 +6,6 @@
     background-color: #0c626b;
 }
 
-#search[type="text"],
-#search[type="text"]:focus {
-    outline: none;
-    box-shadow: none;
-    border: none;
-}
-
 .cursor-pointer {
     cursor: pointer;
 }
@@ -38,3 +31,11 @@
     border-radius: 2px;
     background-color: #5d586f;
 }
+
+#search[type="text"],
+#search[type="text"]:focus {
+    outline: none;
+    box-shadow: none;
+    border: none;
+}
+

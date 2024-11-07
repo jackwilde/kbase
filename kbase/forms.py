@@ -1,5 +1,5 @@
 from django.forms import ModelForm, ValidationError, CharField, TextInput, Select, CheckboxSelectMultiple, \
-    CheckboxInput, ModelMultipleChoiceField, SelectMultiple
+    CheckboxInput, ModelMultipleChoiceField, SelectMultiple, Textarea
 from django.utils.text import slugify
 from .models import Article, Tag
 
@@ -8,12 +8,17 @@ class ArticleForm(ModelForm):
     reserved_slugs = [ 'new', 'edit', 'admin', 'account' ]
     tags = ModelMultipleChoiceField(
         queryset=Tag.objects.all(),
-        widget=SelectMultiple,
+        widget=SelectMultiple(attrs={'id': 'select_tags'}),
         required=False,
     )
 
     class Meta:
         model = Article
+        widgets = {
+            'title': TextInput(attrs={'id': 'custom_title_id'}),
+            'content': Textarea(attrs={'id': 'custom_content_id'}),
+            'tags': SelectMultiple(attrs={'id': 'custom_tags_id'}),
+        }
         fields = [
             'title',
             'tags',
