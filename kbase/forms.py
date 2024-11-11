@@ -1,6 +1,6 @@
 from django.forms import ModelForm, ValidationError, TextInput, SelectMultiple, Textarea
 from django.utils.text import slugify
-from .models import Article
+from .models import Article, Tag
 
 
 class ArticleForm(ModelForm):
@@ -25,21 +25,22 @@ class ArticleForm(ModelForm):
         }
         widgets = {
             'title': TextInput(attrs={
-                'id': 'input_title',
+                'id': 'input-title',
             }),
             'content': Textarea(attrs={
-                'id': 'input_content',
+                'id': 'input-content',
             }),
             'tags': SelectMultiple(attrs={
-                'id': 'input_tags',
+                'id': 'input-tags',
             }),
         }
 
 
     def clean_title(self):
         title = self.cleaned_data.get('title')
+        article_id = self.instance.id
 
-        if Article.objects.filter(title__iexact=title).exists():
+        if Article.objects.filter(title__iexact=title).exclude(id=article_id).exists():
             raise ValidationError("An article with this title already exists. Please choose a different title.")
 
         slug = slugify(title)

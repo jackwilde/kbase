@@ -29,7 +29,8 @@ class Article(models.Model):
 
 
 class Tag(models.Model):
-    tag = models.CharField(max_length=25)
+    tag = models.CharField(max_length=25, unique=True)
+
 
     def __str__(self):
         return self.tag
