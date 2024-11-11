@@ -44,6 +44,10 @@
     background-color: #5d586f;
 }
 
+.border-grey {
+    border: 1px solid #aaa;
+}
+
 #search[type="text"],
 #search[type="text"]:focus {
     outline: none;
@@ -57,16 +61,18 @@
     box-sizing: border-box;
     font-weight: inherit;
     color: inherit;
-    border: 1px solid #aaa;
     border-radius: 4px;
     padding: 0;
+}
+
+#input-title::placeholder {
+    color: inherit;
 }
 
 #input-content {
     width: inherit;
     height: inherit;
     box-sizing: border-box;
-    border: 1px solid #aaa;
     border-radius: 4px;
     resize: none;
 }

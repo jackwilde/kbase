@@ -27,9 +27,11 @@ class ArticleForm(ModelForm):
         widgets = {
             'title': TextInput(attrs={
                 'id': 'input-title',
+                'placeholder': 'Article title',
             }),
             'content': Textarea(attrs={
                 'id': 'input-content',
+                'placeholder': 'Enter article content here.',
             }),
             'tags': SelectMultiple(attrs={
                 'id': 'input-tags',

@@ -2,7 +2,7 @@ from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, FormView, CreateView, DetailView, UpdateView, ListView
+from django.views.generic import CreateView, DetailView, UpdateView, ListView
 from .forms import ArticleForm
 from .models import Article
 
@@ -35,9 +35,8 @@ class DashboardView(ListView):
         return context
 
 
-
 class NewArticleView(CreateView):
-    template_name = 'kbase/new.html'
+    template_name = 'kbase/new-edit.html'
     form_class = ArticleForm
     model = Article
 
@@ -68,7 +67,7 @@ class ArticleView(DetailView):
 class EditArticleView(UpdateView):
     model = Article
     form_class = ArticleForm
-    template_name = 'kbase/edit.html'
+    template_name = 'kbase/new-edit.html'
 
     def get_success_url(self):
         slug = self.object.slug
@@ -80,3 +79,8 @@ class EditArticleView(UpdateView):
             # raise PermissionDenied #Return 403 #TODO Think about 403 or 302
             return redirect(reverse_lazy(viewname='article', kwargs={'slug': article.slug}))
         return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['edit_mode'] = True
+        return context
