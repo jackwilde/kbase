@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import BaseUserManager, AbstractUser
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 
 
 # Create your models here.
@@ -27,6 +27,7 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+
     def create_superuser(self, email, first_name, last_name, password=None):
         """
         Creates and saves a new superuser
@@ -43,10 +44,14 @@ class CustomUserManager(BaseUserManager):
         return user
 
 
-class User(AbstractUser):
+class User(AbstractBaseUser):
     username = None
-    email = models.EmailField("email address", unique=True)
+    email = models.EmailField(unique=True, null=False, blank=False)
     is_admin = models.BooleanField(default=False)
+    first_name = models.CharField(max_length=50, null=False, blank=False)
+    last_name = models.CharField(max_length=50, null=False, blank=False)
+    date_joined = models.DateTimeField(auto_now_add=True)
+    groups = models.ManyToManyField('Group', related_name="users", blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
@@ -58,3 +63,9 @@ class User(AbstractUser):
     def __str__(self):
         return self.email
 
+
+class Group(models.Model):
+    name = models.CharField(max_length=150, null=False, blank=False)
+
+    def __str__(self):
+        return self.name

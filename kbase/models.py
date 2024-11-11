@@ -31,6 +31,10 @@ class Article(models.Model):
 class Tag(models.Model):
     tag = models.CharField(max_length=25, unique=True)
 
+    def save(self, *args, **kwargs):
+        # Convert tag to lowercase before saving
+        self.tag = self.tag.lower()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.tag

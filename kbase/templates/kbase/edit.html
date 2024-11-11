@@ -19,7 +19,7 @@
                 {{ form.tags }}
             </div>
             <div class="d-flex justify-content-start gap-2 pt-3 pb-5 flex-shrink-0">
-                <button type="button" class="btn btn-secondary" onclick="window.history.back()">Cancel</button>
+                <a href="{% url 'article' slug=article.slug %}" class="btn btn-secondary">Cancel</a>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirm-save">Save</button>
                 {% include 'includes/confirm-modal.html' with modal_id="confirm-save" action="edit" dismiss="Cancel" confirm="Save" form_id="article-form"%}
             </div>
@@ -36,7 +36,9 @@
         $(document).ready(function() {
             $('#input-tags').select2({
                 placeholder: "Select tags",
-                allowClear: true
+                allowClear: true,
+                mutliple: true,
+                tags: true
             });
         });
     </script>
