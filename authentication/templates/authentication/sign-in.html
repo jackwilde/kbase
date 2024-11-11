@@ -1,18 +1,20 @@
 {% extends 'base.html' %}
+{% load custom_tags %}
 {% block title %}Sign in{% endblock %}
 
 {% block content %}
-    <div class="text-center">
-        <h1 class="fs-1 fw-normal">Sign in</h1>
+    <div class="container mw-400 mt-5 mx-auto text-center">
+        <h1 class="fs-1 fw-light mb-4">Sign in</h1>
         <form method="POST">
             {% csrf_token %}
             {% for field in form %}
-                <span class="d-none">{{ field.label_tag }}</span>
-                <span class="d-flex justify-content-center">{{  field }}</span>
-                {{  field.errors }}
+                <div class="mb-3">
+                    <label class="form-label d-none" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field|add_class:"form-control w-100" }}
+                </div>
             {% endfor %}
-            <button type="submit">Sign in</button>
+            <button type="submit" class="btn btn-yp w-50">Sign in</button>
         </form>
-        <a class="fw-bold text-decoration-none fs-6" href="{% url 'sign-up' %}">Create account</a>
+        <a class="fw-bold text-decoration-none fs-6 d-block mt-3" href="{% url 'sign-up' %}">Not registered? Create an account</a>
     </div>
 {% endblock %}

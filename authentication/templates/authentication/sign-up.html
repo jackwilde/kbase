@@ -1,18 +1,28 @@
 {% extends 'base.html' %}
-
+{% load custom_tags %}
 {% block title %}Sign up{% endblock %}
 
 {% block content %}
-    <div class="form-box">
-        <h1>Sign up</h1>
+    <div class="container mw-600 mt-5 mx-auto text-center">
+        <h1 class="fs-1 fw-light mb-4">Sign up</h1>
         <form method="POST">
-        {% csrf_token %}
-            {% for field in form %}
-                {{ field.label }}
-                {{  field }}
-                {{  field.errors }}
-            {% endfor %}
-        <button type="submit">Sign up</button>
+            {% csrf_token %}
+            <div class="row mb-3">
+                {% for field in form %}
+                    <label class="form-label d-none" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {% if field.name == "first_name" or field.name == "last_name" %}
+                        <div class="col-md-6 mb-3">
+                            {{ field|add_class:"form-control" }}
+                        </div>
+                    {% else %}
+                        <div class="col-md-12 mb-3">
+                            {{ field|add_class:"form-control" }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <button type="submit" class="btn btn-yp w-50">Sign up</button>
         </form>
+        <a class="fw-bold text-decoration-none fs-6 d-block mt-3" href="{% url 'sign-in' %}">Already registered? Sign in</a>
     </div>
 {% endblock %}

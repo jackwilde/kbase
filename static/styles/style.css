@@ -22,6 +22,14 @@
     border: 1px solid #aaa;
 }
 
+.mw-400 {
+    max-width: 400px;
+}
+
+.mw-600 {
+    max-width: 600px;
+}
+
 .btn-yp {
     color: #5d586f;
     border: 1px solid #fdc300;

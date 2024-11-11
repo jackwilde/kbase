@@ -6,13 +6,6 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email', 'password1', 'password2']
-        labels = {
-            'first_name': 'First Name',
-            'last_name': 'Last Name',
-            'email': 'Email',
-            'password1': 'Password',
-            'password2': 'Confirm Password'
-        }
         error_messages = {
             'first_name': {
                 'required': 'Please enter your first name',
@@ -29,9 +22,16 @@ class SignUpForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        # Set placeholder text for each field
+        self.fields['first_name'].widget.attrs.update({'placeholder': 'First name'})
+        self.fields['last_name'].widget.attrs.update({'placeholder': 'Last name'})
+        self.fields['email'].widget.attrs.update({'placeholder': 'Email address'})
+        self.fields['password1'].widget.attrs.update({'placeholder': 'Password'})
+        self.fields['password2'].widget.attrs.update({'placeholder': 'Confirm password'})
+
+        # Mark fields as required
         for field in self.fields:
             self.fields[field].required = True
-
 
 
 class SignInForm(AuthenticationForm):
