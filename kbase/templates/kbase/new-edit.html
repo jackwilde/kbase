@@ -35,6 +35,13 @@
     {% for error in form.errors %}
         <h1>{{ form.errors }}</h1>
     {% endfor %}
+    {% if form.tags.errors %}
+        <div class="alert alert-warning">
+            {% for error in form.tags.errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block scripts %}
