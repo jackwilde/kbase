@@ -12,7 +12,6 @@
             <thead class="bg-purple">
             <tr>
                 <th scope="col">Title</th>
-                <th scope="col">Category</th>
                 <th scope="col">Author</th>
                 <th scope="col">Last Updated</th>
             </tr>
@@ -21,7 +20,6 @@
             {% for article in articles %}
                 <tr onclick="window.location.href='{% url 'article' article.slug %}'" class="cursor-pointer">
                     <td>{{ article.title }}</td>
-                    <td>{{ article.modified_by.category }}</td>
                     <td>{{ article.modified_by.full_name }}</td>
                     <td>{{ article.modified_date }}</td>
                 </tr>
