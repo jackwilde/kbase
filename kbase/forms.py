@@ -89,6 +89,7 @@ class ArticleForm(ModelForm):
                 else:
                     self.tag_errors.append(f'{tag} contains non alphanumeric characters.')
                     #TODO how can we let the user know they've done this and we're ignoring it
+                    # Might have to just pop something up in JS and warn them
 
             # Create a copy of the data to edit and update with the new list
             data_copy = self.data.copy()
@@ -96,5 +97,3 @@ class ArticleForm(ModelForm):
 
             # Set the edited data
             self.data = data_copy
-
-
