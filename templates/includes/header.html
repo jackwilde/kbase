@@ -23,7 +23,7 @@
             <a href="{% url 'new-article' %}" class="text-decoration-none text-white me-4 text-center" data-bs-toggle="tooltip" title="New article">
                 {% include 'includes/plus-square.svg' with height="24" width="24" %}
             </a>
-            {% if user.is_admin %}
+            {% if request.user.is_admin %}
                 <a href="{% url 'admin-dashboard' %}" class="text-decoration-none text-white me-4 text-center" data-bs-toggle="tooltip" title="Admin">
                     {% include 'includes/settings.svg' with height="24" width="24" %}
                 </a>

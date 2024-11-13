@@ -26,5 +26,10 @@ class SignUpView(FormView):
     next_page = reverse_lazy(viewname='dashboard')
 
     def form_valid(self, form):
-        form.save()
+        user = form.save()
+        # Make the first registered user an admin
+        if user.pk == 1:
+            user.is_admin = True
+            user.save()
+
         return super().form_valid(form)

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin - {{ user.full_name }}{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center p-3 bg-black w-100">
+        <h1 class="fs-3 text-white fw-lighter mb-0">User details</h1>
+    </div>
+    <div class="row m-3">
+        <div class="col-12 col-lg-9">
+            <table>
+                <tr>
+                    <th class="pe-3">First name:</th>
+                    <td>{{ user.first_name }}</td>
+                </tr>
+                <tr>
+                    <th class="pe-3">Last name:</th>
+                    <td>{{ user.last_name }}</td>
+                </tr>
+                <tr>
+                    <th class="pe-3">Email address:</th>
+                    <td>{{ user.email }}</td>
+                </tr>
+                <tr>
+                    <th class="pe-3">Admin:</th>
+                    <td>{{ user.is_admin }}</td>
+                </tr>
+                <tr>
+                    <th class="pe-3 align-top">Groups:</th>
+                    <td>
+                        {% for group in user.groups.all %}
+                            <a class="text-decoration-none" href="{% url 'group-detail' pk=group.id %}">
+                                {{ group.name }}{% if not forloop.last %}<br> {% endif %}
+                            </a>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th class="pe-3">Date joined:</th>
+                    <td>{{ user.date_joined }}</td>
+                </tr>
+                <tr>
+                    <th class="pe-3">Last Login:</th>
+                    <td>{{ user.last_login }}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-12 col-lg-3">
+            {% if not request.user == user %}
+                <div class="mt-4 d-flex flex-lg-column">
+                    <form class="me-2" method="POST" action="{% url 'set-permissions' pk=user.pk %}">
+                        {% csrf_token %}
+                        <button class="btn btn-primary me-lg-0 mb-lg-2 w-100 mw-200">Toggle admin</button>
+                    </form>
+                    <form method="POST" action="{% url 'user-delete' pk=user.pk %}">
+                        {% csrf_token %}
+                        <button class="btn btn-danger w-100 mw-200">Delete User</button>
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin - Groups{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center p-3 bg-black w-100">
+        <h1 class="fs-3 text-white fw-lighter mb-0">All Groups</h1>
+    </div>
+    <div class="row m-3">
+        <div class="col-12 col-lg-10">
+            <table class="table table-hover">
+                <thead class="bg-purple">
+                <tr>
+                    <th scope="col">Group Name</th>
+                    <th scope="col">Total Members</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for group in groups %}
+                    <tr onclick="window.location.href='{% url 'group-detail' pk=group.pk %}'" class="cursor-pointer">
+                        <td>{{ group.name }}</td>
+                        <td>{{ group.users.all|length }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4">
+                            No groups yet.
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-12 col-lg-2 pt-2 align-items-center text-center">
+        <a class="btn btn-primary me-lg-0 mb-lg-2 me-2 mw-200" href="{% url 'create-group' %}">Create Group</a>
+        </div>
+    </div>
+
+
+{% endblock %}

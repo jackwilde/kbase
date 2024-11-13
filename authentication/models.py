@@ -51,12 +51,12 @@ class User(AbstractBaseUser):
     first_name = models.CharField(max_length=50, null=False, blank=False)
     last_name = models.CharField(max_length=50, null=False, blank=False)
     date_joined = models.DateTimeField(auto_now_add=True)
-    groups = models.ManyToManyField('Group', related_name="users", blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
     objects = CustomUserManager()
 
+    @property
     def full_name(self):
         return f"{self.first_name} {self.last_name}".strip()
 
@@ -65,7 +65,8 @@ class User(AbstractBaseUser):
 
 
 class Group(models.Model):
-    name = models.CharField(max_length=150, null=False, blank=False)
+    name = models.CharField(max_length=150, null=False, blank=False, unique=True)
+    users = models.ManyToManyField('User', related_name="groups", blank=True)
 
     def __str__(self):
         return self.name

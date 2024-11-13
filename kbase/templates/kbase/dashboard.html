@@ -3,11 +3,16 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    {% if search %}
-        <h2>Search results</h2>
-    {% else %}
-        <h2>All articles</h2>
-    {% endif %}
+    <div class="d-flex justify-content-between align-items-center p-3 bg-purple w-100">
+        <h1 class="fs-3 text-white fw-lighter mb-0">
+            {% if search %}
+                Search results
+            {% else %}
+                All articles
+            {% endif %}
+        </h1>
+    </div>
+
         <table class="table table-hover">
             <thead class="bg-purple">
             <tr>
