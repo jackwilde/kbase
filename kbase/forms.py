@@ -6,7 +6,7 @@ from .models import Article, Tag
 
 
 class ArticleForm(ModelForm):
-    reserved_slugs = [ 'new', 'edit', 'admin', 'account' ]
+    reserved_slugs = [ 'new', 'admin', 'account' ]
     class Meta:
         model = Article
         fields = [

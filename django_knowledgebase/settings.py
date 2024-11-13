@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'authentication',
     'kbase',
     'kb_admin',
+    'account',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
