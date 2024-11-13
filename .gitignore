@@ -1,5 +1,6 @@
 ### App ignores
 postgres_setup.sql
+todo
 
 
 ### Django template
