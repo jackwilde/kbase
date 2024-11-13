@@ -1,11 +1,14 @@
-{% extends 'base.html' %}
+{% extends 'kb_admin/base.html' %}
+{% load custom_tags %}
 
-{% block title %}Admin - Groups{% endblock %}
+{% block admin-title %}Groups{% endblock %}
 
-{% block content %}
-    <div class="d-flex justify-content-between align-items-center p-3 bg-black w-100">
-        <h1 class="fs-3 text-white fw-lighter mb-0">All Groups</h1>
-    </div>
+{% block admin-header %}
+    <h1 class="fs-3 text-white fw-lighter mb-0">All Groups</h1>
+    <a href="{% url 'admin-dashboard' %}" class="btn btn-yb">Admin Dashboard</a>
+{% endblock %}
+
+{% block admin-content %}
     <div class="row m-3">
         <div class="col-12 col-lg-10">
             <table class="table table-hover">
@@ -18,7 +21,7 @@
                 <tbody>
                 {% for group in groups %}
                     <tr onclick="window.location.href='{% url 'group-detail' pk=group.pk %}'" class="cursor-pointer">
-                        <td>{{ group.name }}</td>
+                        <td>{{ group.name|title }}</td>
                         <td>{{ group.users.all|length }}</td>
                     </tr>
                 {% empty %}
@@ -32,9 +35,11 @@
             </table>
         </div>
         <div class="col-12 col-lg-2 pt-2 align-items-center text-center">
-        <a class="btn btn-primary me-lg-0 mb-lg-2 me-2 mw-200" href="{% url 'create-group' %}">Create Group</a>
+            <a class="btn btn-primary me-lg-0 mb-lg-2 me-2 mw-200" href="{% url 'create-group' %}">Create Group</a>
         </div>
     </div>
-
-
 {% endblock %}
+
+
+
+

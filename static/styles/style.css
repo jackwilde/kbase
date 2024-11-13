@@ -10,6 +10,10 @@
     background-color: #e30613;
 }
 
+.bg-yellow {
+    background-color: #fdc300;
+}
+
 .btn-primary {
     background-color: #0c626b;
     border-color: #0c626b;
@@ -36,6 +40,11 @@
     border: 1px solid #aaa;
 }
 
+.border-black {
+    border: 1px solid black;
+}
+
+
 .mw-100 {
     max-width: 100px;
 }
@@ -53,6 +62,20 @@
     max-width: 600px;
 }
 
+.btn-yb {
+    color: black;
+    border: 1px solid #fdc300;
+    border-radius: 2px;
+    background-color: #fdc300;
+}
+
+.btn-yb:hover {
+    color: #fdc300;
+    border: 1px solid #fdc300;
+    border-radius: 2px;
+    background-color: black;
+}
+
 .btn-yp {
     color: #5d586f;
     border: 1px solid #fdc300;
@@ -66,6 +89,7 @@
     border-radius: 2px;
     background-color: #5d586f;
 }
+
 
 .border-grey {
     border: 1px solid #aaa;

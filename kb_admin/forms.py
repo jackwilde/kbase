@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.forms import ModelForm, TextInput, SelectMultiple
 from authentication.models import Group, User
 
@@ -31,3 +32,9 @@ class GroupForm(ModelForm):
         self.fields['users'].widget.choices = [
             (user.id, f"{user.full_name} <{user.email}>") for user in self.fields['users'].queryset
         ]
+
+    def clean_name(self):
+        name = self.cleaned_data['name'].lower()
+        if Group.objects.filter(name=name).exists():
+            raise ValidationError("A group with this name already exists.")
+        return name

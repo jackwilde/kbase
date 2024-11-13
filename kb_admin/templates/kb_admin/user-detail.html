@@ -1,11 +1,14 @@
-{% extends 'base.html' %}
+{% extends 'kb_admin/base.html' %}
+{% load custom_tags %}
 
-{% block title %}Admin - {{ user.full_name }}{% endblock %}
+{% block admin-title %}{{ user.full_name }}{% endblock %}
 
-{% block content %}
-    <div class="d-flex justify-content-between align-items-center p-3 bg-black w-100">
-        <h1 class="fs-3 text-white fw-lighter mb-0">User details</h1>
-    </div>
+{% block admin-header %}
+    <h1 class="fs-3 fw-lighter mb-0">User details</h1>
+    <a href="{% url 'all-users' %}" class="btn btn-yb">All Users</a>
+{% endblock %}
+
+{% block admin-content %}
     <div class="row m-3">
         <div class="col-12 col-lg-9">
             <table>
@@ -30,7 +33,7 @@
                     <td>
                         {% for group in user.groups.all %}
                             <a class="text-decoration-none" href="{% url 'group-detail' pk=group.id %}">
-                                {{ group.name }}{% if not forloop.last %}<br> {% endif %}
+                                {{ group.name|title }}{% if not forloop.last %}<br> {% endif %}
                             </a>
                         {% endfor %}
                     </td>

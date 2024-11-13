@@ -1,11 +1,14 @@
-{% extends 'base.html' %}
+{% extends 'kb_admin/base.html' %}
+{% load custom_tags %}
 
-{% block title %}Admin - Users{% endblock %}
+{% block admin-title %}Users{% endblock %}
 
-{% block content %}
-    <div class="d-flex justify-content-between align-items-center p-3 bg-black w-100">
-        <h1 class="fs-3 text-white fw-lighter mb-0">All Users</h1>
-    </div>
+{% block admin-header %}
+    <h1 class="fs-3 fw-light mb-0">All Users</h1>
+    <a href="{% url 'admin-dashboard' %}" class="btn btn-yb">Admin Dashboard</a>
+{% endblock %}
+
+{% block admin-content %}
     <table class="table table-hover">
         <thead class="bg-purple">
         <tr>
