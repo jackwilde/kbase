@@ -39,9 +39,6 @@ class UserDetailsAdminView(AdminRequiredMixin, DetailView):
     model = User
     context_object_name = 'user'
 
-    def get_object(self):
-        # Retrieve the object using the 'id' parameter from the URL
-        return User.objects.get(pk=self.kwargs['pk'])
 
 class UserDeleteAdminView(AdminRequiredMixin, DeleteView):
     model = User
@@ -88,12 +85,8 @@ class GroupsAdminView(AdminRequiredMixin, ListView):
 
 class GroupDetailsAdminView(AdminRequiredMixin, DetailView):
     template_name = 'kb_admin/group-detail.html'
-    model = User
+    model = Group
     context_object_name = 'group'
-
-    def get_object(self):
-        # Retrieve the object using the 'id' parameter from the URL
-        return Group.objects.get(pk=self.kwargs['pk'])
 
 
 class CreateGroupAdminView(AdminRequiredMixin, CreateView):
