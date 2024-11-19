@@ -1,5 +1,6 @@
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, TemplateView
+from django.contrib.auth.views import PasswordChangeView
 from authentication.models import User
 
 
@@ -14,5 +15,7 @@ class AccountView(UpdateView):
         return self.request.user
 
 
-class ResetPasswordView(TemplateView):
+class ResetPasswordView(PasswordChangeView):
     template_name = 'account/reset-password.html'
+    success_url = reverse_lazy('my-account')
+
