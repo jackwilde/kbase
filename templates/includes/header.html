@@ -17,20 +17,17 @@
         </div>
 
         <div class="d-flex">
-            <a href="{% url 'dashboard' %}" class="text-decoration-none text-white me-4 text-center" data-bs-toggle="tooltip" title="Dashboard">
-                {% include 'includes/dashboard.svg' with height="28" width="28" %}
-            </a>
-            <a href="{% url 'new-article' %}" class="text-decoration-none text-white me-4 text-center" data-bs-toggle="tooltip" title="New article">
-                {% include 'includes/plus-square.svg' with height="28" width="28" %}
+            <a href="{% url 'dashboard' %}" class="text-decoration-none text-white me-3 text-center" data-bs-toggle="tooltip" title="Dashboard">
+                {% include 'includes/dashboard.svg' with height="32" width="32" %}
             </a>
             {% if request.user.is_admin %}
-                <a href="{% url 'admin-dashboard' %}" class="text-decoration-none text-white me-4 text-center" data-bs-toggle="tooltip" title="Admin">
-                    {% include 'includes/settings.svg' with height="28" width="28" %}
+                <a href="{% url 'admin-dashboard' %}" class="text-decoration-none text-white me-3 text-center" data-bs-toggle="tooltip" title="Admin">
+                    {% include 'includes/settings.svg' with height="32" width="32" %}
                 </a>
             {% endif %}
             <div class="dropdown">
                 <a href="#" class="text-decoration-none dropdown-toggle text-white text-center" data-bs-toggle="dropdown" aria-expanded="false" data-bs-toggle="tooltip" title="Account">
-                    {% include 'includes/person-square.svg' with height="28" width="28" %}
+                    {% include 'includes/person-round.svg' with height="32" width="32" %}
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark bg-darkpurple">
                     <li><a class="dropdown-item" href="#">My articles</a></li>

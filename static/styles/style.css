@@ -26,8 +26,20 @@
     border-color: #39798f;
 }
 
+.btn-purple {
+    color: #ffffff;
+    background-color: #5d586f;
+    border-color: #5d586f;
+}
+
+.btn-purple:hover {
+    color: #ffffff;
+    background-color: #4c475b;
+    border-color: #4c475b;
+}
+
 .btn-yellow {
-    color: #000000;
+    color: white;
     background-color: #fdc300;
 }
 

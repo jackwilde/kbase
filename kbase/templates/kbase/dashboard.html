@@ -5,13 +5,22 @@
 {% block content %}
     <div class="d-flex justify-content-between align-items-center p-3 bg-teal w-100">
         <h1 class="fs-3 text-white fw-lighter mb-0">
+            Dashboard
+        </h1>
+        <div>
+            <a href="{% url 'new-article' %}" class="text-decoration-none text-white me-4 text-center" data-bs-toggle="tooltip" title="New article">
+                {% include 'includes/plus-square.svg' with height="28" width="28" %}
+            </a>
+        </div>
+    </div>
+    <div class="container p-3">
+        <h2>
             {% if search %}
                 Search results
             {% else %}
                 All articles
             {% endif %}
-        </h1>
-    </div>
+        </h2>
 
         <table class="table table-hover">
             <thead class="bg-teal">
@@ -41,4 +50,5 @@
             {% endfor %}
             </tbody>
         </table>
+    </div>
 {% endblock %}

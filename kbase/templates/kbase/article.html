@@ -6,7 +6,14 @@
     <div class="d-flex justify-content-between align-items-center p-3 bg-teal">
         <h1 class="fs-3 m-0 text-white fw-light">{{ article.title }}</h1>
         {% if can_edit %}
-            <a href="{% url 'edit-article' article.slug %}" class="btn btn-yellow">Edit</a>
+            <div>
+                <a href="{% url 'edit-article' article.slug %}" class="text-decoration-none text-white text-center p-2" data-bs-toggle="tooltip" title="Edit">
+                    {% include 'includes/edit.svg' with height="28" width="28" color="white"%}
+                </a>
+                <a href="" class="text-decoration-none text-white me-2 text-center p-2" data-bs-toggle="tooltip" title="Delete">
+                    {% include 'includes/trash.svg' with height="28" width="28" color="white"%}
+                </a>
+            </div>
         {% endif %}
     </div>
     <div class="p-3">
