@@ -12,7 +12,6 @@ class DashboardView(ListView):
     template_name = 'kbase/dashboard.html'
     model = Article
     context_object_name = 'articles'
-    paginate_by = 20
 
     def get_queryset(self):
         queryset = Article.objects.all()
@@ -59,8 +58,8 @@ class ArticleView(DetailView):
         context = super().get_context_data(**kwargs)
         article = self.object
         user = self.request.user
-        can_edit = article.can_user_edit(user)
-        context['can_edit'] = can_edit
+        user.permission = article.get_permissions(user)
+        context['can_edit'] = user.permission == 'edit'
         return context
 
 
@@ -75,7 +74,7 @@ class EditArticleView(UpdateView):
 
     def dispatch(self, request, *args, **kwargs):
         article = self.get_object()
-        if not article.can_user_edit(request.user):
+        if not article.get_permissions(self.request.user) == 'edit':
             # raise PermissionDenied #Return 403 #TODO Think about 403 or 302
             return redirect(reverse_lazy(viewname='article', kwargs={'slug': article.slug}))
         return super().dispatch(request, *args, **kwargs)
