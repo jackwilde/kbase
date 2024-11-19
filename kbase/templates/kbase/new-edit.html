@@ -22,7 +22,7 @@
                 {% if edit_mode %}
                     <a href="{% url 'article' slug=article.slug %}" class="btn btn-secondary">Cancel</a>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirm-save">Save</button>
-                    {% include 'includes/confirm-modal.html' with modal_id="confirm-save" action="edit" dismiss="Cancel" confirm="Save" form_id="article-form"%}
+                    {% include 'includes/confirm-modal.html' with modal_id="confirm-save" action="update" item="article" dismiss="Cancel" confirm="Save" form_id="article-form"%}
                 {% else %}
                     <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancel</a>
                     <button type="submit" class="btn btn-primary">Save</button>

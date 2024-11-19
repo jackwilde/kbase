@@ -40,7 +40,7 @@
                 {% if edit_mode %}
                     <a href="{% url 'group-detail' pk=group.pk %}" class="btn btn-secondary me-lg-0 mb-lg-2 me-2 mw-200">Cancel</a>
                     <button type="button" class="btn btn-primary mw-200" data-bs-toggle="modal" data-bs-target="#confirm-save">Save</button>
-                    {% include 'includes/confirm-modal.html' with modal_id="confirm-save" action="edit" dismiss="Cancel" confirm="Save" form_id="group-form"%}
+                    {% include 'includes/confirm-modal.html' with modal_id="confirm-save" action="edit" item="group" dismiss="Cancel" confirm="Save" form_id="group-form"%}
                 {% else %}
                     <a href="{% url 'all-groups' %}" class="btn btn-secondary me-lg-0 mb-lg-2 me-2 mw-200">Cancel</a>
                     <button type="submit" form="group-form" class="btn btn-primary mw-200">Save</button>

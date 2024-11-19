@@ -8,4 +8,5 @@ urlpatterns = [
     path('new/', views.NewArticleView.as_view(), name='new-article'),
     path('<slug:slug>/', views.ArticleView.as_view(), name='article'),
     path('<slug:slug>/edit/', views.EditArticleView.as_view(), name='edit-article'),
+    path('<slug:slug>/delete/', views.DeleteArticleView.as_view(), name='delete-article'),
 ]

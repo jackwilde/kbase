@@ -28,7 +28,7 @@
 
         <div class="d-flex align-items-center my-4">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirm-save">Update</button>
-            {% include 'includes/confirm-modal.html' with modal_id="confirm-save" action="edit" dismiss="Cancel" confirm="Update" form_id="account-form"%}
+            {% include 'includes/confirm-modal.html' with modal_id="confirm-save" dismiss="Cancel" confirm="Save" form_id="account-form" action="update" %}
         </div>
         <hr class="my-4">
         <h2 class="my-4 fs-4">Password</h2>

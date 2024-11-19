@@ -2,7 +2,7 @@ from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, UpdateView, ListView
+from django.views.generic import CreateView, DetailView, UpdateView, ListView, DeleteView
 from .forms import ArticleForm
 from .models import Article
 
@@ -84,3 +84,15 @@ class EditArticleView(UpdateView):
         context = super().get_context_data(**kwargs)
         context['edit_mode'] = True
         return context
+
+class DeleteArticleView(DeleteView):
+    model = Article
+    context_object_name = 'article'
+    success_url = reverse_lazy('dashboard')
+
+    def dispatch(self, request, *args, **kwargs):
+        article = self.get_object()
+        if not article.can_user_edit(request.user):
+            # raise PermissionDenied #Return 403 #TODO Think about 403 or 302
+            return redirect(reverse_lazy(viewname='article', kwargs={'slug': article.slug}))
+        return super().dispatch(request, *args, **kwargs)
