@@ -14,7 +14,13 @@ class DashboardView(ListView):
     context_object_name = 'articles'
 
     def get_queryset(self):
-        queryset = Article.objects.all()
+        user = self.request.user
+        queryset = Article.objects.filter(
+            id__in=[
+                article.id for article in Article.objects.all()
+                if article.get_permissions(user) in ('view', 'edit')
+            ]
+        )
         search_query = self.request.GET.get('search')
         if search_query:
             queryset = queryset.filter(
@@ -61,6 +67,13 @@ class ArticleView(DetailView):
         user.permission = article.get_permissions(user)
         context['can_edit'] = user.permission == 'edit'
         return context
+
+    def dispatch(self, request, *args, **kwargs):
+        article = self.get_object()
+        if not article.get_permissions(self.request.user) in ('view', 'edit'):
+            # raise PermissionDenied #Return 403 #TODO Think about 403 or 302
+            return redirect(reverse_lazy(viewname='dashboard'))
+        return super().dispatch(request, *args, **kwargs)
 
 
 class EditArticleView(UpdateView):

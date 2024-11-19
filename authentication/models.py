@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError, PermissionDenied
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 
@@ -60,6 +61,13 @@ class User(AbstractBaseUser):
     def full_name(self):
         return f"{self.first_name} {self.last_name}".strip()
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        # Add the user to "All Users' group if not already a member
+        group = Group.objects.get(pk=1)
+        if not self.groups.filter(pk=group.pk).exists():
+            self.groups.add(group)
+
     def __str__(self):
         return self.email
 
@@ -69,8 +77,18 @@ class Group(models.Model):
     users = models.ManyToManyField('User', related_name="groups", blank=True)
 
     def save(self, *args, **kwargs):
+        # Prevent edit of 'All Users' group
+        if self.id == 1:
+            raise PermissionDenied("The 'All Users' group cannot be altered.")
         self.name = self.name.lower()
         super().save(*args, **kwargs)
+
+
+    def delete(self, *args, **kwargs):
+        # Prevent deletion of 'All Users' group
+        if self.id == 1:
+            raise PermissionDenied("The 'All Users' group cannot be deleted.")
+        super().delete(*args, **kwargs)
 
     def __str__(self):
         return self.name.title()

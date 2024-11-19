@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError, PermissionDenied
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, DeleteView, View, CreateView, UpdateView
@@ -80,13 +81,19 @@ class GroupsAdminView(AdminRequiredMixin, ListView):
     template_name = 'kb_admin/groups.html'
     model = Group
     context_object_name = 'groups'
-    paginate_by = 20
 
 
 class GroupDetailsAdminView(AdminRequiredMixin, DetailView):
     template_name = 'kb_admin/group-detail.html'
     model = Group
     context_object_name = 'group'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        group = self.get_object()
+        if group.pk == 1:
+            context['protected_group'] = True
+        return context
 
 
 class CreateGroupAdminView(AdminRequiredMixin, CreateView):
@@ -102,6 +109,7 @@ class EditGroupAdminView(AdminRequiredMixin, UpdateView):
     template_name = 'kb_admin/group-new-edit.html'
     model = Group
     form_class = GroupForm
+    object_name = 'group'
 
     def get_success_url(self):
         return reverse_lazy(viewname='group-detail', kwargs={'pk': self.object.pk})
@@ -111,12 +119,20 @@ class EditGroupAdminView(AdminRequiredMixin, UpdateView):
         context['edit_mode'] = True
         return context
 
+    def dispatch(self, request, *args, **kwargs):
+        group = self.get_object()
+        if group.pk == 1:
+            raise PermissionDenied('You cannot edit the "All Users" group.')
+        return super().dispatch(request, *args, **kwargs)
+
 
 class GroupDeleteAdminView(AdminRequiredMixin, DeleteView):
     model = Group
     context_object_name = 'group'
     success_url = reverse_lazy('all-groups')
 
-    def delete(self, request, *args, **kwargs):
-        messages.success(request, "Group deleted successfully.")
-        return super().delete(request, *args, **kwargs)
+    def dispatch(self, request, *args, **kwargs):
+        group = self.get_object()
+        if group.pk == 1:
+            raise PermissionDenied('You cannot edit the "All Users" group.')
+        return super().dispatch(request, *args, **kwargs)
