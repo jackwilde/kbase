@@ -62,10 +62,27 @@ class ArticleView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        # Set can_edit to true if user has edit permission.
         article = self.object
         user = self.request.user
         user.permission = article.get_permissions(user)
         context['can_edit'] = user.permission == 'edit'
+
+        # Append edit groups to view groups.
+        # This is just for user appearance as editors have view permission by default.
+        view_groups = []
+        edit_groups = []
+        for group in article.groups_with_view.all():
+            view_groups.append(group.name)
+        for group in article.groups_with_edit.all():
+            edit_groups.append(group.name)
+            if not group.name in view_groups:
+                view_groups.append(group.name)
+        view_groups.sort()
+        context['view_groups'] = view_groups
+        context['edit_groups'] = edit_groups
+
         return context
 
     def dispatch(self, request, *args, **kwargs):
@@ -88,8 +105,7 @@ class EditArticleView(UpdateView):
     def dispatch(self, request, *args, **kwargs):
         article = self.get_object()
         if not article.get_permissions(self.request.user) == 'edit':
-            # raise PermissionDenied #Return 403 #TODO Think about 403 or 302
-            return redirect(reverse_lazy(viewname='article', kwargs={'slug': article.slug}))
+            raise PermissionDenied()
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -104,7 +120,6 @@ class DeleteArticleView(DeleteView):
 
     def dispatch(self, request, *args, **kwargs):
         article = self.get_object()
-        if not article.can_user_edit(request.user):
-            # raise PermissionDenied #Return 403 #TODO Think about 403 or 302
-            return redirect(reverse_lazy(viewname='article', kwargs={'slug': article.slug}))
+        if not article.get_permissions(self.request.user) == 'edit':
+            raise PermissionDenied()
         return super().dispatch(request, *args, **kwargs)

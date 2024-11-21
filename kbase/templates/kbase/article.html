@@ -23,12 +23,30 @@
     <div class="p-3">
         {{ article.content|linebreaks }}
     </div>
-    <p>Tags:
-        {% for tag in article.tags.all %}
-            {{ tag }}{% if not forloop.last %}, {% endif %}
-        {% endfor %}
-    </p>
-    <div class="d-flex justify-content-end">
+    <hr>
+    <div class="d-flex justify-content-between">
+        <div>
+            <p class="small-text mb-1">
+                <span class="fw-bold">Visibility:</span>
+                {% if view_groups %}
+                    {% for group in view_groups %}
+                        {{ group|title }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                {% else %}
+                    Default (Private)
+                {% endif %}
+            </p>
+            <p class="small-text p-0">
+                <span class="fw-bold">Editors:</span>
+                {% if edit_groups %}
+                    {% for group in edit_groups %}
+                        {{ group|title }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                    {% else %}
+                    Default (Owner and Admins)
+                {% endif %}
+            </p>
+        </div>
         <p class="small-text">Last updated {{ article.modified_date }} by {{ article.modified_by.full_name }}</p>
     </div>
 

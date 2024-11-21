@@ -9,7 +9,6 @@ class Article(models.Model):
     title = models.CharField(unique=True, max_length=255)
     slug = models.SlugField(unique=True, max_length=255)
     content = models.TextField()
-    tags = models.ManyToManyField('Tag', blank=True)
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='created_articles')
     created_date = models.DateTimeField(auto_now_add=True)
     modified_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='modified_articles')
@@ -18,13 +17,10 @@ class Article(models.Model):
     groups_with_edit = models.ManyToManyField(Group, blank=True, related_name='groups_edit_articles')
     # images = models.ManyToManyField('Image', blank=True)
 
-    def save(self, *args, **kwargs):
-        # If a group can edit make sure it gets view permissions
-        for group in self.groups_with_edit.all():
-            self.groups_with_view.add(group)
 
+    def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
-        super().save(*args, **kwargs)
+        return super().save(*args, **kwargs)
 
 
     def get_permissions(self, user):
@@ -51,19 +47,6 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
-
-
-class Tag(models.Model):
-    tag = models.CharField(max_length=25, unique=True)
-
-    def save(self, *args, **kwargs):
-        # Convert tag to lowercase before saving
-        self.tag = self.tag.lower()
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return self.tag
-
 
 # class Image(models.Model):
 #     image = models.ImageField(upload_to='media/')

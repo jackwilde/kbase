@@ -80,6 +80,10 @@
     border: 1px solid white;
 }
 
+.red {
+   color: #e30613;
+}
+
 
 .mw-100px {
     max-width: 100px;
