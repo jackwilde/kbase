@@ -3,7 +3,7 @@
 def create_all_users_group(apps, schema_editor):
     Group = apps.get_model('authentication', 'Group')
     if not Group.objects.filter(id=1).exists():
-        Group.objects.create(id=1, name='all users')
+        Group.objects.create(name='all users')
 
 from django.db import migrations
 
