@@ -1,4 +1,4 @@
 Django
-Pillow
 python-dotenv
 psycopg
+gunicorn
