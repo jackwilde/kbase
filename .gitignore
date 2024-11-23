@@ -1,6 +1,7 @@
 ### App ignores
-postgres_setup.sql
 todo
+.env
+setenv.sh
 
 
 ### Django template
@@ -140,7 +141,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-src/.env
+../.env
 .venv
 env/
 venv/
