@@ -12,7 +12,7 @@ RUN adduser --system \
     --shell=/bin/bash $DJANGO_USER
 
 
-COPY --chown=django:django ../../src /var/opt/${DJANGO_PROJECT}
+COPY --chown=django:django src /var/opt/${DJANGO_PROJECT}
 
 WORKDIR /var/opt/${DJANGO_PROJECT}
 
@@ -20,4 +20,5 @@ RUN pip install -r requirements.txt
 
 USER ${DJANGO_USER}
 
-ENTRYPOINT ["gunicorn", "django_knowledgebase.wsgi", "-b", ":8000"]
+COPY --chown=django:django docker/django/start-kbase /usr/local/bin/start-kbase
+ENTRYPOINT ["start-kbase"]

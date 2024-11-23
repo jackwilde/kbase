@@ -1,0 +1,5 @@
+#!/bin/bash
+
+/usr/local/bin/python manage.py migrate
+
+/usr/local/bin/gunicorn django_knowledgebase.wsgi -b :8000
