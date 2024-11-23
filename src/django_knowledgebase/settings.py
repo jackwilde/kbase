@@ -28,13 +28,9 @@ SECRET_KEY = django_settings.secret_key
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = django_settings.debug
 
-ALLOWED_HOSTS = [
-    django_settings.allowed_host,
-]
+ALLOWED_HOSTS = django_settings.allowed_hosts
 
-CSRF_TRUSTED_ORIGINS = [
-    django_settings.csfr_trusted_origin
-]
+CSRF_TRUSTED_ORIGINS = django_settings.csfr_trusted_origin
 
 
 # Application definition

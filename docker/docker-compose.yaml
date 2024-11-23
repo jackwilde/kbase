@@ -1,0 +1,54 @@
+name: kbase
+
+services:
+  django:
+    build:
+      context: ../
+      dockerfile: docker/django/Dockerfile
+    container_name: ${COMPOSE_PROJECT_NAME}-django
+    restart: unless-stopped
+    user: django:django
+    networks:
+      - backend
+    environment:
+      ALLOWED_HOST: ${COMPOSE_PROJECT_NAME}-django
+      DEBUG: False
+      TIME_ZONE: GMT
+      POSTGRES_PORT: 5432
+      POSTGRES_HOST: ${COMPOSE_PROJECT_NAME}-postgres
+      CSRF_TRUSTED_ORIGINS: "http://localhost:8080,https://localhost:8443"
+    env_file:
+      - .env
+
+  db:
+    container_name: ${COMPOSE_PROJECT_NAME}-postgres
+    image: postgres:17
+    user: postgres:postgres
+    volumes:
+      - "postgres-data:/var/lib/postgresql/data"
+    env_file:
+      - .env
+    networks:
+      - backend
+
+  nginx:
+    container_name: ${COMPOSE_PROJECT_NAME}-nginx
+    build:
+      context: ../
+      dockerfile: docker/nginx/Dockerfile
+    environment:
+      ENABLE_SSL: "False"
+    ports:
+      - "8443:443"
+      - "8080:80"
+    networks:
+      - frontend
+      - backend
+
+volumes:
+  postgres-data: {}
+
+networks:
+  frontend: {}
+  backend: {}
+

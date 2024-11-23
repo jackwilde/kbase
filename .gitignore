@@ -2,6 +2,7 @@
 todo
 .env
 setenv.sh
+docker/secrets
 
 
 ### Django template

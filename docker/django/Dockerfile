@@ -11,7 +11,6 @@ RUN adduser --system \
     --group \
     --shell=/bin/bash $DJANGO_USER
 
-
 COPY --chown=django:django src /var/opt/${DJANGO_PROJECT}
 
 WORKDIR /var/opt/${DJANGO_PROJECT}
