@@ -35,7 +35,7 @@ class Article(models.Model):
             return 'edit'
         # Helper function to check if user belongs to any given group set
         def check_membership(groups):
-            return groups.filter(id__in=user.groups.values_list('id', flat=True)).exists()
+            return groups.filter(id__in=user.groups.os.environ_list('id', flat=True)).exists()
         # Permit users in can_view groups
         if check_membership(self.groups_with_edit):
             return 'edit'

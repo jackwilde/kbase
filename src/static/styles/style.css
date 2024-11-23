@@ -65,7 +65,7 @@
 }
 
 .bg-header {
-    background: #241d33 url(https://www.uwe.ac.uk/assets/img/headers/no-image-bg.png) repeat-y right top;
+    background: #241d33 url(/static/media/image-bg.png) repeat-y right top;
 }
 
 .border-grey {
