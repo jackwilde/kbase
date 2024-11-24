@@ -2,9 +2,14 @@ name: Update Docker image
 
 on:
   workflow_dispatch: { }
-  # push:
-  #   branches:
-  #     - main
+  push:
+  branches:
+    - main
+  path:
+    - 'src/**'
+    - 'docker/django/**'
+    - '.github/workflows/update-image.yml'
+
 
 env:
   GH_TOKEN: ${{ github.token }}
@@ -43,6 +48,12 @@ jobs:
           fi
           
           echo "VERSION=$latest_version" >> $GITHUB_ENV
-      - name: test-version
+      - name: Build image
         run: |
-          echo "Version: ${{ env.VERSION }}"
+          image_version=${{ steps.base-version.outputs.latest_version }}
+          echo "ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}"
+          docker build -t "ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}" .
+          docker tag "ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}" "ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest"
+
+      - name: Push image
+        run: docker push -a "ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}"
