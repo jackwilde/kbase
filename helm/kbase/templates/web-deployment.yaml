@@ -38,8 +38,14 @@ spec:
           env:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with .Values.web.django.envFrom}}
           envFrom:
+            - secretRef:
+                name: {{ .Release.Name }}-db-secret
+            - secretRef:
+                name: {{ .Release.Name }}-django-secret
+            - configMapRef:
+                name: {{ .Release.Name }}-django-config
+          {{- with .Values.web.django.envFrom}}
             {{- toYaml . | nindent 12 }}
           {{- end }}
           ports:
@@ -85,4 +91,3 @@ spec:
         - name: nginx-conf
           configMap:
             - name: {{ .Release.Name }}-nginx-config
-

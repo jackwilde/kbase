@@ -39,8 +39,10 @@ spec:
           env:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with .Values.postgres.envFrom}}
           envFrom:
+            - secretRef:
+                name: {{ .Release.Name }}-db-secret
+          {{- with .Values.postgres.envFrom}}
             {{- toYaml . | nindent 12 }}
           {{- end }}
           ports:

@@ -26,6 +26,12 @@ web:
       # requests:
       #  cpu: 100m
       #  memory: 128Mi
+    settings:
+      secret_key: ""
+      allowed_hosts: "localhost"
+      debug: False
+      time_zone: GMT
+      csrf_trusted_origins: "http://localhost:8000"
   nginx:
     securityContext: {}
     image:
@@ -76,6 +82,10 @@ postgres:
     accessModes:
       - ReadWriteOnce
     size: ""
+  settings:
+    postgres_db: ""
+    postgres_user: ""
+    postgres_password: ""
 
 ingress:
   enabled: false

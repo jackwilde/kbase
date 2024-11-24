@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-django-config
+data:
+  ALLOWED_HOST: "{{ .Values.web.django.settings.allowed_hosts }}"
+  DEBUG: "{{ .Values.web.django.settings.debug }}"
+  TIME_ZONE: "{{ .Values.web.django.settings.time_zone }}"
+  POSTGRES_PORT: "{{ .Values.postgres.service.port }}"
+  POSTGRES_HOST: {{ include "kbase.fullname" . }}-db
+  CSRF_TRUSTED_ORIGINS: "{{ .Values.web.django.settings.csrf_trusted_origins }}"
