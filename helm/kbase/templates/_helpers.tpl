@@ -48,5 +48,4 @@ Selector labels
 {{- define "kbase.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "kbase.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
-app.kubernetes.io/component: {{ include "component" . }}
 {{- end }}

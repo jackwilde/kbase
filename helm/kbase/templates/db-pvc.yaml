@@ -1,8 +1,8 @@
-{{- define "component" -}}db{{- end }}
+{{- $component := "db" }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ include "kbase.fullname" . }}-{{ include "component" . }}-pvc
+  name: {{ include "kbase.fullname" . }}-{{ $component }}-pvc
 spec:
   storageClassName: {{ .Values.postgres.storage.storageClass }}
   {{- with .Values.postgres.storage.accessModes }}

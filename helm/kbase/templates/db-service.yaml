@@ -1,8 +1,8 @@
-{{- define "component" -}}db{{- end }}
+{{- $component := "db" }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "kbase.fullname" . }}-{{ include "component" . }}
+  name: {{ include "kbase.fullname" . }}-{{ $component }}
   labels:
     {{- include "kbase.labels" . | nindent 4 }}
   annotations:
@@ -17,5 +17,6 @@ spec:
       protocol: TCP
       name: postgres
   selector:
+    app.kubernetes.io/component: {{ $component }}
     {{- include "kbase.selectorLabels" . | nindent 4 }}
 

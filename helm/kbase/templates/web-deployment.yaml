@@ -1,14 +1,15 @@
-{{- define "component" -}}web{{- end }}
+{{- $component := "web" }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "kbase.fullname" . }}-{{ include "component" . }}
+  name: {{ include "kbase.fullname" . }}-{{ $component }}
   labels:
     {{- include "kbase.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.web.replicaCount }}
   selector:
     matchLabels:
+      app.kubernetes.io/component: {{ $component }}
       {{- include "kbase.selectorLabels" . | nindent 6 }}
   template:
     metadata:
@@ -17,6 +18,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
+        app.kubernetes.io/component: {{ $component }}
         {{- include "kbase.labels" . | nindent 8 }}
         {{- with .Values.web.podLabels }}
         {{- toYaml . | nindent 8 }}
@@ -28,6 +30,13 @@ spec:
       {{- end }}
       securityContext:
         {{- toYaml .Values.web.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: copy-static
+          image: "{{ .Values.web.django.image.repository }}:{{ .Values.web.django.image.tag | default .Chart.AppVersion }}"
+          command: ["/bin/bash", "-c", "cp -pr static/* /static"]
+          volumeMounts:
+            - name: static
+              mountPath: /static
       containers:
         - name: {{ .Chart.Name }}-django
           securityContext:
@@ -52,8 +61,9 @@ spec:
             - name: gunicorn
               containerPort: 8000
               protocol: TCP
-          livenessProbe: {}
-          readinessProbe: {}
+          #TODO
+{{/*          livenessProbe: {}*/}}
+{{/*          readinessProbe: {}*/}}
           resources:
             {{- toYaml .Values.web.django.resources | nindent 12 }}
           volumeMounts:
@@ -76,13 +86,14 @@ spec:
             - name: http
               containerPort: 80
               protocol: TCP
-          livenessProbe: {}
-          readinessProbe: {}
+          #TODO
+{{/*          livenessProbe: {}*/}}
+{{/*          readinessProbe: {}*/}}
           resources:
             {{- toYaml .Values.web.nginx.resources | nindent 12 }}
           volumeMounts:
             - name: static
-              mountPath: /var/opt/kbase/static
+              mountPath: /usr/share/nginx/html/static
             - name: nginx-conf
               mountPath: /etc/nginx/conf.d/
       volumes:
@@ -90,4 +101,4 @@ spec:
           emptyDir: {}
         - name: nginx-conf
           configMap:
-            - name: {{ .Release.Name }}-nginx-config
+            name: {{ .Release.Name }}-nginx-config
