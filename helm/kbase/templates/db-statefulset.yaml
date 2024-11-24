@@ -1,7 +1,8 @@
+{{- define "component" -}}db{{- end }}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "kbase.fullname" . }}-db
+  name: {{ include "kbase.fullname" . }}-{{ include "component" . }}
   labels:
     {{- include "kbase.labels" . | nindent 4 }}
 spec:
@@ -9,7 +10,7 @@ spec:
   selector:
     matchLabels:
       {{- include "kbase.selectorLabels" . | nindent 6 }}
-  serviceName: {{ include "kbase.fullname" . }}-db
+  serviceName: {{ include "kbase.fullname" . }}-{{ include "component" . }}
   template:
     metadata:
       {{- with .Values.postgres.podAnnotations }}
@@ -29,7 +30,7 @@ spec:
       securityContext:
         {{- toYaml .Values.postgres.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}-db
+        - name: {{ .Chart.Name }}-{{ include "component" . }}
           securityContext:
             {{- toYaml .Values.postgres.securityContext | nindent 12 }}
           image: "postgres:{{ .Values.postgres.image.tag }}"
@@ -51,4 +52,4 @@ spec:
       volumes:
         - name: postgres-data
           persistentVolumeClaim:
-            claimName: {{ include "kbase.fullname" . }}-db-pvc
+            claimName: {{ include "kbase.fullname" . }}-{{ include "component" . }}-pvc

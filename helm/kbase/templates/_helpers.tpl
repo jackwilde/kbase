@@ -48,15 +48,5 @@ Selector labels
 {{- define "kbase.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "kbase.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
-{{- end }}
-
-{{/*
-Create the name of the service account to use
-*/}}
-{{- define "kbase.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "kbase.fullname" .) .Values.serviceAccount.name }}
-{{- else }}
-{{- default "default" .Values.serviceAccount.name }}
-{{- end }}
+app.kubernetes.io/component: {{ include "component" . }}
 {{- end }}

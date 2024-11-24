@@ -1,0 +1,16 @@
+{{- define "component" -}}db{{- end }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "kbase.fullname" . }}-{{ include "component" . }}-pvc
+spec:
+  storageClassName: {{ .Values.postgres.storage.storageClass }}
+  {{- with .Values.postgres.storage.accessModes }}
+  accessModes:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.postgres.storage.size}}
+  resources:
+    requests:
+      storage: {{ . }}
+  {{- end }}

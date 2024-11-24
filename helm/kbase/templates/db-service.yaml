@@ -1,0 +1,17 @@
+{{- define "component" -}}db{{- end }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "kbase.fullname" . }}-{{ include "component" . }}
+  labels:
+    {{- include "kbase.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .Values.postgres.service.port }}
+      targetPort: postgres
+      protocol: TCP
+      name: postgres
+  selector:
+    {{- include "kbase.selectorLabels" . | nindent 4 }}
+
