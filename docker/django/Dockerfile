@@ -1,7 +1,9 @@
 FROM python:3.13
-LABEL authors="Jack Wilde"
 
-ARG DJANGO_PROJECT=django-knowledgebase
+LABEL authors="Jack Wilde"
+LABEL org.opencontainers.image.source=https://github.com/jackwilde/django-knowledgebase
+
+ARG DJANGO_PROJECT=kbase
 ARG DJANGO_USER=django
 
 RUN adduser --system \

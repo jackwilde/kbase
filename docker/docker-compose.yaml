@@ -5,6 +5,8 @@ services:
     build:
       context: ../
       dockerfile: docker/django/Dockerfile
+    depends_on:
+      - db
     container_name: ${COMPOSE_PROJECT_NAME}-django
     restart: unless-stopped
     user: django:django
@@ -36,6 +38,8 @@ services:
     build:
       context: ../
       dockerfile: docker/nginx/Dockerfile
+    depends_on:
+      - django
     environment:
       ENABLE_SSL: "False"
     ports:
