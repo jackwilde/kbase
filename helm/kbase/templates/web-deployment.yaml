@@ -1,0 +1,66 @@
+{{- define "component" -}}web{{- end }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "kbase.fullname" . }}-{{ include "component" . }}
+  labels:
+    {{- include "kbase.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.web.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "kbase.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.web.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "kbase.labels" . | nindent 8 }}
+        {{- with .Values.web.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.web.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}-django
+          securityContext:
+            {{- toYaml .Values.web.django.securityContext | nindent 12 }}
+          image: "{{ .Values.web.django.image.repository }}:{{ .Values.web.django.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.web.django.image.pullPolicy }}
+          ports:
+            - name: gunicorn
+              containerPort: 8000
+              protocol: TCP
+          livenessProbe: {}
+          readinessProbe: {}
+          resources:
+            {{- toYaml .Values.web.django.resources | nindent 12 }}
+          volumeMounts:
+            - name: static
+              mountPath: /var/opt/kbase/static
+        - name: {{ .Chart.Name }}-nginx
+          securityContext:
+            {{- toYaml .Values.web.nginx.securityContext | nindent 12 }}
+          image: "nginx:{{ .Values.web.nginx.image.tag }}"
+          imagePullPolicy: {{ .Values.web.nginx.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe: {}
+          readinessProbe: {}
+          resources:
+            {{- toYaml .Values.web.nginx.resources | nindent 12 }}
+          volumeMounts:
+            - name: static
+              mountPath: /var/opt/kbase/static
+      volumes:
+        - name: static
+          emptyDir: {}

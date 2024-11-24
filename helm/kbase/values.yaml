@@ -1,0 +1,80 @@
+imagePullSecrets: []
+
+# This is to override the chart name.
+nameOverride: ""
+fullnameOverride: ""
+
+web:
+  replicaCount: 1
+  podAnnotations: {}
+  podLabels: {}
+  podSecurityContext: {}
+  django:
+    securityContext: {}
+    image:
+      repository: "ghcr.io/jackwilde/kbase"
+      tag: ""
+      pullPolicy: Always
+    resources: {}
+      # limits:
+      #   cpu: 100m
+      #   memory: 128Mi
+      # requests:
+      #  cpu: 100m
+      #  memory: 128Mi
+  nginx:
+    securityContext: {}
+    image:
+      tag: "1.27"
+      pullPolicy: Always
+    resources: {}
+      # limits:
+      #   cpu: 100m
+      #   memory: 128Mi
+      # requests:
+      #  cpu: 100m
+      #  memory: 128Mi
+  service:
+    annotations: {}
+    type: ClusterIP
+    port: 80
+    loadBalancerSourceRanges: []
+    nodePort: ""
+
+postgres:
+  podAnnotations: {}
+  podLabels: {}
+  podSecurityContext: {}
+  image:
+    tag: "17"
+    pullPolicy: Always
+  securityContext: {}
+  service:
+    annotations: {}
+    port: 5432
+  resources: {}
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+  storage:
+    storageClass: ""
+    accessModes:
+      - ReadWriteOnce
+    size: ""
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+#    hosts:
+#      - chart-example.local
+#    secretName: chart-example-tls

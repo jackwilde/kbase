@@ -30,7 +30,7 @@ spec:
       securityContext:
         {{- toYaml .Values.postgres.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}-{{ include "component" . }}
+        - name: {{ .Chart.Name }}-postgres
           securityContext:
             {{- toYaml .Values.postgres.securityContext | nindent 12 }}
           image: "postgres:{{ .Values.postgres.image.tag }}"
@@ -39,13 +39,10 @@ spec:
             - name: postgres
               containerPort: {{ .Values.postgres.service.port }}
               protocol: TCP
-          #TODO decide on probes
-{{/*          livenessProbe:*/}}
-{{/*            {{- toYaml .Values.livenessProbe | nindent 12 }}*/}}
-{{/*          readinessProbe:*/}}
-{{/*            {{- toYaml .Values.readinessProbe | nindent 12 }}*/}}
-{{/*          resources:*/}}
-{{/*            {{- toYaml .Values.postgres.resources | nindent 12 }}*/}}
+          livenessProbe: {}
+          readinessProbe: {}
+          resources:
+            {{- toYaml .Values.postgres.resources | nindent 12 }}
           volumeMounts:
             - name: postgres-data
               mountPath: /var/lib/postgresql/data
