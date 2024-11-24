@@ -15,6 +15,10 @@ web:
       repository: "ghcr.io/jackwilde/kbase"
       tag: ""
       pullPolicy: Always
+    env: []
+    envFrom: []
+    #  - secretRef:
+    #      name: secretName
     resources: {}
       # limits:
       #   cpu: 100m
@@ -27,6 +31,10 @@ web:
     image:
       tag: "1.27"
       pullPolicy: Always
+    env: []
+    envFrom: []
+    #  - secretRef:
+    #      name: secretName
     resources: {}
       # limits:
       #   cpu: 100m
@@ -48,6 +56,10 @@ postgres:
   image:
     tag: "17"
     pullPolicy: Always
+  env: []
+  envFrom: []
+  #  - secretRef:
+  #      name: secretName
   securityContext: {}
   service:
     annotations: {}

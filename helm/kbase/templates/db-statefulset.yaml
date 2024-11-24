@@ -35,6 +35,14 @@ spec:
             {{- toYaml .Values.postgres.securityContext | nindent 12 }}
           image: "postgres:{{ .Values.postgres.image.tag }}"
           imagePullPolicy: {{ .Values.postgres.image.pullPolicy }}
+          {{- with .Values.postgres.env }}
+          env:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.postgres.envFrom}}
+          envFrom:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           ports:
             - name: postgres
               containerPort: {{ .Values.postgres.service.port }}

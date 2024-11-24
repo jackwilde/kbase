@@ -34,6 +34,14 @@ spec:
             {{- toYaml .Values.web.django.securityContext | nindent 12 }}
           image: "{{ .Values.web.django.image.repository }}:{{ .Values.web.django.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.web.django.image.pullPolicy }}
+          {{- with .Values.web.django.env }}
+          env:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.web.django.envFrom}}
+          envFrom:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           ports:
             - name: gunicorn
               containerPort: 8000
@@ -50,6 +58,14 @@ spec:
             {{- toYaml .Values.web.nginx.securityContext | nindent 12 }}
           image: "nginx:{{ .Values.web.nginx.image.tag }}"
           imagePullPolicy: {{ .Values.web.nginx.image.pullPolicy }}
+          {{- with .Values.web.nginx.env }}
+          env:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.web.nginx.envFrom}}
+          envFrom:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           ports:
             - name: http
               containerPort: 80
