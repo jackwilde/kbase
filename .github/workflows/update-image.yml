@@ -1,0 +1,21 @@
+name: Update Docker image
+
+on:
+  workflow_dispatch: { }
+  # push:
+  #   branches:
+  #     - main
+
+env:
+  GH_TOKEN: ${{ github.token }}
+
+jobs:
+  update-base-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Login to ghcr
+        run: |
+          echo "$GH_TOKEN" | docker login ghcr.io -u $ --password-stdin
+          echo "$GH_TOKEN" | skopeo login ghcr.io --username $ --password-stdin
