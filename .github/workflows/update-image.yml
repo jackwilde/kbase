@@ -16,7 +16,7 @@ env:
   IMAGE_NAME: kbase
 
 jobs:
-  update-base-image:
+  update-image:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
