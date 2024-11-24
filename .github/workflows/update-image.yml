@@ -8,6 +8,7 @@ on:
 
 env:
   GH_TOKEN: ${{ github.token }}
+  IMAGE_NAME: kbase
 
 jobs:
   update-base-image:
@@ -19,3 +20,28 @@ jobs:
         run: |
           echo "$GH_TOKEN" | docker login ghcr.io -u $ --password-stdin
           echo "$GH_TOKEN" | skopeo login ghcr.io --username $ --password-stdin
+      - name: Set image version
+        id: version
+        run: |
+          # Get version from source
+          version=$(cat VERSION)
+          
+          # Get details about last release
+          last_version=$(skopeo list-tags docker://ghcr.io/${{ github.repository_owner }}/${IMAGE_NAME} | jq -r '[.Tags[] | select(. != "latest")] | sort | .[-1]')
+          
+          if [[ -z $last_version ]]; then
+            latest_version="${version}.1"
+          else
+            major_version=$(cut -d '.' -f1-2 <<< $last_version)
+            patch_version=$(cut -d '.' -f3 <<< $last_version)
+            if [[ $version == $major_version ]]; then
+              ((++patch_version))
+              latest_version="${major_version}.${patch_version}"
+            else
+              latest_version="${version}.1"
+          fi
+          
+          echo "VERSION=$latest_version" >> $GITHUB_ENV
+      - name: test-version
+        run: |
+          echo "Version: ${{ env.VERSION }}"
