@@ -77,6 +77,12 @@ spec:
           volumeMounts:
             - name: static
               mountPath: /var/opt/kbase/static
+            - name: nginx-conf
+              mountPath: /etc/nginx/conf.d/
       volumes:
         - name: static
           emptyDir: {}
+        - name: nginx-conf
+          configMap:
+            - name: {{ .Release.Name }}-nginx-config
+

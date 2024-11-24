@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-nginx-config
+data:
+  default.conf: |
+    server {
+        listen 80;
+        server_name kbase;
+
+        location / {
+            proxy_pass   http://localhost:8000;
+        }
+
+        location /static/ {
+            alias   /usr/share/nginx/html/static/;
+        }
+
+        location = /favicon.ico {
+            log_not_found off;
+            access_log off;
+            return 204;
+        }
+    }
+  security.conf: |
+    # Disable server tokens
+    server_tokens off;
+
+    # Add security headers
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header X-Frame-Options "DENY" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Content-Security-Policy "frame-ancestors 'self';" always;
+    add_header X-XSS-Protection "1; mode=block" always;
