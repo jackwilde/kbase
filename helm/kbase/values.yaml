@@ -100,3 +100,7 @@ ingress:
 #    hosts:
 #      - chart-example.local
 #    secretName: chart-example-tls
+
+networkPolicy:
+  enabled: true
+  ingressNamespace: "ingress-nginx"
