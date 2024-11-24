@@ -52,7 +52,7 @@ jobs:
         run: |
           image_version=${{ steps.base-version.outputs.latest_version }}
           echo "ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}"
-          docker build -t "ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}" .
+          docker build -t "ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}" -f docker/django/Dockerfile .
           docker tag "ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}" "ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest"
 
       - name: Push image
