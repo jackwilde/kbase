@@ -3,12 +3,12 @@ name: Update Docker image
 on:
   workflow_dispatch: { }
   push:
-  branches:
-    - main
-  path:
-    - 'src/**'
-    - 'docker/django/**'
-    - '.github/workflows/update-image.yml'
+    branches:
+      - main
+    path:
+      - 'src/**'
+      - 'docker/django/**'
+      - '.github/workflows/update-image.yml'
 
 
 env:
