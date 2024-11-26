@@ -18,7 +18,7 @@ class DjangoSettings:
         try:
             self.secret_key = environ['SECRET_KEY']
             self.time_zone = environ['TIME_ZONE']
-            self.debug = (environ['DEBUG'] == 'True')
+            self.debug = (environ['DEBUG'].lower() == 'true')
             self.allowed_hosts = environ['ALLOWED_HOST'].split(',')
             self.csfr_trusted_origin  = environ['CSRF_TRUSTED_ORIGINS'].split(',')
         except KeyError as e:

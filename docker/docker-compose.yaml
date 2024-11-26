@@ -1,13 +1,21 @@
 name: kbase
 
 services:
+  init-static:
+    # Copies the latest static files to a volume for Nginx to serve
+    image: ghcr.io/jackwilde/kbase:latest
+    restart: on-failure:3
+    pull_policy: always
+    command: ["/bin/bash", "-c", "cp -pr static/* /static"]
+    volumes:
+      - "static:/static"
+
   django:
-    build:
-      context: ../
-      dockerfile: docker/django/Dockerfile
+    image: ghcr.io/jackwilde/kbase:latest
     depends_on:
       - db
     container_name: ${COMPOSE_PROJECT_NAME}-django
+    pull_policy: always
     restart: unless-stopped
     user: django:django
     networks:
@@ -32,25 +40,32 @@ services:
       - .env
     networks:
       - backend
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "$POSTGRES_USER" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   nginx:
     container_name: ${COMPOSE_PROJECT_NAME}-nginx
-    build:
-      context: ../
-      dockerfile: docker/nginx/Dockerfile
+    image: nginx:1.27
     depends_on:
-      - django
+      init-static:
+        condition: service_completed_successfully
     environment:
       ENABLE_SSL: "False"
     ports:
       - "8443:443"
       - "8080:80"
+    volumes:
+      - "static:/usr/share/nginx/html/static/"
     networks:
       - frontend
       - backend
 
 volumes:
   postgres-data: {}
+  static: {}
 
 networks:
   frontend: {}
