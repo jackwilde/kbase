@@ -16,5 +16,10 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
       - name: Package Chart
-        working-directory: temp
-        run: pwd
+        working-directory: helm/kbase
+        run: |
+          helm package .
+          helm repo index ${{ steps.deployment.outputs.page_url }} .
+          cat index.html
+          
+          
