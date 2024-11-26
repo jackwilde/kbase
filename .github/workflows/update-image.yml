@@ -5,7 +5,7 @@ on:
   push:
     branches:
       - main
-    path:
+    paths:
       - 'src/**'
       - 'docker/django/**'
       - '.github/workflows/update-image.yml'
