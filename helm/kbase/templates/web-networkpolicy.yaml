@@ -27,8 +27,5 @@ spec:
         - protocol: TCP
           port: {{ .Values.web.service.port }}
   egress:
-    - to:
-        - namespaceSelector:
-            matchLabels:
-              kubernetes.io/metadata.name: {{ .Values.networkPolicy.ingressNamespace }}
+    - to: []
 {{- end }}

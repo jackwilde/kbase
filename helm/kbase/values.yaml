@@ -103,4 +103,16 @@ ingress:
 
 networkPolicy:
   enabled: true
-  ingressNamespace: "ingress-nginx"
+  web:
+    ingress: {}
+#      - from:
+#          - namespaceSelector:
+#              matchLabels:
+#                kubernetes.io/metadata.name: nginx-ingress
+#          - podSelector:
+#              matchLabels:
+#                app.kubernetes.io/name: nginx-ingress
+#        ports:
+#          - protocol: TCP
+#            port: 8443
+    egress: {}
