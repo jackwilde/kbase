@@ -7,7 +7,7 @@ on:
       - main
     paths:
       - 'helm/**'
-      - '.github/workflows/update-image.yml'
+      - '.github/workflows/publish-chart.yml'
 
 jobs:
   update-image:
