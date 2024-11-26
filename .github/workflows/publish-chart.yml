@@ -12,6 +12,9 @@ on:
 jobs:
   update-image:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -19,7 +22,6 @@ jobs:
         working-directory: helm/kbase
         run: |
           helm package .
-          helm repo index ${{ steps.deployment.outputs.page_url }} .
+          helm repo index ${{ env.url }} .
           cat index.html
-          
           
