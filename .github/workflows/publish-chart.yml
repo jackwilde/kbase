@@ -26,6 +26,7 @@ jobs:
           helm package ../helm/kbase
           helm repo index --url ${{ env.URL }} .
       - name: Commit Changes
+        working-directory: docs/
         run: |
           chart_version=$(awk '/version:/ {print$NF}' index.yaml )
           git config --global user.name 'GitHub Actions'
