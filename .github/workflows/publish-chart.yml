@@ -26,5 +26,5 @@ jobs:
         run: |
           helm package .
           echo ${{ env.URL }}
-          helm repo index ${{ env.URL }} .
+          helm repo index --url ${{ env.URL }} .
           cat index.html
