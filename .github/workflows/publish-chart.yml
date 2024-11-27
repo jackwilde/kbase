@@ -25,12 +25,11 @@ jobs:
         run: |
           helm package ../helm/kbase
           helm repo index --url ${{ env.URL }} .
-          chart_version=$(awk '/version:/ {print$NF}' index.yaml | tr -d '\r')
-          echo "chart_version=${chart_version}" >> $GITHUB_OUTPUT
       - name: Commit Changes
         run: |
+          chart_version=$(awk '/version:/ {print$NF}' index.yaml )
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'github-actions@users.noreply.github.com'
           git add .
-          git commit -m "Publishing Chart version ${{ steps.package.outputs.chart_version }}"
+          git commit -m "Publishing Chart version ${chart_version}"
           git push
