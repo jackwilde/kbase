@@ -40,10 +40,12 @@ jobs:
           
           if [[ $current_major == $last_major ]]; then
             # Increment the patch version
+            echo "increment"
             new_patch=((++last_patch))
             echo "$new_patch"
             latest_version="${last_major}.${new_patch}"
           else
+            echo "Don't increment"
             # Reset the patch version to 1
             latest_version="${current_major}.1"
           fi
