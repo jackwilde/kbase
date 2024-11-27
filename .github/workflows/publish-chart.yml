@@ -22,6 +22,6 @@ jobs:
         working-directory: helm/kbase
         run: |
           helm package .
+          echo ${{ env.url }}
           helm repo index ${{ env.url }} .
           cat index.html
-          
