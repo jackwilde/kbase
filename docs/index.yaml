@@ -3,7 +3,17 @@ entries:
   kbase:
   - apiVersion: v2
     appVersion: 0.0.10
-    created: "2024-11-27T12:07:15.514200108Z"
+    created: "2024-11-27T12:46:35.689124858Z"
+    description: A Helm chart for Kubernetes
+    digest: 53cc0d55896b9378e24ddda6263dc78c1eb0fbb6c5045a738351fad9816c8bb7
+    name: kbase
+    type: application
+    urls:
+    - https://jackwilde/github.io/kbase/kbase-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
+    appVersion: 0.0.10
+    created: "2024-11-27T12:46:35.688722535Z"
     description: A Helm chart for Kubernetes
     digest: a63fc516ef96a5f905fed85d465311f0ffb9e548bb323170b2fa26c5feafba28
     name: kbase
@@ -13,7 +23,7 @@ entries:
     version: 0.1.2
   - apiVersion: v2
     appVersion: 0.0.10
-    created: "2024-11-27T12:07:15.513756952Z"
+    created: "2024-11-27T12:46:35.688318127Z"
     description: A Helm chart for Kubernetes
     digest: 28e6b43b6adf406c8d177e126b39db870d558268b31b828469339a8ffdfaec85
     name: kbase
@@ -23,7 +33,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 0.0.1
-    created: "2024-11-27T12:07:15.513297726Z"
+    created: "2024-11-27T12:46:35.687874606Z"
     description: A Helm chart for Kubernetes
     digest: 7f1bc5f3c6be37c36b0ea12177c442bfe2f9827c217df4566d623d94550d964a
     name: kbase
@@ -31,4 +41,4 @@ entries:
     urls:
     - https://jackwilde/github.io/kbase/kbase-0.1.0.tgz
     version: 0.1.0
-generated: "2024-11-27T12:07:15.512444427Z"
+generated: "2024-11-27T12:46:35.687288569Z"
