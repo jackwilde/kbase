@@ -29,22 +29,22 @@ jobs:
         id: version
         run: |
           # Get version from source
-          version=$(cat VERSION)
-          
+          current_version=$(cat VERSION)
+          current_major=$(cut -d '.' -f1-2 <<< $current_version)
+          current_patch=$(cut -d '.' -f3 <<< $current_version)
+               
           # Get details about last release
           last_version=$(skopeo list-tags docker://ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }} | jq -r '[.Tags[] | select(. != "latest")] | sort | .[-1]')
+          last_major=$(cut -d '.' -f1-2 <<< $last_version)
+          last_patch=$(cut -d '.' -f3 <<< $last_version)
           
-          if [[ -z $last_version ]]; then
-            latest_version="${version}.1"
+          if [[ $current_major == $last_major ]]; then
+            # Increment the patch version
+            ((++last_patch))
+            latest_version="${last_major}.${last_patch}"
           else
-            major_version=$(cut -d '.' -f1-2 <<< $last_version)
-            patch_version=$(cut -d '.' -f3 <<< $last_version)
-            if [[ $version == $major_version ]]; then
-              ((++patch_version))
-              latest_version="${major_version}.${patch_version}"
-            else
-              latest_version="${version}.1"
-            fi
+            # Reset the patch version to 1
+            latest_version="${current_major}.1"
           fi
           
           echo "VERSION=$latest_version" >> $GITHUB_ENV
@@ -57,3 +57,18 @@ jobs:
 
       - name: Push image
         run: docker push -a "ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}"
+
+      - name: Update VERSION
+        env:
+          CHART_FILE: helm/kbase/Chart.yaml
+        run: |
+          echo "${{ env.VERSION }}" | tee VERSION
+          sed -i "/^appVersion:/c appVersion: "${{ env.VERSION }}" "${{ env.CHART_FILE }}"
+
+      - name: Commit Changes
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'github-actions@users.noreply.github.com'
+          git add .
+          git commit -m "Update VERSION"
+          git push

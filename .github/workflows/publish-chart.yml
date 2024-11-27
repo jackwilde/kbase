@@ -15,10 +15,22 @@ jobs:
     steps:
       - name: Set URL
         run: |
-          REPO_NAME=$( awk -F '/' '{print$NF}' <<< ${GITHUB_REPOSITORY})
+          REPO_NAME=$( awk -F '/' '{print $NF}' <<< ${GITHUB_REPOSITORY})
           echo "URL=https://${GITHUB_REPOSITORY_OWNER}/github.io/${REPO_NAME}" >> $GITHUB_ENV
       - name: Checkout Repo
         uses: actions/checkout@v4
+      - name: Update Chart Version
+        working-directory: helm/kbase
+        run: |
+          chart_file="Chart.yaml"
+          # Increment chart
+          chart_version=$(awk '/version:/ {print $NF}' "$chart_file")
+          IFS='.' read -r -a version_array <<< "$chart_version"
+          version_array[2]=$((version_array[2] + 1))
+          new_chart_version="${version_array[0]}.${version_array[1]}.${version_array[2]}"
+          sed -i "/^version:/c version: $new_chart_version" "$chart_file"
+ 
+          echo "CHART_VERSION=$new_chart_version" >> $GITHUB_ENV
       - name: Package Chart
         id: package
         working-directory: docs/
@@ -26,9 +38,8 @@ jobs:
           helm package ../helm/kbase
           helm repo index --url ${{ env.URL }} .
       - name: Commit Changes
-        working-directory: docs/
         run: |
-          chart_version=$(awk '/version:/ {print$NF}' index.yaml )
+          chart_version=$(awk '/version:/ {print $NF}' docs/index.yaml )
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'github-actions@users.noreply.github.com'
           git add .
