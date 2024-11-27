@@ -19,12 +19,16 @@ jobs:
           echo "URL=https://${GITHUB_REPOSITORY_OWNER}/github.io/${REPO_NAME}" >> $GITHUB_ENV
       - name: Checkout Repo
         uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
       - name: Package Chart
-        working-directory: helm/kbase
+        working-directory: doc/
         run: |
-          helm package .
-          echo ${{ env.URL }}
+          helm package ../helm/kbase
           helm repo index --url ${{ env.URL }} .
-          cat index.yaml
+          echo "CHART_VERSION=$(awk '/version:/ {print$NF}' < index.yaml)" >> $GITHUB_ENV
+      - name: Commit Changes
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'github-actions@users.noreply.github.com'
+          git add .
+          git commit -m "Publishing Chart version ${{ env.CHART_VERSION }}"
+          git push
