@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  kbase:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2024-11-27T11:21:49.456417738Z"
+    description: A Helm chart for Kubernetes
+    digest: 7f1bc5f3c6be37c36b0ea12177c442bfe2f9827c217df4566d623d94550d964a
+    name: kbase
+    type: application
+    urls:
+    - https://jackwilde/github.io/kbase/kbase-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-11-27T11:21:49.45581439Z"
