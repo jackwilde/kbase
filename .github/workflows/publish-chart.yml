@@ -24,7 +24,8 @@ jobs:
         run: |
           helm package ../helm/kbase
           helm repo index --url ${{ env.URL }} .
-          echo "CHART_VERSION=$(awk '/version:/ {print$NF}' < index.yaml)" >> $GITHUB_ENV
+          chart_version=$(awk '/version:/ {print$NF}' index.yaml)
+          echo "CHART_VERSION=$chart_version" >> $GITHUB_ENV
       - name: Commit Changes
         run: |
           git config --global user.name 'GitHub Actions'
