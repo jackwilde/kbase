@@ -58,11 +58,7 @@ jobs:
         run: docker push -a "ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}"
 
       - name: Update VERSION
-        env:
-          CHART_FILE: helm/kbase/Chart.yaml
-        run: |
-          echo "${{ env.VERSION }}" | tee VERSION
-          sed -i "/^appVersion:/c appVersion: ${{ env.VERSION }}" "${{ env.CHART_FILE }}"
+        run: echo "${{ env.VERSION }}" | tee VERSION
 
       - name: Commit Changes
         run: |
@@ -71,3 +67,6 @@ jobs:
           git add .
           git commit -m "Update VERSION"
           git push
+
+      - name: Publish Helm Chart
+        run: gh workflow run 'Publish Helm Chart'

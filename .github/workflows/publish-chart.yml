@@ -20,17 +20,19 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
       - name: Update Chart Version
-        working-directory: helm/kbase
         run: |
-          chart_file="Chart.yaml"
+          chart_file="helm/kbase/Chart.yaml"
           # Increment chart
           chart_version=$(awk '/version:/ {print $NF}' "$chart_file")
           IFS='.' read -r -a version_array <<< "$chart_version"
           version_array[2]=$((version_array[2] + 1))
           new_chart_version="${version_array[0]}.${version_array[1]}.${version_array[2]}"
+          
+          app_version=$(cat VERSION)
+          
           sed -i "/^version:/c version: $new_chart_version" "$chart_file"
- 
-          echo "CHART_VERSION=$new_chart_version" >> $GITHUB_ENV
+          sed -i "/^appVersion:/c appVersion: \"$app_version\"" "$chart_file"
+
       - name: Package Chart
         id: package
         working-directory: docs/
