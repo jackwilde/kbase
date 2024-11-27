@@ -63,7 +63,7 @@ jobs:
           CHART_FILE: helm/kbase/Chart.yaml
         run: |
           echo "${{ env.VERSION }}" | tee VERSION
-          sed -i "/^appVersion:/c appVersion: "${{ env.VERSION }}" "${{ env.CHART_FILE }}"
+          sed -i "/^appVersion:/c appVersion: ${{ env.VERSION }}" "${{ env.CHART_FILE }}"
 
       - name: Commit Changes
         run: |
