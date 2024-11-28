@@ -2,14 +2,16 @@ name: Deploy to Kubernetes
 on:
   workflow_dispatch: {}
 
-env:
-  KUBECONFIG: "${{ secrets.KUBECONFIG }}"
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Set Kubernetes Config
         run: |
-          kubectl config view
+          echo CONFIG_FILE=$(mktemp)
+          tee CONFIG_FILE=$(mktemp) <<< "${{ secrets.KUBECONFIG }}"
+          echo "KUBECONFIG=${CONFIG_FILE}" >> $GITHUB_ENV
+      - name: Test Config
+        run: |
+          kubectl get pods 
           
