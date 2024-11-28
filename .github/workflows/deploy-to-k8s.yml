@@ -13,7 +13,7 @@ jobs:
           echo "KUBECONFIG=${CONFIG_FILE}" >> $GITHUB_ENV
       - name: Add Helm repo
         run: |
-          helm repo add https:/jackwilde.github.io/kbase kbase
+          helm repo add https://jackwilde.github.io/kbase kbase
           helm repo update
       - name: Deploy with Helm
         run: |
