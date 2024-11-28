@@ -9,9 +9,18 @@ jobs:
       - name: Set Kubernetes Config
         run: |
           CONFIG_FILE=$(mktemp)
-          tee $CONFIG_FILE <<< "${{ secrets.KUBECONFIG }}"
+          echo "${{ secrets.KUBECONFIG }}" > $CONFIG_FILE
           echo "KUBECONFIG=${CONFIG_FILE}" >> $GITHUB_ENV
-      - name: Test Config
+      - name: Add Helm repo
         run: |
-          kubectl get pods 
+          helm repo add https:/jackwilde.github.io/kbase kbase
+          helm repo update
+      - name: Deploy with Helm
+        run: |
+          helm upgrade --install --create-namespace \
+            kbase kbase/kbase \
+            --namespace kbase
+            --dry-run
+      - name: Delete Config
+        run: rm $CONFIG_FILE
           
