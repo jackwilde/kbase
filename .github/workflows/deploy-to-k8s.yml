@@ -1,4 +1,4 @@
-name: Run Azure Login with System-assigned Managed Identity
+name: Deploy to Kubernetes
 on:
   workflow_dispatch: {}
 
