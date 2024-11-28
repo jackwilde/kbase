@@ -9,7 +9,7 @@ jobs:
       - name: Set Kubernetes Config
         run: |
           echo CONFIG_FILE=$(mktemp)
-          tee CONFIG_FILE=$(mktemp) <<< "${{ secrets.KUBECONFIG }}"
+          tee CONFIG_FILE <<< "${{ secrets.KUBECONFIG }}"
           echo "KUBECONFIG=${CONFIG_FILE}" >> $GITHUB_ENV
       - name: Test Config
         run: |
