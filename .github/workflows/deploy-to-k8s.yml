@@ -2,12 +2,14 @@ name: Deploy to Kubernetes
 on:
   workflow_dispatch: {}
 
+env:
+  KUBECONFIG: "${{ secrets.KUBECONFIG }}"
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: azure/k8s-set-context@v1
-        with:
-          method: kubeconfig
-          kubeconfig: ${{ secrets.KUBECONFIG }}
-        id: setcontext
+      - name: Set Kubernetes Config
+        run: |
+          kubectl config view
+          
