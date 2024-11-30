@@ -10,18 +10,17 @@ on:
       - 'docker/django/**'
 
 env:
-  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  GH_TOKEN: "${{ secrets.GH_TOKEN }}"
   IMAGE_NAME: kbase
 
 jobs:
   update-image:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      packages: write
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          token: "${{ secrets.GH_TOKEN }}"
       - name: Login to ghcr
         run: |
           echo "$GH_TOKEN" | docker login ghcr.io -u $ --password-stdin
@@ -39,12 +38,12 @@ jobs:
           last_major=$(cut -d '.' -f1-2 <<< "$last_version")
           
           if [[ $current_major == "$last_major" ]]; then
-          # Increment the patch version
-          new_patch=$((++current_patch))
-          latest_version="${last_major}.${new_patch}"
+            # Increment the patch version
+            new_patch=$((++current_patch))
+            latest_version="${last_major}.${new_patch}"
           else
-          # Reset the patch version to 1
-          latest_version="${current_major}.1"
+            # Reset the patch version to 1
+            latest_version="${current_major}.1"
           fi
           
           echo "VERSION=$latest_version" >> $GITHUB_ENV
