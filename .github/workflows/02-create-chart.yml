@@ -7,8 +7,10 @@ on:
       - main
     paths:
       - 'helm/kbase/**'
-  registry_package:
-    types: [published]
+  workflow_run:
+    workflows: [Update Docker image]
+    types:
+      - completed
 
 env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

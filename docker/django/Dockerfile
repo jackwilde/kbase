@@ -1,4 +1,4 @@
-FROM python:3.13
+FROM python:3.13-slim
 
 LABEL authors="Jack Wilde"
 LABEL org.opencontainers.image.source=https://github.com/jackwilde/django-knowledgebase
