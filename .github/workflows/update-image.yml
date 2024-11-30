@@ -71,4 +71,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Start Publish Helm Chart Action
-        run: gh workflow run 'Publish Helm Chart'
+        run: gh workflow run --repo "${{ github.repository_owner }}" 'Publish Helm Chart'
