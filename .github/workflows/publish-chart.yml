@@ -8,6 +8,9 @@ on:
     paths:
       - 'helm/**'
 
+env:
+  GH_TOKEN: ${{ github.token }}
+
 jobs:
   publish-chart:
     runs-on: ubuntu-latest
