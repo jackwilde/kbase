@@ -1,4 +1,4 @@
-name: Publish Helm chart
+name: Create Helm chart
 
 on:
   workflow_dispatch: {}
@@ -22,6 +22,8 @@ jobs:
           echo "URL=https://${GITHUB_REPOSITORY_OWNER}.github.io/${REPO_NAME}" >> $GITHUB_ENV
       - name: Checkout Repo
         uses: actions/checkout@v4
+        with:
+          token: "${{ secrets.GH_TOKEN }}"
       - name: Update Chart Version
         run: |
           chart_file="helm/kbase/Chart.yaml"
@@ -51,28 +53,28 @@ jobs:
           git commit -m "Publishing Chart version ${chart_version}"
           git push
 
-  publish-chart:
-    needs: create-chart
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: 'helm/repository/'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+#  publish-chart:
+#    needs: create-chart
+#    permissions:
+#      contents: read
+#      pages: write
+#      id-token: write
+#    environment:
+#      name: github-pages
+#      url: ${{ steps.deployment.outputs.page_url }}
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v4
+#      - name: Setup Pages
+#        uses: actions/configure-pages@v5
+#      - name: Upload artifact
+#        uses: actions/upload-pages-artifact@v3
+#        with:
+#          path: 'helm/repository/'
+#      - name: Deploy to GitHub Pages
+#        id: deployment
+#        uses: actions/deploy-pages@v4
 
 
 
