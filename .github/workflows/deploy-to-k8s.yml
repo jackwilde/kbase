@@ -67,9 +67,6 @@ jobs:
             --dry-run \
             --values -
 
-      - name:
-        run: |
-
       - name: Delete Config
         run: rm $CONFIG_FILE
           
