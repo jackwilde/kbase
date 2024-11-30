@@ -1,4 +1,4 @@
-FROM python:3.13-slim
+FROM python:3.13
 
 LABEL authors="Jack Wilde"
 LABEL org.opencontainers.image.source=https://github.com/jackwilde/django-knowledgebase
@@ -7,10 +7,9 @@ ARG DJANGO_PROJECT=kbase
 ARG DJANGO_USER=django
 
 RUN apt update && \
-    apt-get install -y --no-install-recommends\
-      postgresql-client \
-      libpq-dev && \
-    && rm -rf /var/lib/apt/lists/*
+    apt-get install -y --no-install-recommends \
+      postgresql-client && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN adduser --system \
     --home=/var/opt/$DJANGO_PROJECT \
