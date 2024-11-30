@@ -62,14 +62,18 @@ spec:
               containerPort: 8000
               protocol: TCP
           livenessProbe:
-            httpGet:
-              path: /sign-in/
-              port: 8000
+            exec:
+              command:
+                - "/bin/bash"
+                - "-c"
+                - "curl -s -o /dev/null -w '%{http_code}' -L http://localhost:8000/ | grep -q '200'"
             initialDelaySeconds: 45
           readinessProbe:
-            httpGet:
-              path: /sign-in/
-              port: 8000
+            exec:
+              command:
+                - "/bin/bash"
+                - "-c"
+                - "curl -s -o /dev/null -w '%{http_code}' -L http://localhost:8000/ | grep -q '200'"
           resources:
             {{- toYaml .Values.web.django.resources | nindent 12 }}
           volumeMounts:
