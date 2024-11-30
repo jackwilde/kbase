@@ -18,8 +18,7 @@ jobs:
         run: |
           helm repo add kbase https://jackwilde.github.io/kbase
           helm repo update
-      - name: Generate Values
-        id: values
+      - name: Deploy with Helm
         run: |
           values=$(cat <<EOF
           web:
@@ -61,16 +60,16 @@ jobs:
           EOF
           )
           
-          echo values=$values >> $GITHUB_OUTPUT
-
-      - name: Deploy with Helm
-        run: |
-          echo "${{ steps.values.outputs.values }}" | \
+          echo "$values" | \
           helm upgrade --install --create-namespace \
             kbase kbase/kbase \
             --namespace kbase \
             --dry-run \
             --values -
+
+      - name:
+        run: |
+
       - name: Delete Config
         run: rm $CONFIG_FILE
           
