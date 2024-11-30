@@ -61,9 +61,16 @@ spec:
             - name: gunicorn
               containerPort: 8000
               protocol: TCP
-          #TODO
-{{/*          livenessProbe: {}*/}}
-{{/*          readinessProbe: {}*/}}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8000
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            failureThreshold: 5
+            periodSeconds: 20
           resources:
             {{- toYaml .Values.web.django.resources | nindent 12 }}
           volumeMounts:
@@ -86,9 +93,16 @@ spec:
             - name: http
               containerPort: 80
               protocol: TCP
-          #TODO
-{{/*          livenessProbe: {}*/}}
-{{/*          readinessProbe: {}*/}}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            failureThreshold: 5
+            periodSeconds: 20
           resources:
             {{- toYaml .Values.web.nginx.resources | nindent 12 }}
           volumeMounts:
