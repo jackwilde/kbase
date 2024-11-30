@@ -60,12 +60,6 @@ jobs:
       - name: Update VERSION
         run: echo "${{ env.VERSION }}" | tee VERSION
 
-      - name: Update Helm appVersion
-        working-directory: helm/kbase
-        run: |
-          sed -i "/^appVersion:/c appVersion: \"${{ env.VERSION }}\"" Chart.yaml
-
-
       - name: Commit Changes
         run: |
           git config --global user.name 'GitHub Actions'

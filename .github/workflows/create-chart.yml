@@ -7,6 +7,9 @@ on:
       - main
     paths:
       - 'helm/kbase/**'
+      # Exclude Chart.yaml to prevent looping. Chart.yaml should be updated by this action.
+      - '!helm/kbase/Chart.yaml'
+      - 'VERSION'
 
 env:
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -31,8 +34,11 @@ jobs:
           IFS='.' read -r -a version_array <<< "$chart_version"
           version_array[2]=$((version_array[2] + 1))
           new_chart_version="${version_array[0]}.${version_array[1]}.${version_array[2]}"
-                    
+          
+          app_version=$(cat VERSION)
+          
           sed -i "/^version:/c version: $new_chart_version" "$chart_file"
+          sed -i "/^appVersion:/c appVersion: \"$app_version\"" "$chart_file"
 
       - name: Package Chart
         id: package
