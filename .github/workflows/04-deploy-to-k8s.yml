@@ -63,7 +63,7 @@ jobs:
           )
           
           echo "$values" | \
-          helm upgrade --install --create-namespace \
+          helm upgrade --install --create-namespace --reuse-values \
             kbase kbase/kbase \
             --namespace kbase \
             --values -
