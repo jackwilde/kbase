@@ -64,7 +64,6 @@ jobs:
           helm upgrade --install --create-namespace \
             kbase kbase/kbase \
             --namespace kbase \
-            --dry-run \
             --values -
 
       - name: Delete Config
