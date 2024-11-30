@@ -67,7 +67,7 @@ jobs:
         run: |
           helm upgrade --install --create-namespace \
             kbase kbase/kbase \
-            --namespace kbase
+            --namespace kbase \
             --values <<<"${{ steps.values.outputs.values }}" \
             --dry-run
       - name: Delete Config
