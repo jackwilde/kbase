@@ -65,11 +65,12 @@ jobs:
 
       - name: Deploy with Helm
         run: |
+          echo "${{ steps.values.outputs.values }}" | \
           helm upgrade --install --create-namespace \
             kbase kbase/kbase \
             --namespace kbase \
-            --values <<<"${{ steps.values.outputs.values }}" \
-            --dry-run
+            --dry-run \
+            --values -
       - name: Delete Config
         run: rm $CONFIG_FILE
           
