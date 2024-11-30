@@ -68,5 +68,5 @@ jobs:
             --values -
 
       - name: Delete Config
-        run: rm $CONFIG_FILE
+        run: rm ${{ env.KUBECONFIG}}
           
