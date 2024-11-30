@@ -56,8 +56,6 @@ spec:
               command:
                 - "pg_isready"
             initialDelaySeconds: 45
-            failureThreshold: 3
-            timeoutSeconds: 2
           readinessProbe:
             exec:
               command:

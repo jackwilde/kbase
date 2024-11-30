@@ -17,7 +17,7 @@ COPY --chown=django:django src /var/opt/${DJANGO_PROJECT}
 
 WORKDIR /var/opt/${DJANGO_PROJECT}
 
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 USER ${DJANGO_USER}
 
