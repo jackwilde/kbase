@@ -55,12 +55,12 @@ spec:
             exec:
               command:
                 - "pg_isready"
-            initialDelaySeconds: 45
+            initialDelaySeconds: 30
           readinessProbe:
             exec:
               command:
                 - "pg_isready"
-            initialDelaySeconds: 15
+            initialDelaySeconds: 5
           resources:
             {{- toYaml .Values.postgres.resources | nindent 12 }}
           volumeMounts:
