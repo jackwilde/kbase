@@ -6,13 +6,13 @@ on:
     branches:
       - main
     paths:
-      - 'helm/**'
+      - 'helm/kbase/**'
 
 env:
   GH_TOKEN: ${{ github.token }}
 
 jobs:
-  publish-chart:
+  create-chart:
     runs-on: ubuntu-latest
     steps:
       - name: Set URL
@@ -37,22 +37,51 @@ jobs:
 
       - name: Package Chart
         id: package
-        working-directory: docs/
+        working-directory: helm/repository
         run: |
-          helm package ../helm/kbase
+          helm package ../kbase
           helm repo index --url ${{ env.URL }} .
       - name: Commit Changes
         run: |
-          chart_version=$(awk '/version:/ {print $NF}' docs/index.yaml )
+          chart_version=$(awk '/version:/ {print $NF}' helm/repository/index.yaml )
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'github-actions@users.noreply.github.com'
           git add .
           git commit -m "Publishing Chart version ${chart_version}"
           git push
 
-  deploy-to-k8s:
-    needs: publish-chart
+
+
+
+  publish-chart:
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Start Deploy Action
-        run: gh workflow run --repo "${{ github.repository }}" 'Deploy to Kubernetes'
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'helm/repository/'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+
+
+
+
+#  deploy-to-k8s:
+#    needs: publish-chart
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Start Deploy Action
+#        run: gh workflow run --repo "${{ github.repository }}" 'Deploy to Kubernetes'
