@@ -10,7 +10,7 @@ on:
       - 'VERSION'
 
 env:
-  GH_TOKEN: ${{ github.token }}
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
 jobs:
   create-chart:

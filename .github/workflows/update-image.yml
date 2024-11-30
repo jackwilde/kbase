@@ -10,7 +10,7 @@ on:
       - 'docker/django/**'
 
 env:
-  GH_TOKEN: ${{ github.token }}
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
   IMAGE_NAME: kbase
 
 jobs:
