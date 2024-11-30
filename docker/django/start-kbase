@@ -1,3 +1,22 @@
 #!/bin/bash
 
+RETRIES=3
+DELAY=30
+ATTEMPT=0
+
+# Wait for DB to start.
+while ! /usr/bin/pg_isready -h "$POSTGRES_HOST" -p "$POSTGRES_PORT"; do
+  ((ATTEMPT++))
+  if [[ "$ATTEMPT" -gt "$RETRIES" ]]; then
+    echo "Failed to connect to Postgres DB after $RETRIES attempts"
+    exit 1
+  fi
+  echo "Postgres DB not ready. Retrying in $DELAY seconds... (Attempt $ATTEMPT of $RETRIES)"
+  sleep "$DELAY"
+done
+
+echo "PostgreSQL is ready. Running migrations..."
+/usr/local/bin/python manage.py migrate
+
+echo "Starting Gunicorn server..."
 /usr/local/bin/gunicorn django_knowledgebase.wsgi -b :8000
