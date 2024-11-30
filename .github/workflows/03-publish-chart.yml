@@ -32,12 +32,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
-  start-deployment:
-    needs: publish-chart
-    # Only run if publish-chart was automated
-    if: ${{ github.event_name == 'push' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Start 'Deploy to Kubernetes'
-        run: gh workflow run --repo "${{ github.repository }}" 'Deploy to Kubernetes'
