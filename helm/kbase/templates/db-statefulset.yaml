@@ -51,9 +51,18 @@ spec:
             - name: postgres
               containerPort: {{ .Values.postgres.service.port }}
               protocol: TCP
-          #TODO
-{{/*          livenessProbe: {}*/}}
-{{/*          readinessProbe: {}*/}}
+          livenessProbe:
+            exec:
+              command:
+                - "pg_isready"
+            initialDelaySeconds: 45
+            failureThreshold: 3
+            timeoutSeconds: 2
+          readinessProbe:
+            exec:
+              command:
+                - "pg_isready"
+            initialDelaySeconds: 15
           resources:
             {{- toYaml .Values.postgres.resources | nindent 12 }}
           volumeMounts:
