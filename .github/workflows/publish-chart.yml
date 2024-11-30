@@ -50,10 +50,8 @@ jobs:
           git commit -m "Publishing Chart version ${chart_version}"
           git push
 
-
-
-
   publish-chart:
+    needs: create-chart
     permissions:
       contents: read
       pages: write
