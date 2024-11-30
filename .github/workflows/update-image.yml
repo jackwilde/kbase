@@ -8,8 +8,6 @@ on:
     paths:
       - 'src/**'
       - 'docker/django/**'
-      - '.github/workflows/update-image.yml'
-
 
 env:
   GH_TOKEN: ${{ github.token }}
@@ -68,5 +66,9 @@ jobs:
           git commit -m "Update VERSION"
           git push
 
-      - name: Publish Helm Chart
+  publish-helm-chart:
+    needs: update-image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start Publish Helm Chart Action
         run: gh workflow run 'Publish Helm Chart'

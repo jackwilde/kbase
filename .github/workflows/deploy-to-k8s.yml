@@ -15,11 +15,57 @@ jobs:
         run: |
           helm repo add kbase https://jackwilde.github.io/kbase
           helm repo update
+      - name: Generate Values
+        id: values
+        run: |
+          values=$(cat <<EOF
+          web:
+            django:
+              image:
+                tag: "latest"
+              settings:
+                secret_key: "${{ secrets.SECRET_KEY }}" # Secure
+                csrf_trusted_origins: "https://${{ secrets.SITE_URL }}"
+          
+          postgres:
+            storage:
+              storageClass: "managed-csi"
+            settings:
+              postgres_db: "${{ secrets.POSTGRES_DB }}"
+              postgres_user: "${{ secrets.POSTGRES_USER }}"
+              postgres_password: "${{ secrets.POSTGRES_PASSWORD }}"
+          
+          ingress:
+            enabled: true
+            className: "nginx"
+            annotations:
+              cert-manager.io/cluster-issuer: "letsencrypt-prod"
+              nginx.ingress.kubernetes.io/rewrite-target: /
+              nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+            hosts:
+              - host: "${{ secrets.SITE_URL }}"
+                paths:
+                  - path: /
+                    pathType: Prefix
+            tls:
+              hosts:
+                - "${{ secrets.SITE_URL }}"
+              secretName: "${{ secrets.SITE_URL }}-tls"
+          
+          networkPolicy:
+            enabled: true
+            ingressNamespace: ingress-nginx
+          EOF
+          )
+          
+          echo values=$values >> $GITHUB_OUTPUT
+
       - name: Deploy with Helm
         run: |
           helm upgrade --install --create-namespace \
             kbase kbase/kbase \
             --namespace kbase
+            --values <<<"${{ steps.values.outputs.values }}" \
             --dry-run
       - name: Delete Config
         run: rm $CONFIG_FILE
