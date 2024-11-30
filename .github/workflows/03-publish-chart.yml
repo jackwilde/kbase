@@ -2,11 +2,10 @@ name: Publish Helm chart
 
 on:
   workflow_dispatch: {}
-  push:
-    branches:
-      - main
-    paths:
-      - 'helm/repository/**'
+  workflow_run:
+    workflows: [Create Helm chart]
+    types:
+      - completed
 
 env:
   GH_TOKEN: ${{ secrets.GH_TOKEN }}

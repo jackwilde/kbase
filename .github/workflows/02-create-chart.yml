@@ -7,12 +7,11 @@ on:
       - main
     paths:
       - 'helm/kbase/**'
-      # Exclude Chart.yaml to prevent looping. Chart.yaml should be updated by this action.
-      - '!helm/kbase/Chart.yaml'
-      - 'VERSION'
+  registry_package:
+    types: [published]
 
 env:
-  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   create-chart:
@@ -24,8 +23,6 @@ jobs:
           echo "URL=https://${GITHUB_REPOSITORY_OWNER}.github.io/${REPO_NAME}" >> $GITHUB_ENV
       - name: Checkout Repo
         uses: actions/checkout@v4
-        with:
-          token: "${{ secrets.GH_TOKEN }}"
       - name: Update Chart Version
         run: |
           chart_file="helm/kbase/Chart.yaml"

@@ -8,9 +8,10 @@ on:
     paths:
       - 'src/**'
       - 'docker/django/**'
+      - 'VERSION'
 
 env:
-  GH_TOKEN: "${{ secrets.GH_TOKEN }}"
+  GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
   IMAGE_NAME: kbase
 
 jobs:
@@ -19,8 +20,6 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-        with:
-          token: "${{ secrets.GH_TOKEN }}"
       - name: Login to ghcr
         run: |
           echo "$GH_TOKEN" | docker login ghcr.io -u $ --password-stdin
