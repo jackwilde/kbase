@@ -97,14 +97,18 @@ spec:
               containerPort: 80
               protocol: TCP
           livenessProbe:
-            httpGet:
-              path: /
-              port: 80
+            exec:
+              command:
+                - "/bin/bash"
+                - "-c"
+                - "curl -s -o /dev/null -w '%{http_code}' -L http://localhost:80/ | grep -q '200'"
             initialDelaySeconds: 45
           readinessProbe:
-            httpGet:
-              path: /
-              port: 80
+            exec:
+              command:
+                - "/bin/bash"
+                - "-c"
+                - "curl -s -o /dev/null -w '%{http_code}' -L http://localhost:80/ | grep -q '200'"
           resources:
             {{- toYaml .Values.web.nginx.resources | nindent 12 }}
           volumeMounts:
