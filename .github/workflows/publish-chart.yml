@@ -55,4 +55,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Start Deploy Action
-        run: gh workflow run --repo "${{ github.repository_owner }}" 'Deploy to Kubernetes'
+        run: gh workflow run --repo "${{ github.repository }}" 'Deploy to Kubernetes'
