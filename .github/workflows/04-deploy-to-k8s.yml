@@ -33,7 +33,7 @@ jobs:
           
           postgres:
             storage:
-              storageClass: "azuredisk"
+              storageClass: "managed-csi"
             settings:
               postgres_db: "${{ secrets.POSTGRES_DB }}"
               postgres_user: "${{ secrets.POSTGRES_USER }}"
