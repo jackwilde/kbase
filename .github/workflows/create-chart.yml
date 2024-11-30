@@ -52,11 +52,3 @@ jobs:
           git add .
           git commit -m "Publishing Chart version ${chart_version}"
           git push
-
-
-#  deploy-to-k8s:
-#    needs: publish-chart
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Start Deploy Action
-#        run: gh workflow run --repo "${{ github.repository }}" 'Deploy to Kubernetes'
