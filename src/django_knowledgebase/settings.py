@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from sys import argv
 from app_config import DjangoSettings, DbSettings
 
 django_settings = DjangoSettings()
@@ -30,7 +31,8 @@ DEBUG = django_settings.debug
 
 ALLOWED_HOSTS = django_settings.allowed_hosts
 
-CSRF_TRUSTED_ORIGINS = django_settings.csfr_trusted_origin
+if django_settings.csfr_trusted_origin:
+    CSRF_TRUSTED_ORIGINS = django_settings.csfr_trusted_origin
 
 
 # Application definition
@@ -93,6 +95,13 @@ DATABASES = {
         'NAME': db_settings.name,
     }
 }
+
+# Use in-memory SQLite for testing
+if 'test' in argv:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:'
+    }
 
 
 
