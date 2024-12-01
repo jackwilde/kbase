@@ -19,5 +19,5 @@ class UrlsTestCase(TestCase):
 
     def test_sign_out_url(self):
         # Test sign-out URL redirects
-        response = self.client.put(reverse('sign-out'))
+        response = self.client.post(reverse('sign-out'))
         self.assertEqual(response.status_code, 302)
