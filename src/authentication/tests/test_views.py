@@ -67,22 +67,22 @@ class AuthenticatedViewsTestCase(TestCase):
         # Log user in
         self.client.login(email='testuser@example.com', password='djangopassword123')
 
-    def test_redirect_root_url(self):
+    def test_redirect_root_view(self):
         # Test / redirects to dashboard
         response = self.client.get('/')
         self.assertRedirects(response, reverse('dashboard'), status_code=301)
 
-    def test_sign_in_url(self):
+    def test_sign_in_view(self):
         # Test sign-in URL redirects to dashboard
         response = self.client.get(reverse('sign-in'))
         self.assertRedirects(response, reverse('dashboard'))
 
-    def test_sign_up_url(self):
+    def test_sign_up_view(self):
         # Test sign-up URL redirects to dashboard
         response = self.client.get(reverse('sign-up'))
         self.assertRedirects(response, reverse('dashboard'))
 
-    def test_sign_out_url(self):
+    def test_sign_out_view(self):
         # Test user is authenticated with 200 response from dashboard
         response = self.client.get(reverse('dashboard'))
         self.assertEqual(response.status_code, 200)

@@ -16,6 +16,5 @@ class AccountView(UpdateView):
 
 
 class ResetPasswordView(PasswordChangeView):
-    template_name = 'account/reset-password.html'
+    template_name = 'account/change-password.html'
     success_url = reverse_lazy('my-account')
-
