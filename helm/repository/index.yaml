@@ -2,8 +2,18 @@ apiVersion: v1
 entries:
   kbase:
   - apiVersion: v2
+    appVersion: 1.0.2
+    created: "2024-12-01T20:32:51.441834113Z"
+    description: A Helm chart for Kubernetes
+    digest: 1f79f047b232b6514cf506b16b990d347f2ddbe18b30573e1d69380865a39549
+    name: kbase
+    type: application
+    urls:
+    - https://jackwilde.github.io/kbase/kbase-1.0.18.tgz
+    version: 1.0.18
+  - apiVersion: v2
     appVersion: 1.0.1
-    created: "2024-12-01T19:47:30.536619515Z"
+    created: "2024-12-01T20:32:51.441407749Z"
     description: A Helm chart for Kubernetes
     digest: ca2b5f892c43f36f3792b9a4a42754c21d6cd21561316446f173db3402a137ab
     name: kbase
@@ -13,7 +23,7 @@ entries:
     version: 1.0.17
   - apiVersion: v2
     appVersion: 0.2.6
-    created: "2024-12-01T19:47:30.536232682Z"
+    created: "2024-12-01T20:32:51.440492661Z"
     description: A Helm chart for Kubernetes
     digest: e0a7bae79e0bfaca972902436458a7ba849df4a69a2a7e3b0009a9e708246ece
     name: kbase
@@ -23,7 +33,7 @@ entries:
     version: 1.0.16
   - apiVersion: v2
     appVersion: 0.2.5
-    created: "2024-12-01T19:47:30.535839356Z"
+    created: "2024-12-01T20:32:51.439722114Z"
     description: A Helm chart for Kubernetes
     digest: 8889aab79b434b5828c3c8ba8448468e31f64bf0fa105d6f2b2d836d1f7764dd
     name: kbase
@@ -33,7 +43,7 @@ entries:
     version: 1.0.15
   - apiVersion: v2
     appVersion: 0.2.4
-    created: "2024-12-01T19:47:30.535443586Z"
+    created: "2024-12-01T20:32:51.439282626Z"
     description: A Helm chart for Kubernetes
     digest: 9b884a1cd3118e6605fa8bafcbdfb7101ef9f68985e9606748fff0bc0c2cea60
     name: kbase
@@ -43,7 +53,7 @@ entries:
     version: 1.0.14
   - apiVersion: v2
     appVersion: 0.2.4
-    created: "2024-12-01T19:47:30.535020314Z"
+    created: "2024-12-01T20:32:51.438898519Z"
     description: A Helm chart for Kubernetes
     digest: cc9488f43606f158557c0ad3441198b3c15c9b7338c7449ca9f531915dec64a4
     name: kbase
@@ -53,7 +63,7 @@ entries:
     version: 1.0.13
   - apiVersion: v2
     appVersion: 0.2.4
-    created: "2024-12-01T19:47:30.534074765Z"
+    created: "2024-12-01T20:32:51.438514363Z"
     description: A Helm chart for Kubernetes
     digest: 1f72f78d32ca44eb700baa2cc689b79684ef485b5f9a9216e62db9bbf549e2f2
     name: kbase
@@ -63,7 +73,7 @@ entries:
     version: 1.0.12
   - apiVersion: v2
     appVersion: 0.2.3
-    created: "2024-12-01T19:47:30.533523413Z"
+    created: "2024-12-01T20:32:51.438128544Z"
     description: A Helm chart for Kubernetes
     digest: 5ecaab571f508ba67946cfe1930cb9ed6454a4c70e651728b33f3d13acc90ac2
     name: kbase
@@ -73,7 +83,7 @@ entries:
     version: 1.0.11
   - apiVersion: v2
     appVersion: 0.2.2
-    created: "2024-12-01T19:47:30.533103558Z"
+    created: "2024-12-01T20:32:51.437744969Z"
     description: A Helm chart for Kubernetes
     digest: 25bcd553086b5691c73890ed4d8ae2f87f6a53c1999d60f6639e513eaed6cb36
     name: kbase
@@ -83,7 +93,7 @@ entries:
     version: 1.0.10
   - apiVersion: v2
     appVersion: 0.2.1
-    created: "2024-12-01T19:47:30.539752905Z"
+    created: "2024-12-01T20:32:51.44500901Z"
     description: A Helm chart for Kubernetes
     digest: cca2107373478e3393bfb498901e194309c3b6a501797119de2f6a657dc1c28e
     name: kbase
@@ -93,7 +103,7 @@ entries:
     version: 1.0.9
   - apiVersion: v2
     appVersion: 0.2.1
-    created: "2024-12-01T19:47:30.539352236Z"
+    created: "2024-12-01T20:32:51.444604026Z"
     description: A Helm chart for Kubernetes
     digest: e05d4473bc02392e483da2ec8a59d915e86521bff813bf7968b509bc29173d82
     name: kbase
@@ -103,7 +113,7 @@ entries:
     version: 1.0.8
   - apiVersion: v2
     appVersion: 0.2.1
-    created: "2024-12-01T19:47:30.538971845Z"
+    created: "2024-12-01T20:32:51.444178373Z"
     description: A Helm chart for Kubernetes
     digest: 147217341726f9b9db1454f7bb7af5a488f1ad4c99a63ef6ff7c70e8c3d6047e
     name: kbase
@@ -113,7 +123,7 @@ entries:
     version: 1.0.7
   - apiVersion: v2
     appVersion: 0.2.1
-    created: "2024-12-01T19:47:30.538588217Z"
+    created: "2024-12-01T20:32:51.443791331Z"
     description: A Helm chart for Kubernetes
     digest: 31889d8c69961f9d504292cc73099830faa1b216eb733b5eb185813170f6a4ce
     name: kbase
@@ -123,7 +133,7 @@ entries:
     version: 1.0.6
   - apiVersion: v2
     appVersion: 0.2.1
-    created: "2024-12-01T19:47:30.538206714Z"
+    created: "2024-12-01T20:32:51.443406183Z"
     description: A Helm chart for Kubernetes
     digest: 9f81b4f7558781357c7eed8adedc5882f301af423fbe02288962c037596e032e
     name: kbase
@@ -133,7 +143,7 @@ entries:
     version: 1.0.5
   - apiVersion: v2
     appVersion: 0.2.1
-    created: "2024-12-01T19:47:30.537822685Z"
+    created: "2024-12-01T20:32:51.443016387Z"
     description: A Helm chart for Kubernetes
     digest: 51caf07247182f7b9e0daccf9b739459e6dbafa5778906b415b3abc0ced7d7af
     name: kbase
@@ -143,7 +153,7 @@ entries:
     version: 1.0.4
   - apiVersion: v2
     appVersion: 0.2.1
-    created: "2024-12-01T19:47:30.537435251Z"
+    created: "2024-12-01T20:32:51.442626751Z"
     description: A Helm chart for Kubernetes
     digest: 96ab8e2835e6b78998a7896be7277081c3a2e95b0c073b8808e16a915d5fea38
     name: kbase
@@ -153,7 +163,7 @@ entries:
     version: 1.0.3
   - apiVersion: v2
     appVersion: 0.2.1
-    created: "2024-12-01T19:47:30.537006258Z"
+    created: "2024-12-01T20:32:51.44223476Z"
     description: A Helm chart for Kubernetes
     digest: 9260459396f1316ae907bf9bb78ddbf660a09d7c20167c40b535b72dff913753
     name: kbase
@@ -163,7 +173,7 @@ entries:
     version: 1.0.2
   - apiVersion: v2
     appVersion: 0.1.7
-    created: "2024-12-01T19:47:30.532717917Z"
+    created: "2024-12-01T20:32:51.437354642Z"
     description: A Helm chart for Kubernetes
     digest: c4af59fc2d4a4363b394a725336613f026bde9b8ffbab8f513746b616f18ce16
     name: kbase
@@ -173,7 +183,7 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: 0.1.7
-    created: "2024-12-01T19:47:30.532329801Z"
+    created: "2024-12-01T20:32:51.436936182Z"
     description: A Helm chart for Kubernetes
     digest: 8b24858043858acdadd584487dbacd32f54e96b63de993b708b78938c704e796
     name: kbase
@@ -183,7 +193,7 @@ entries:
     version: 0.2.9
   - apiVersion: v2
     appVersion: 0.1.7
-    created: "2024-12-01T19:47:30.531946244Z"
+    created: "2024-12-01T20:32:51.436550473Z"
     description: A Helm chart for Kubernetes
     digest: c6665530688f474dca3bc44ac922f27b7f5aff1137d30877269984f965dd1d79
     name: kbase
@@ -193,7 +203,7 @@ entries:
     version: 0.2.8
   - apiVersion: v2
     appVersion: 0.1.7
-    created: "2024-12-01T19:47:30.531567415Z"
+    created: "2024-12-01T20:32:51.436164654Z"
     description: A Helm chart for Kubernetes
     digest: 854a36768053db79f1b1e0b62df70bf43a7ef95f0ae50815802cf9479f91898b
     name: kbase
@@ -203,7 +213,7 @@ entries:
     version: 0.2.7
   - apiVersion: v2
     appVersion: 0.1.7
-    created: "2024-12-01T19:47:30.531187134Z"
+    created: "2024-12-01T20:32:51.435779847Z"
     description: A Helm chart for Kubernetes
     digest: 8aa4a11d5993cb63ae98deb579858caa300dd1bbeb792d51f6f49be8d194e613
     name: kbase
@@ -213,7 +223,7 @@ entries:
     version: 0.2.6
   - apiVersion: v2
     appVersion: 0.1.7
-    created: "2024-12-01T19:47:30.530802885Z"
+    created: "2024-12-01T20:32:51.435387426Z"
     description: A Helm chart for Kubernetes
     digest: dc0ba02dbd028ce648ba64976e58e7ca212f0e84bd9bdc4d8f0c184ad3946a66
     name: kbase
@@ -223,7 +233,7 @@ entries:
     version: 0.2.5
   - apiVersion: v2
     appVersion: 0.1.6
-    created: "2024-12-01T19:47:30.530417985Z"
+    created: "2024-12-01T20:32:51.434993922Z"
     description: A Helm chart for Kubernetes
     digest: 4bf441278cfac6734fee74f0abb08433716de967f7d754d44b31a3ba9074de7b
     name: kbase
@@ -233,7 +243,7 @@ entries:
     version: 0.2.4
   - apiVersion: v2
     appVersion: 0.1.5
-    created: "2024-12-01T19:47:30.530032835Z"
+    created: "2024-12-01T20:32:51.434580031Z"
     description: A Helm chart for Kubernetes
     digest: 01b0d340d46be7fedd94ca0cd1bb44b02140d726fce057a1f5f74ba27c8781f5
     name: kbase
@@ -243,7 +253,7 @@ entries:
     version: 0.2.3
   - apiVersion: v2
     appVersion: 0.1.4
-    created: "2024-12-01T19:47:30.529636093Z"
+    created: "2024-12-01T20:32:51.433924412Z"
     description: A Helm chart for Kubernetes
     digest: 5eaaa25259598d83a5e031c584ad6907f35c6ef4ca63552a786266511208e5ac
     name: kbase
@@ -253,7 +263,7 @@ entries:
     version: 0.2.2
   - apiVersion: v2
     appVersion: 0.1.4
-    created: "2024-12-01T19:47:30.529204576Z"
+    created: "2024-12-01T20:32:51.432838758Z"
     description: A Helm chart for Kubernetes
     digest: 9a24cae9ef95ed0d30d2e9d8f6a67d9f5f12b05eca58c7d1331b85bf1378bce4
     name: kbase
@@ -263,7 +273,7 @@ entries:
     version: 0.2.1
   - apiVersion: v2
     appVersion: 0.1.4
-    created: "2024-12-01T19:47:30.525364519Z"
+    created: "2024-12-01T20:32:51.430161689Z"
     description: A Helm chart for Kubernetes
     digest: cdebcc64c18dfe089f46b21d93ce123deab964728a8f333151914f229f7839ac
     name: kbase
@@ -273,7 +283,7 @@ entries:
     version: 0.1.34
   - apiVersion: v2
     appVersion: 0.1.3
-    created: "2024-12-01T19:47:30.524938141Z"
+    created: "2024-12-01T20:32:51.429777483Z"
     description: A Helm chart for Kubernetes
     digest: be5c57e4aaacb6b4dc89dc2ee2078689f7ea660e61ed7a7940a9bb78e9250487
     name: kbase
@@ -283,7 +293,7 @@ entries:
     version: 0.1.33
   - apiVersion: v2
     appVersion: 0.1.2
-    created: "2024-12-01T19:47:30.524553021Z"
+    created: "2024-12-01T20:32:51.429369763Z"
     description: A Helm chart for Kubernetes
     digest: cb78d363fda69e7881d5ad76401ddf32ae1ed63ad45b852171ef67c4d1f9579d
     name: kbase
@@ -293,7 +303,7 @@ entries:
     version: 0.1.32
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2024-12-01T19:47:30.524175755Z"
+    created: "2024-12-01T20:32:51.428903504Z"
     description: A Helm chart for Kubernetes
     digest: 052bdbd296c4a955ed63c67e40262a93002e7636210df6e6defb8be2d3a31e9d
     name: kbase
@@ -303,7 +313,7 @@ entries:
     version: 0.1.31
   - apiVersion: v2
     appVersion: 0.0.22
-    created: "2024-12-01T19:47:30.523795034Z"
+    created: "2024-12-01T20:32:51.428490755Z"
     description: A Helm chart for Kubernetes
     digest: 56e0d2b1e8fdaab6f1204c60210478df13cd27a08b423c3539cfb5f2ef2387ed
     name: kbase
@@ -313,7 +323,7 @@ entries:
     version: 0.1.30
   - apiVersion: v2
     appVersion: 0.0.22
-    created: "2024-12-01T19:47:30.523030023Z"
+    created: "2024-12-01T20:32:51.42757084Z"
     description: A Helm chart for Kubernetes
     digest: 8f563c9043418eee6a37b036ec3d4518b2ff8c3fcbb80027d3a9bebd759a5c6f
     name: kbase
@@ -323,7 +333,7 @@ entries:
     version: 0.1.29
   - apiVersion: v2
     appVersion: 0.0.21
-    created: "2024-12-01T19:47:30.522650112Z"
+    created: "2024-12-01T20:32:51.426963048Z"
     description: A Helm chart for Kubernetes
     digest: 75b25b2c20923dd80fa6f89a7b6cadd3546b483231a266c3c593101031f27e73
     name: kbase
@@ -333,7 +343,7 @@ entries:
     version: 0.1.28
   - apiVersion: v2
     appVersion: 0.0.19
-    created: "2024-12-01T19:47:30.522263349Z"
+    created: "2024-12-01T20:32:51.4259718Z"
     description: A Helm chart for Kubernetes
     digest: 8731c327bf9a3e99aae01f889522375217f2052218021ba2e7fdf1e96c0a15d8
     name: kbase
@@ -343,7 +353,7 @@ entries:
     version: 0.1.27
   - apiVersion: v2
     appVersion: 0.0.19
-    created: "2024-12-01T19:47:30.521868741Z"
+    created: "2024-12-01T20:32:51.425567507Z"
     description: A Helm chart for Kubernetes
     digest: 367a6c706326ba3f5e342b1adfd7b701c6d708ff53a36cdb1f23abc50ba1a5a0
     name: kbase
@@ -353,7 +363,7 @@ entries:
     version: 0.1.26
   - apiVersion: v2
     appVersion: 0.0.19
-    created: "2024-12-01T19:47:30.521475476Z"
+    created: "2024-12-01T20:32:51.425176438Z"
     description: A Helm chart for Kubernetes
     digest: 73d005797cfb715bd1c4822d07cee9c7344c6301b6884149fd37effa998db9b8
     name: kbase
@@ -363,7 +373,7 @@ entries:
     version: 0.1.25
   - apiVersion: v2
     appVersion: 0.0.19
-    created: "2024-12-01T19:47:30.521049268Z"
+    created: "2024-12-01T20:32:51.424769399Z"
     description: A Helm chart for Kubernetes
     digest: 1425199aab2f7a70969b9046a9d7bd589aed1fcd59b82dac72fa23fea4a3b9bd
     name: kbase
@@ -373,7 +383,7 @@ entries:
     version: 0.1.24
   - apiVersion: v2
     appVersion: 0.0.19
-    created: "2024-12-01T19:47:30.520647657Z"
+    created: "2024-12-01T20:32:51.424282332Z"
     description: A Helm chart for Kubernetes
     digest: 554f600ed900c2146090d915377ab1cf7dd107957738e72da4d6d501facbf33d
     name: kbase
@@ -383,7 +393,7 @@ entries:
     version: 0.1.23
   - apiVersion: v2
     appVersion: 0.0.19
-    created: "2024-12-01T19:47:30.520235647Z"
+    created: "2024-12-01T20:32:51.423867929Z"
     description: A Helm chart for Kubernetes
     digest: 079217cd98c13b93f388e28ddcd1acb991cf0b4bb9cf4272cadd856417869230
     name: kbase
@@ -393,7 +403,7 @@ entries:
     version: 0.1.22
   - apiVersion: v2
     appVersion: 0.0.19
-    created: "2024-12-01T19:47:30.519103472Z"
+    created: "2024-12-01T20:32:51.423475137Z"
     description: A Helm chart for Kubernetes
     digest: 753348ae34d3efe4b52ea39ee396e7549adf6f9bb2c9960e067553d92007af90
     name: kbase
@@ -403,7 +413,7 @@ entries:
     version: 0.1.21
   - apiVersion: v2
     appVersion: 0.0.19
-    created: "2024-12-01T19:47:30.518718803Z"
+    created: "2024-12-01T20:32:51.423086763Z"
     description: A Helm chart for Kubernetes
     digest: 8135fa4b8ffc964b579a6056223c59e36bdc74cb4b70a0ee5449df41b4db551b
     name: kbase
@@ -413,7 +423,7 @@ entries:
     version: 0.1.20
   - apiVersion: v2
     appVersion: 0.0.19
-    created: "2024-12-01T19:47:30.517943893Z"
+    created: "2024-12-01T20:32:51.422270342Z"
     description: A Helm chart for Kubernetes
     digest: bcaba59577fd02ccc83b6cc4d821fee4534d2298b1c9d95fa9d8ba7e066d439c
     name: kbase
@@ -423,7 +433,7 @@ entries:
     version: 0.1.19
   - apiVersion: v2
     appVersion: 0.0.19
-    created: "2024-12-01T19:47:30.517535039Z"
+    created: "2024-12-01T20:32:51.42186674Z"
     description: A Helm chart for Kubernetes
     digest: 0267a7d6267f59245db4ba25c7bdb6f7df2ace107eaeda21cb410db920815e6b
     name: kbase
@@ -433,7 +443,7 @@ entries:
     version: 0.1.18
   - apiVersion: v2
     appVersion: 0.0.19
-    created: "2024-12-01T19:47:30.517062024Z"
+    created: "2024-12-01T20:32:51.421469049Z"
     description: A Helm chart for Kubernetes
     digest: 448980aa12946c13b40ac996adbd14baf2a6ff2270cd240a510061a8493f422b
     name: kbase
@@ -443,7 +453,7 @@ entries:
     version: 0.1.17
   - apiVersion: v2
     appVersion: 0.0.18
-    created: "2024-12-01T19:47:30.516672185Z"
+    created: "2024-12-01T20:32:51.420975288Z"
     description: A Helm chart for Kubernetes
     digest: 5329adf52027811b785c28a31c22f6cf3923020ea0be323348af1d126983139f
     name: kbase
@@ -453,7 +463,7 @@ entries:
     version: 0.1.16
   - apiVersion: v2
     appVersion: 0.0.18
-    created: "2024-12-01T19:47:30.516272167Z"
+    created: "2024-12-01T20:32:51.420550577Z"
     description: A Helm chart for Kubernetes
     digest: b91811df41356d645366dbdee6cb546dde49c77f520a2cd3a66b56c573878702
     name: kbase
@@ -463,7 +473,7 @@ entries:
     version: 0.1.15
   - apiVersion: v2
     appVersion: 0.0.18
-    created: "2024-12-01T19:47:30.515888349Z"
+    created: "2024-12-01T20:32:51.420041298Z"
     description: A Helm chart for Kubernetes
     digest: 469dba6702ec59172f69f9dba62d6b93e893fd8eee343103da183989f3b59cbf
     name: kbase
@@ -473,7 +483,7 @@ entries:
     version: 0.1.14
   - apiVersion: v2
     appVersion: 0.0.17
-    created: "2024-12-01T19:47:30.515490705Z"
+    created: "2024-12-01T20:32:51.419177548Z"
     description: A Helm chart for Kubernetes
     digest: 61e9bded727f76c914a1576bfffb407fd2e8ff929058049d74d761b28fd12969
     name: kbase
@@ -483,7 +493,7 @@ entries:
     version: 0.1.13
   - apiVersion: v2
     appVersion: 0.0.13
-    created: "2024-12-01T19:47:30.515086169Z"
+    created: "2024-12-01T20:32:51.418442008Z"
     description: A Helm chart for Kubernetes
     digest: eb1ba38ad2801ea732622b4f9f3934e2551b6522b69a33ea0511c44408a457c2
     name: kbase
@@ -493,7 +503,7 @@ entries:
     version: 0.1.12
   - apiVersion: v2
     appVersion: 0.0.13
-    created: "2024-12-01T19:47:30.514676933Z"
+    created: "2024-12-01T20:32:51.418043826Z"
     description: A Helm chart for Kubernetes
     digest: 54dfe0506fc6de4751f88c598be538c3d0ea3af328cf39c6ecaef3f867b6ce33
     name: kbase
@@ -503,7 +513,7 @@ entries:
     version: 0.1.11
   - apiVersion: v2
     appVersion: 0.0.13
-    created: "2024-12-01T19:47:30.514272006Z"
+    created: "2024-12-01T20:32:51.417641085Z"
     description: A Helm chart for Kubernetes
     digest: 7756650e7fdb9f398a8ab15c90e001be074a1f08fa567194089c187bd315fdc4
     name: kbase
@@ -513,7 +523,7 @@ entries:
     version: 0.1.10
   - apiVersion: v2
     appVersion: 0.0.11
-    created: "2024-12-01T19:47:30.528737162Z"
+    created: "2024-12-01T20:32:51.432457538Z"
     description: A Helm chart for Kubernetes
     digest: c76b2fb7965802cc1a9f8261ec9a83175430710c666e4a613733d59f5849f100
     name: kbase
@@ -523,7 +533,7 @@ entries:
     version: 0.1.9
   - apiVersion: v2
     appVersion: 0.0.11
-    created: "2024-12-01T19:47:30.52830339Z"
+    created: "2024-12-01T20:32:51.432078421Z"
     description: A Helm chart for Kubernetes
     digest: 72e9223c806fe96e7eb68a53b7fc588686c54e0c41406292483e26f4148822d0
     name: kbase
@@ -533,7 +543,7 @@ entries:
     version: 0.1.8
   - apiVersion: v2
     appVersion: 0.0.11
-    created: "2024-12-01T19:47:30.527880259Z"
+    created: "2024-12-01T20:32:51.431696569Z"
     description: A Helm chart for Kubernetes
     digest: 3324820becbbe4d5e57a3a6e1508f22b8baa3b9745c9071e7dc2a52a0350315b
     name: kbase
@@ -543,7 +553,7 @@ entries:
     version: 0.1.7
   - apiVersion: v2
     appVersion: 0.0.11
-    created: "2024-12-01T19:47:30.527195202Z"
+    created: "2024-12-01T20:32:51.431311993Z"
     description: A Helm chart for Kubernetes
     digest: b011a603a4b30a1c1a48462567990934c32b3f05744ab1b117023647a0ee666e
     name: kbase
@@ -553,7 +563,7 @@ entries:
     version: 0.1.6
   - apiVersion: v2
     appVersion: 0.0.11
-    created: "2024-12-01T19:47:30.526146732Z"
+    created: "2024-12-01T20:32:51.430929299Z"
     description: A Helm chart for Kubernetes
     digest: 7cdf6d686301b6dc79be0601934da34b3c84b952709e2c428def36cb3e3a5e44
     name: kbase
@@ -563,7 +573,7 @@ entries:
     version: 0.1.5
   - apiVersion: v2
     appVersion: 0.0.11
-    created: "2024-12-01T19:47:30.525767683Z"
+    created: "2024-12-01T20:32:51.430549702Z"
     description: A Helm chart for Kubernetes
     digest: 43230d907d41bf98403f3e17224f16fdfb7e376dbf4d1658dab7ab61e422c5d4
     name: kbase
@@ -573,7 +583,7 @@ entries:
     version: 0.1.4
   - apiVersion: v2
     appVersion: 0.0.10
-    created: "2024-12-01T19:47:30.523409232Z"
+    created: "2024-12-01T20:32:51.428073176Z"
     description: A Helm chart for Kubernetes
     digest: 53cc0d55896b9378e24ddda6263dc78c1eb0fbb6c5045a738351fad9816c8bb7
     name: kbase
@@ -583,7 +593,7 @@ entries:
     version: 0.1.3
   - apiVersion: v2
     appVersion: 0.0.10
-    created: "2024-12-01T19:47:30.518333071Z"
+    created: "2024-12-01T20:32:51.422672752Z"
     description: A Helm chart for Kubernetes
     digest: a63fc516ef96a5f905fed85d465311f0ffb9e548bb323170b2fa26c5feafba28
     name: kbase
@@ -593,7 +603,7 @@ entries:
     version: 0.1.2
   - apiVersion: v2
     appVersion: 0.0.10
-    created: "2024-12-01T19:47:30.513869603Z"
+    created: "2024-12-01T20:32:51.417216884Z"
     description: A Helm chart for Kubernetes
     digest: 28e6b43b6adf406c8d177e126b39db870d558268b31b828469339a8ffdfaec85
     name: kbase
@@ -603,7 +613,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 0.0.1
-    created: "2024-12-01T19:47:30.51342911Z"
+    created: "2024-12-01T20:32:51.416589966Z"
     description: A Helm chart for Kubernetes
     digest: 7f1bc5f3c6be37c36b0ea12177c442bfe2f9827c217df4566d623d94550d964a
     name: kbase
@@ -611,4 +621,4 @@ entries:
     urls:
     - https://jackwilde.github.io/kbase/kbase-0.1.0.tgz
     version: 0.1.0
-generated: "2024-12-01T19:47:30.512813408Z"
+generated: "2024-12-01T20:32:51.416016367Z"
