@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from sys import argv
-from app_config import DjangoSettings, DbSettings
+from app_config import DjangoSettings, DbSettings, generate_secret_key
 
 django_settings = DjangoSettings()
 db_settings = DbSettings()
@@ -24,7 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = django_settings.secret_key
+# Use random secret key for testing
+if 'test' in argv:
+    SECRET_KEY = generate_secret_key()
+else:
+    SECRET_KEY = django_settings.secret_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = django_settings.debug
@@ -155,6 +159,4 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_ROOT = BASE_DIR / 'uploads'
-MEDIA_URL = '/media/'
 

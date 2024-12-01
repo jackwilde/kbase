@@ -1,4 +1,8 @@
 from os import environ
+import secrets
+
+def generate_secret_key():
+    return secrets.token_urlsafe(64)
 
 class DbSettings:
     def __init__(self):

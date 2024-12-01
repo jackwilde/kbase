@@ -1,1 +1,1 @@
-from .config import DbSettings, DjangoSettings
+from .config import DbSettings, DjangoSettings, generate_secret_key

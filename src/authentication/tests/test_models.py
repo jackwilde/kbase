@@ -34,6 +34,18 @@ class UserModelTestCase(TestCase):
         user.delete()
         self.assertFalse(User.objects.filter(email='testuser@example.com').exists())
 
+    def test_edit_user(self):
+        # Test editing a user
+        user = User.objects.create_user(
+            email='testuser@example.com',
+            first_name='Test',
+            last_name='User',
+            password='djangopassword123'
+        )
+        self.assertTrue(User.objects.filter(email='testuser@example.com').exists())
+        user.delete()
+        self.assertFalse(User.objects.filter(email='testuser@example.com').exists())
+
     def test_create_user_without_email(self):
         # Test creating a user without email raises ValidationError
         with self.assertRaises(ValidationError):
