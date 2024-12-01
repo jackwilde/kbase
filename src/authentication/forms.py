@@ -14,10 +14,10 @@ class SignUpForm(UserCreationForm):
                 'required': 'Please enter your last name',
             },
             'email': {
-                'unique': 'This email is already in use.',
+                'unique': 'This email is already in use',
                 'required': 'Please enter your email address',
-                'invalid': 'Enter a valid email address.',
-            },
+                'invalid': 'Enter a valid email address',
+            }
         }
 
     def __init__(self, *args, **kwargs):

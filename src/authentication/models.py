@@ -37,10 +37,10 @@ class User(AbstractBaseUser):
     email = models.EmailField(unique=True, null=False, blank=False)
     is_admin = models.BooleanField(default=False)
     first_name = models.CharField(max_length=50, null=False, blank=False, validators=[
-        RegexValidator(regex='^[A-Za-z]+$', message='First name can only contain letters.'),
+        RegexValidator(regex='^[A-Za-z]+$', message='First name can only contain letters'),
     ])
     last_name = models.CharField(max_length=50, null=False, blank=False, validators=[
-        RegexValidator(regex='^[A-Za-z]+$', message='Last name can only contain letters.')
+        RegexValidator(regex='^[A-Za-z]+$', message='Last name can only contain letters')
     ])
     date_joined = models.DateTimeField(auto_now_add=True)
 
@@ -70,18 +70,18 @@ class Group(models.Model):
     def save(self, *args, **kwargs):
         # Prevent edit of 'All Users' group
         if self.id == 1:
-            raise PermissionDenied("The 'All Users' group cannot be altered.")
+            raise PermissionDenied("The 'All Users' group cannot be altered")
         self.name = self.name.lower()
         try:
             super().save(*args, **kwargs)
         except IntegrityError:
-            raise ValidationError("A group with that name already exists.")
+            raise ValidationError("A group with that name already exists")
 
 
     def delete(self, *args, **kwargs):
         # Prevent deletion of 'All Users' group
         if self.id == 1:
-            raise PermissionDenied("The 'All Users' group cannot be deleted.")
+            raise PermissionDenied("The 'All Users' group cannot be deleted")
         super().delete(*args, **kwargs)
 
     def __str__(self):
