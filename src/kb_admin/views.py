@@ -32,7 +32,6 @@ class UsersAdminView(AdminRequiredMixin, ListView):
     template_name = 'kb_admin/users.html'
     model = User
     context_object_name = 'users'
-    paginate_by = 20
 
 
 class UserDetailsAdminView(AdminRequiredMixin, DetailView):
