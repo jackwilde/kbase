@@ -54,7 +54,7 @@ class UserDeleteAdminView(AdminRequiredMixin, DeleteView):
             # Redirect back to the user detail page
             return redirect(reverse_lazy('user-detail', kwargs={'pk': user.pk}))
 
-        return super().dispatch(request, *args, **kwargs)  # Call parent dispatch method if everything is fine
+        return super().dispatch(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
         messages.success(request, "User deleted successfully.")

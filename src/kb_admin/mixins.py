@@ -9,6 +9,6 @@ class AdminRequiredMixin(LoginRequiredMixin):
             return super().dispatch(request, *args, **kwargs)
 
         if not request.user.is_admin:
-            return redirect(reverse_lazy('dashboard')) #TODO Decide whether to redirect or 403
+            return redirect(reverse_lazy('dashboard'))
 
         return super().dispatch(request, *args, **kwargs)
