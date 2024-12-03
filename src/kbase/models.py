@@ -35,7 +35,7 @@ class Article(models.Model):
             return 'edit'
         # Helper function to check if user belongs to any given group set
         def check_membership(groups):
-            return groups.filter(id__in=user.groups.os.environ_list('id', flat=True)).exists()
+            return groups.filter(id__in=user.groups.values_list('id', flat=True)).exists()
         # Permit users in can_view groups
         if check_membership(self.groups_with_edit):
             return 'edit'
@@ -47,11 +47,3 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
-
-# class Image(models.Model):
-#     image = models.ImageField(upload_to='media/')
-#     uploaded_at = models.DateTimeField(auto_now_add=True)
-#     uploaded_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='uploaded_images')
-#
-#     def __str__(self):
-#         return self.image.name

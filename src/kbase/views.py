@@ -88,7 +88,6 @@ class ArticleView(DetailView):
     def dispatch(self, request, *args, **kwargs):
         article = self.get_object()
         if not article.get_permissions(self.request.user) in ('view', 'edit'):
-            # raise PermissionDenied #Return 403 #TODO Think about 403 or 302
             return redirect(reverse_lazy(viewname='dashboard'))
         return super().dispatch(request, *args, **kwargs)
 

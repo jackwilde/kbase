@@ -193,13 +193,14 @@ class AuthenticatedUrlsTestCase(TestCase):
         response = self.client.get(reverse('group-edit', kwargs={'pk': test_group.pk}))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'kb_admin/group-new-edit.html')
+        self.assertTrue(response.context['edit_mode'])
 
         group_before = {
             'name': test_group.name,
             'users': test_group.users.values_list('id', flat=True),
         }
 
-        # Test POSt and redirect to detail
+        # Test POST and redirect to detail
         data = {
             'name': 'New group Name',
             'users': [self.user1.pk, self.user2.pk],
