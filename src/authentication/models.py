@@ -64,7 +64,13 @@ class User(AbstractBaseUser):
 
 
 class Group(models.Model):
-    name = models.CharField(max_length=150, null=False, blank=False, unique=True)
+    name = models.CharField(max_length=150, null=False, blank=False, unique=True,
+        validators=[
+            RegexValidator(
+                regex=r'^[\w\s-]+$',
+                message='Group name can only contain letters, numbers, spaces, hyphens, and underscores.',
+            )
+        ])
     users = models.ManyToManyField('User', related_name="groups", blank=True)
 
     def save(self, *args, **kwargs):

@@ -196,6 +196,16 @@ class GroupModelTestCase(TestCase):
         self.assertIn(self.user1, group.users.all())
         self.assertIn(self.user2, group.users.all())
 
+    def test_create_group_with_empty_name(self):
+        # Test creating a group with empty name raises ValidationError
+        group = Group.objects.create(name='')
+        self.assertRaises(ValidationError, group.full_clean)
+
+    def test_create_group_with_invalid_name(self):
+        # Test creating a group with empty name raises ValidationError
+        group = Group.objects.create(name='Group 1!')
+        self.assertRaises(ValidationError, group.full_clean)
+
     def test_create_group_with_duplicate_name(self):
         # Test creating a group with duplicate name raises ValidationError
         Group.objects.create(name='new group')

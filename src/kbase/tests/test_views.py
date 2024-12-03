@@ -138,7 +138,7 @@ class AdvancedViewsTestCase(TestCase):
 
         # Create some test articles
 
-        # This arcitle should only be accessible/editable by user1 and admins (user3)
+        # This article should only be accessible/editable by user1 and admins (user3)
         self.test_article1 = Article.objects.create(
             title='Test Private Article',
             slug=slugify('Test Private Article'),

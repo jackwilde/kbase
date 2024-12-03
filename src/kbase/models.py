@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AnonymousUser
+from django.core.validators import RegexValidator
 from django.db import models
 from django.utils.text import slugify
 
@@ -6,8 +7,14 @@ from authentication.models import User, Group
 
 # Create your models here.
 class Article(models.Model):
-    title = models.CharField(unique=True, max_length=255)
-    slug = models.SlugField(unique=True, max_length=255)
+    title = models.CharField(unique=True, max_length=100,
+        validators=[
+             RegexValidator(
+                 regex=r'^[\w\s-]+$',
+                 message='Title can only contain letters, numbers, spaces, hyphens, and underscores.',
+             )
+        ])
+    slug = models.SlugField(unique=True, max_length=100)
     content = models.TextField()
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='created_articles')
     created_date = models.DateTimeField(auto_now_add=True)
@@ -15,7 +22,6 @@ class Article(models.Model):
     modified_date = models.DateTimeField(auto_now=True)
     groups_with_view = models.ManyToManyField(Group, blank=True, related_name='groups_view_articles')
     groups_with_edit = models.ManyToManyField(Group, blank=True, related_name='groups_edit_articles')
-    # images = models.ManyToManyField('Image', blank=True)
 
 
     def save(self, *args, **kwargs):
