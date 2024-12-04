@@ -1,6 +1,10 @@
 from django.test import TestCase
 from authentication.models import User
 from authentication.forms import SignUpForm, SignInForm
+from django.utils.crypto import get_random_string
+
+# Generate a random user password for test accounts
+TEST_USER_PASSWORD = get_random_string(length=24)
 
 class SignUpFormTestCase(TestCase):
     def setUp(self):
@@ -9,7 +13,7 @@ class SignUpFormTestCase(TestCase):
             email='existinguser@example.com',
             first_name='Existing',
             last_name='User',
-            password='djangopassword123'
+            password=TEST_USER_PASSWORD
         )
 
 
@@ -19,8 +23,8 @@ class SignUpFormTestCase(TestCase):
             'first_name': 'Test',
             'last_name': 'User',
             'email': 'testuser@example.com',
-            'password1': 'djangopassword123',
-            'password2': 'djangopassword123',
+            'password1': TEST_USER_PASSWORD,
+            'password2': TEST_USER_PASSWORD,
         }
         form = SignUpForm(data=form_data)
         self.assertTrue(form.is_valid())
@@ -31,8 +35,8 @@ class SignUpFormTestCase(TestCase):
             'first_name': '',
             'last_name': 'User',
             'email': 'testuser@example.com',
-            'password1': 'djangopassword123',
-            'password2': 'djangopassword123',
+            'password1': TEST_USER_PASSWORD,
+            'password2': TEST_USER_PASSWORD,
         }
         form = SignUpForm(data=form_data)
         self.assertFalse(form.is_valid())
@@ -45,8 +49,8 @@ class SignUpFormTestCase(TestCase):
             'first_name': 'T3s+',
             'last_name': 'User',
             'email': 'testuser@example.com',
-            'password1': 'djangopassword123',
-            'password2': 'djangopassword123',
+            'password1': TEST_USER_PASSWORD,
+            'password2': TEST_USER_PASSWORD,
         }
         form = SignUpForm(data=form_data)
         self.assertFalse(form.is_valid())
@@ -59,8 +63,8 @@ class SignUpFormTestCase(TestCase):
             'first_name': 'Test',
             'last_name': '',
             'email': 'testuser@example.com',
-            'password1': 'djangopassword123',
-            'password2': 'djangopassword123',
+            'password1': TEST_USER_PASSWORD,
+            'password2': TEST_USER_PASSWORD,
         }
         form = SignUpForm(data=form_data)
         self.assertFalse(form.is_valid())
@@ -73,8 +77,8 @@ class SignUpFormTestCase(TestCase):
             'first_name': 'Test',
             'last_name': 'U5€r',
             'email': 'testuser@example.com',
-            'password1': 'djangopassword123',
-            'password2': 'djangopassword123',
+            'password1': TEST_USER_PASSWORD,
+            'password2': TEST_USER_PASSWORD,
         }
         form = SignUpForm(data=form_data)
         self.assertFalse(form.is_valid())
@@ -87,8 +91,8 @@ class SignUpFormTestCase(TestCase):
             'first_name': 'Test',
             'last_name': 'User',
             'email': '',
-            'password1': 'djangopassword123',
-            'password2': 'djangopassword123',
+            'password1': TEST_USER_PASSWORD,
+            'password2': TEST_USER_PASSWORD,
         }
         form = SignUpForm(data=form_data)
         self.assertFalse(form.is_valid())
@@ -101,8 +105,8 @@ class SignUpFormTestCase(TestCase):
             'first_name': 'Test',
             'last_name': 'User',
             'email': 'testuser.example.com',
-            'password1': 'djangopassword123',
-            'password2': 'djangopassword123',
+            'password1': TEST_USER_PASSWORD,
+            'password2': TEST_USER_PASSWORD,
         }
         form = SignUpForm(data=form_data)
         self.assertFalse(form.is_valid())
@@ -115,8 +119,8 @@ class SignUpFormTestCase(TestCase):
             'first_name': 'Test',
             'last_name': 'User',
             'email': 'existinguser@example.com',
-            'password1': 'djangopassword123',
-            'password2': 'djangopassword123',
+            'password1': TEST_USER_PASSWORD,
+            'password2': TEST_USER_PASSWORD,
         }
         form = SignUpForm(data=form_data)
         self.assertFalse(form.is_valid())
@@ -145,7 +149,7 @@ class SignUpFormTestCase(TestCase):
             'first_name': 'Test',
             'last_name': 'User',
             'email': 'testuser@example.com',
-            'password1': 'djangopassword123',
+            'password1': TEST_USER_PASSWORD,
             'password2': 'djangopassword12',
         }
         form = SignUpForm(data=form_data)
@@ -216,14 +220,14 @@ class SignInFormTestCase(TestCase):
             email='existinguser@example.com',
             first_name='Existing',
             last_name='User',
-            password='djangopassword123'
+            password=TEST_USER_PASSWORD
         )
 
     def test_form_valid(self):
         # Test form is valid with existing user
         form_data = {
             'username': 'existinguser@example.com',
-            'password': 'djangopassword123',
+            'password': TEST_USER_PASSWORD,
         }
         form = SignInForm(data=form_data)
         self.assertTrue(form.is_valid())
@@ -233,7 +237,7 @@ class SignInFormTestCase(TestCase):
         # Test form is invalid with incorrect user details
         form_data = {
             'username': 'testuser@example.com',
-            'password': 'djangopassword123',
+            'password': TEST_USER_PASSWORD,
         }
         form = SignInForm(data=form_data)
         self.assertFalse(form.is_valid())

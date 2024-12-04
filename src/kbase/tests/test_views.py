@@ -1,10 +1,12 @@
 from django.test import TestCase
 from django.urls import reverse
-
 from authentication.models import User, Group
 from kbase.models import Article
 from django.utils.text import slugify
+from django.utils.crypto import get_random_string
 
+# Generate a random user password for test accounts
+TEST_USER_PASSWORD = get_random_string(length=24)
 
 class BasicViewsTestCase(TestCase):
     # These test authenticated user basic access with valid inputs
@@ -14,11 +16,11 @@ class BasicViewsTestCase(TestCase):
             email='testuser@example.com',
             first_name='Test',
             last_name='User',
-            password='djangopassword123',
+            password=TEST_USER_PASSWORD,
         )
 
         # Log user in
-        self.client.login(email='testuser@example.com', password='djangopassword123')
+        self.client.login(email='testuser@example.com', password=TEST_USER_PASSWORD)
 
         # Create a test article
         self.test_article = Article.objects.create(
@@ -106,19 +108,19 @@ class AdvancedViewsTestCase(TestCase):
             email='testuser1@example.com',
             first_name='Test',
             last_name='User',
-            password='djangopassword123',
+            password=TEST_USER_PASSWORD,
         )
         self.user2 = User.objects.create_user(
             email='testuser2@example.com',
             first_name='Test',
             last_name='User',
-            password='djangopassword123',
+            password=TEST_USER_PASSWORD,
         )
         self.user3 = User.objects.create_user(
             email='testuser3@example.com',
             first_name='Test',
             last_name='User',
-            password='djangopassword123',
+            password=TEST_USER_PASSWORD,
         )
         self.user3.is_admin = True
         self.user3.save()
@@ -189,7 +191,7 @@ class AdvancedViewsTestCase(TestCase):
 
     def test_dashboard_view_user_1(self):
         # Log in user1
-        self.client.login(email=self.user1.email, password='djangopassword123')
+        self.client.login(email=self.user1.email, password=TEST_USER_PASSWORD)
 
         response = self.client.get(reverse('dashboard'))
 
@@ -200,7 +202,7 @@ class AdvancedViewsTestCase(TestCase):
 
     def test_dashboard_view_user_2(self):
         # Log in user2
-        self.client.login(email=self.user2.email, password='djangopassword123')
+        self.client.login(email=self.user2.email, password=TEST_USER_PASSWORD)
 
         response = self.client.get(reverse('dashboard'))
 
@@ -211,7 +213,7 @@ class AdvancedViewsTestCase(TestCase):
 
     def test_dashboard_view_user_3(self):
         # Log in user3
-        self.client.login(email=self.user3.email, password='djangopassword123')
+        self.client.login(email=self.user3.email, password=TEST_USER_PASSWORD)
 
         response = self.client.get(reverse('dashboard'))
 
@@ -226,7 +228,7 @@ class AdvancedViewsTestCase(TestCase):
 
     def test_article_view_without_view_permission(self):
         # Log in user1
-        self.client.login(email=self.user1.email, password='djangopassword123')
+        self.client.login(email=self.user1.email, password=TEST_USER_PASSWORD)
 
         # Test viewing article5, user1 should be redirected back to dashboard
         response = self.client.get(reverse('article', kwargs={'slug': self.test_article5.slug}))
@@ -234,7 +236,7 @@ class AdvancedViewsTestCase(TestCase):
 
     def test_article_view_without_view_with_edit_permission(self):
         # Log in user2
-        self.client.login(email=self.user2.email, password='djangopassword123')
+        self.client.login(email=self.user2.email, password=TEST_USER_PASSWORD)
 
         # Test viewing article4, user2 should be able to view it with edit despite not having view permission
         response = self.client.get(reverse('article', kwargs={'slug': self.test_article4.slug}))
@@ -243,7 +245,7 @@ class AdvancedViewsTestCase(TestCase):
 
     def test_edit_article_with_group_edit_permission(self):
         # Log in user2
-        self.client.login(email=self.user2.email, password='djangopassword123')
+        self.client.login(email=self.user2.email, password=TEST_USER_PASSWORD)
 
         # Test POST request with valid data
         data = {
@@ -258,7 +260,7 @@ class AdvancedViewsTestCase(TestCase):
 
     def test_edit_article_without_group_edit_permission(self):
         # Log in user2
-        self.client.login(email=self.user2.email, password='djangopassword123')
+        self.client.login(email=self.user2.email, password=TEST_USER_PASSWORD)
 
         # Check user2 can view
         response = self.client.get(reverse('article', kwargs={'slug': self.test_article2.slug}))
@@ -277,7 +279,7 @@ class AdvancedViewsTestCase(TestCase):
 
     def test_delete_article_without_view_permission(self):
         # Log in user1
-        self.client.login(email=self.user1.email, password='djangopassword123')
+        self.client.login(email=self.user1.email, password=TEST_USER_PASSWORD)
 
         # User 1 should not be able to view article 5 so should not be able to delete it either
         response = self.client.post(reverse('delete-article', kwargs={'slug': self.test_article5.slug}))
@@ -289,7 +291,7 @@ class AdvancedViewsTestCase(TestCase):
 
     def test_delete_article_with_view_permission(self):
         # Log in user2
-        self.client.login(email=self.user2.email, password='djangopassword123')
+        self.client.login(email=self.user2.email, password=TEST_USER_PASSWORD)
 
         # User 2 should be able to view article 2 but not edit or delete
         response = self.client.post(reverse('delete-article', kwargs={'slug': self.test_article2.slug}))
@@ -301,7 +303,7 @@ class AdvancedViewsTestCase(TestCase):
 
     def test_delete_article_with_edit_permission(self):
         # Log in user2
-        self.client.login(email=self.user2.email, password='djangopassword123')
+        self.client.login(email=self.user2.email, password=TEST_USER_PASSWORD)
 
         # User 2 should be able to edit and delete article3
         response = self.client.post(reverse('delete-article', kwargs={'slug': self.test_article3.slug}))
@@ -314,7 +316,7 @@ class AdvancedViewsTestCase(TestCase):
     # User 3 is an admin and does not exist in any of the test groups
     def test_admin_view_article_without_view_permission(self):
         # Log in user3
-        self.client.login(email=self.user3.email, password='djangopassword123')
+        self.client.login(email=self.user3.email, password=TEST_USER_PASSWORD)
 
         response = self.client.get(reverse('article', kwargs={'slug': self.test_article5.slug}))
         self.assertEqual(response.status_code, 200)
@@ -322,7 +324,7 @@ class AdvancedViewsTestCase(TestCase):
 
     def test_admin_edit_article_without_view_permission(self):
         # Log in user3
-        self.client.login(email=self.user3.email, password='djangopassword123')
+        self.client.login(email=self.user3.email, password=TEST_USER_PASSWORD)
 
         # Test POST request with valid data
         data = {
@@ -337,7 +339,7 @@ class AdvancedViewsTestCase(TestCase):
 
     def test_admin_delete_article_without_view_permission(self):
         # Log in user3
-        self.client.login(email=self.user3.email, password='djangopassword123')
+        self.client.login(email=self.user3.email, password=TEST_USER_PASSWORD)
 
         response = self.client.post(reverse('delete-article', kwargs={'slug': self.test_article5.slug}))
         self.assertRedirects(response, reverse('dashboard'))

@@ -1,6 +1,10 @@
 from django.test import TestCase
 from authentication.models import User, Group
 from django.core.exceptions import ValidationError, PermissionDenied
+from django.utils.crypto import get_random_string
+
+# Generate a random user password for test accounts
+TEST_USER_PASSWORD = get_random_string(length=24)
 
 class UserModelTestCase(TestCase):
     def setUp(self):
@@ -13,11 +17,11 @@ class UserModelTestCase(TestCase):
             email='testuser@example.com',
             first_name='Test',
             last_name='User',
-            password='djangopassword123'
+            password=TEST_USER_PASSWORD
         )
         self.assertEqual(user.email, 'testuser@example.com')
         self.assertEqual(user.full_name, 'Test User')
-        self.assertTrue(user.check_password('djangopassword123'))
+        self.assertTrue(user.check_password(TEST_USER_PASSWORD))
         self.assertIn(self.all_users_group, user.groups.all())
         self.assertEqual(user.is_admin, False)
 
@@ -27,7 +31,7 @@ class UserModelTestCase(TestCase):
             email='testuser@example.com',
             first_name='Test',
             last_name='User',
-            password='djangopassword123'
+            password=TEST_USER_PASSWORD
         )
         self.assertTrue(User.objects.filter(email='testuser@example.com').exists())
         user.delete()
@@ -39,12 +43,12 @@ class UserModelTestCase(TestCase):
             email='testuser@example.com',
             first_name='Test',
             last_name='User',
-            password='djangopassword123'
+            password=TEST_USER_PASSWORD
         )
         # Test user before edit
         self.assertEqual(user.email, 'testuser@example.com')
         self.assertEqual(user.full_name, 'Test User')
-        self.assertTrue(user.check_password('djangopassword123'))
+        self.assertTrue(user.check_password(TEST_USER_PASSWORD))
         self.assertIn(self.all_users_group, user.groups.all())
         self.assertEqual(user.is_admin, False)
 
@@ -71,7 +75,7 @@ class UserModelTestCase(TestCase):
                 email='',
                 first_name='Test',
                 last_name='User',
-                password='djangopassword123'
+                password=TEST_USER_PASSWORD
             )
 
     def test_create_user_without_first_name(self):
@@ -81,7 +85,7 @@ class UserModelTestCase(TestCase):
                 email='testuser@example.com',
                 first_name='',
                 last_name='User',
-                password='djangopassword123'
+                password=TEST_USER_PASSWORD
             )
 
     def test_create_user_without_last_name(self):
@@ -91,7 +95,7 @@ class UserModelTestCase(TestCase):
                 email='testuser@example.com',
                 first_name='Test',
                 last_name='',
-                password='djangopassword123'
+                password=TEST_USER_PASSWORD
             )
 
     def test_create_user_with_duplicate_email(self):
@@ -100,7 +104,7 @@ class UserModelTestCase(TestCase):
             email='testuser@example.com',
             first_name='Test',
             last_name='User',
-            password='djangopassword123'
+            password=TEST_USER_PASSWORD
         )
         with self.assertRaises(ValidationError):
             User.objects.create_user(
@@ -117,7 +121,7 @@ class UserModelTestCase(TestCase):
                 email='testuser@example.com',
                 first_name='T3<5T',
                 last_name='User',
-                password='djangopassword123'
+                password=TEST_USER_PASSWORD
             )
 
     def test_create_user_with_invalid_last_name(self):
@@ -127,7 +131,7 @@ class UserModelTestCase(TestCase):
                 email='testuser@example.com',
                 first_name='Test',
                 last_name='U5€R',
-                password='djangopassword123'
+                password=TEST_USER_PASSWORD
             )
 
     def test_create_user_with_invalid_email(self):
@@ -137,7 +141,7 @@ class UserModelTestCase(TestCase):
                 email='testuser@example.com',
                 first_name='Test',
                 last_name='U5€R',
-                password='djangopassword123'
+                password=TEST_USER_PASSWORD
             )
 
     def test_user_str_method(self):
@@ -146,7 +150,7 @@ class UserModelTestCase(TestCase):
             email='testuser@example.com',
             first_name='Test',
             last_name='User',
-            password='djangopassword123'
+            password=TEST_USER_PASSWORD
         )
         self.assertEqual(str(user), 'testuser@example.com')
 
@@ -158,13 +162,13 @@ class GroupModelTestCase(TestCase):
             email='testuser@example.com',
             first_name='Test',
             last_name='User',
-            password='djangopassword123'
+            password=TEST_USER_PASSWORD
         )
         self.user2 = User.objects.create_user(
             email='seconduser@example.com',
             first_name='Second',
             last_name='User',
-            password='djangopassword123'
+            password=TEST_USER_PASSWORD
         )
 
     def test_all_users_group_exists(self):

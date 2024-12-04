@@ -1,12 +1,15 @@
 from django.urls import reverse
 from authentication.models import User, Group
 from django.test import TestCase
+from django.utils.crypto import get_random_string
 
 """
 These tests focus on authenticated admin users.
 Unauthenticated users and non-admin users are tested in ./test_urls.py
 """
 
+# Generate a random user password for test accounts
+TEST_USER_PASSWORD = get_random_string(length=24)
 
 class AuthenticatedUrlsTestCase(TestCase):
     # These test authenticated non admin user. They should all redirect to standard dashboard
@@ -16,7 +19,7 @@ class AuthenticatedUrlsTestCase(TestCase):
             email='testuser@example.com',
             first_name='Test',
             last_name='User',
-            password='djangopassword123',
+            password=TEST_USER_PASSWORD,
         )
         self.user1.is_admin = True
         self.user1.save()
@@ -24,13 +27,13 @@ class AuthenticatedUrlsTestCase(TestCase):
             email='seconduser@example.com',
             first_name='Second',
             last_name='User',
-            password='djangopassword123'
+            password=TEST_USER_PASSWORD
         )
         self.user3 = User.objects.create_user(
             email='thirduser@example.com',
             first_name='Third',
             last_name='User',
-            password='djangopassword123',
+            password=TEST_USER_PASSWORD,
         )
         self.user3.is_admin = True
         self.user3.save()
@@ -38,13 +41,13 @@ class AuthenticatedUrlsTestCase(TestCase):
             email='fourthuser@example.com',
             first_name='Fourth',
             last_name='User',
-            password='djangopassword123'
+            password=TEST_USER_PASSWORD
         )
         self.user5 = User.objects.create_user(
             email='fifthuser@example.com',
             first_name='Fifth',
             last_name='User',
-            password='djangopassword123'
+            password=TEST_USER_PASSWORD
         )
 
         # Create test groups
@@ -55,7 +58,7 @@ class AuthenticatedUrlsTestCase(TestCase):
         self.group3 = Group.objects.create(name='group 3')
 
         # Log user in
-        self.client.login(email='testuser@example.com', password='djangopassword123')
+        self.client.login(email='testuser@example.com', password=TEST_USER_PASSWORD)
 
     def test_dashboard_admin_view(self):
         # Test sign in view returns the correct template successfully

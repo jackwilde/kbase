@@ -4,7 +4,10 @@ from django.utils import timezone
 from authentication.models import User, Group
 from django.core.exceptions import ValidationError
 from kbase.models import Article
+from django.utils.crypto import get_random_string
 
+# Generate a random user password for test accounts
+TEST_USER_PASSWORD = get_random_string(length=24)
 
 class ArticleModelTestCase(TestCase):
     def setUp(self):
@@ -13,13 +16,13 @@ class ArticleModelTestCase(TestCase):
             email='testuser1@example.com',
             first_name='One',
             last_name='User',
-            password='djangopassword123'
+            password=TEST_USER_PASSWORD
         )
         self.user2 = User.objects.create_user(
             email='testuser2@example.com',
             first_name='Two',
             last_name='User',
-            password='djangopassword123'
+            password=TEST_USER_PASSWORD
         )
 
         # Create some groups

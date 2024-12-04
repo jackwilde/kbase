@@ -1,6 +1,10 @@
 from authentication.models import User, Group
 from kb_admin.forms import GroupForm
 from django.test import TestCase
+from django.utils.crypto import get_random_string
+
+# Generate a random user password for test accounts
+TEST_USER_PASSWORD = get_random_string(length=24)
 
 class SignUpFormTestCase(TestCase):
     def setUp(self):
@@ -9,7 +13,7 @@ class SignUpFormTestCase(TestCase):
             email='testuser@example.com',
             first_name='Test',
             last_name='User',
-            password='djangopassword123',
+            password=TEST_USER_PASSWORD,
         )
         self.user1.is_admin = True
         self.user1.save()
@@ -17,13 +21,13 @@ class SignUpFormTestCase(TestCase):
             email='seconduser@example.com',
             first_name='Second',
             last_name='User',
-            password='djangopassword123'
+            password=TEST_USER_PASSWORD
         )
         self.user3 = User.objects.create_user(
             email='thirduser@example.com',
             first_name='Third',
             last_name='User',
-            password='djangopassword123',
+            password=TEST_USER_PASSWORD,
         )
 
         # Create test groups
@@ -34,7 +38,7 @@ class SignUpFormTestCase(TestCase):
         self.group3 = Group.objects.create(name='group 3')
 
         # Log user in
-        self.client.login(email='testuser@example.com', password='djangopassword123')
+        self.client.login(email='testuser@example.com', password=TEST_USER_PASSWORD)
 
     def test_form_valid(self):
         # Test form is valid with correct data
