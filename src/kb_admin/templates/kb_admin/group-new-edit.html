@@ -10,42 +10,45 @@
 {% endblock %}
 
 {% block admin-header %}
-    <h1 class="fs-3 fw-lighter mb-0">Create group</h1>
+    <h1 class="fs-3 fw-lighter mb-0">
+        {% if edit_mode %}
+            Edit Group
+        {% else %}
+            Create Group
+        {% endif %}
+    </h1>
     <a href="{% url 'all-groups' %}" class="btn btn-purple">All Groups</a>
 {% endblock %}
 
 {% block admin-content %}
-    <div class="row m-3">
-        <div class="col-12 col-lg-9">
-            <form method="POST" id="group-form">
-                {% csrf_token %}
-            <table class="fs-5">
-                <tr>
-                    <th class="pe-1 w-25">{{ form.name.label_tag }}</th>
-                    <td class="w-75">
-                        {{ form.name|add_class:"form-control border-grey" }}
-                    </td>
-                </tr>
-                <tr>
-                    <th class="pe-1 align-top w-25">{{ form.users.label_tag }}</th>
-                    <td class="w-75">
-                        {{ form.users|add_class:"form-control d-none" }}
-                    </td>
-                </tr>
-            </table>
-            </form>
-        </div>
-        <div class="col-12 col-lg-3">
-            <div class="mt-4 d-flex flex-lg-column">
-                {% if edit_mode %}
-                    <a href="{% url 'group-detail' pk=group.pk %}" class="btn btn-secondary me-lg-0 mb-lg-2 me-2 mw-200">Cancel</a>
-                    <button type="button" class="btn btn-primary mw-200" data-bs-toggle="modal" data-bs-target="#confirm-save">Save</button>
-                    {% include 'includes/confirm-modal.html' with modal_id="confirm-save" action="edit" item="group" dismiss="Cancel" confirm="Save" form_id="group-form"%}
-                {% else %}
-                    <a href="{% url 'all-groups' %}" class="btn btn-secondary me-lg-0 mb-lg-2 me-2 mw-200">Cancel</a>
-                    <button type="submit" form="group-form" class="btn btn-primary mw-200">Save</button>
-                {% endif %}
-            </div>
+    <div class="p-3">
+        <form method="POST" id="group-form">
+            {% csrf_token %}
+        <table class="fs-5">
+            <tr>
+                <th class="pe-1 w-25">{{ form.name.label_tag }}</th>
+                <td class="w-75">
+                    {{ form.name|add_class:"form-control border-grey" }}
+                </td>
+            </tr>
+            <tr>
+                <th class="pe-1 align-top w-25">{{ form.users.label_tag }}</th>
+                <td class="w-75">
+                    {{ form.users|add_class:"form-control d-none" }}
+                </td>
+            </tr>
+        </table>
+        </form>
+        <hr class="my-4">
+        <div class="d-flex align-items-center gap-2">
+            {% if edit_mode %}
+                <a href="{% url 'group-detail' pk=group.pk %}" class="btn btn-secondary">Cancel</a>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirm-save">Save</button>
+                {% include 'includes/confirm-modal.html' with modal_id="confirm-save" action="edit" item="group" dismiss="Cancel" confirm="Save" form_id="group-form"%}
+            {% else %}
+                <a href="{% url 'all-groups' %}" class="btn btn-secondary">Cancel</a>
+                <button type="submit" form="group-form" class="btn btn-primary">Save</button>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
