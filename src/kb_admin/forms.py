@@ -23,6 +23,11 @@ class GroupForm(ModelForm):
                 'id': 'select-members',
             }),
         }
+        error_messages = {
+            'name': {
+                'unique': 'A group with that name already exists',
+            },
+            }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -35,6 +40,4 @@ class GroupForm(ModelForm):
 
     def clean_name(self):
         name = self.cleaned_data['name'].lower()
-        if Group.objects.filter(name=name).exists():
-            raise ValidationError("A group with this name already exists.")
         return name
