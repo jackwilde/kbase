@@ -80,5 +80,5 @@ class SignUpFormTestCase(TestCase):
         }
         form = GroupForm(data=form_data)
         self.assertFalse(form.is_valid())
-        self.assertEqual(form.errors['name'], ['A group with this name already exists'])
+        self.assertEqual(form.errors['name'], ['A group with that name already exists'])
 
