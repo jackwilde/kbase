@@ -5,13 +5,27 @@
 
 {% block admin-header %}
     <h1 class="fs-3 fw-lighter mb-0">User details</h1>
+    <div class="d-flex">
+    {% if not request.user == user %}
+        <div class="d-flex align-items-center">
+            <form method="POST" action="{% url 'user-delete' pk=user.pk %}" id="delete-form">
+                {% csrf_token %}
+                <button type="button" class="btn btn-link text-white me-2" title="Delete" data-bs-toggle="modal" data-bs-target="#confirm-delete">
+                    {% include 'includes/trash.svg' with height="28" width="28" color="white"%}
+                </button>
+                <span class="text-black">
+                    {% include 'includes/confirm-modal.html' with modal_id="confirm-delete" dismiss="Cancel" confirm="Delete" form_id="delete-form" action="delete" item="user" %}
+                </span>
+            </form>
+        </div>
+    {% endif %}
     <a href="{% url 'all-users' %}" class="btn btn-purple">All Users</a>
+    </div>
 {% endblock %}
 
 {% block admin-content %}
-    <div class="row m-3">
-        <div class="col-12 col-lg-9">
-            <table>
+    <div class="p-3">
+            <table class="fs-5">
                 <tr>
                     <th class="pe-3">First name:</th>
                     <td>{{ user.first_name }}</td>
@@ -47,20 +61,15 @@
                     <td>{{ user.last_login }}</td>
                 </tr>
             </table>
-        </div>
-        <div class="col-12 col-lg-3">
-            {% if not request.user == user %}
-                <div class="mt-4 d-flex flex-lg-column">
-                    <form class="me-2" method="POST" action="{% url 'set-permissions' pk=user.pk %}">
-                        {% csrf_token %}
-                        <button class="btn btn-primary me-lg-0 mb-lg-2 w-100 mw-200">Toggle admin</button>
-                    </form>
-                    <form method="POST" action="{% url 'user-delete' pk=user.pk %}">
-                        {% csrf_token %}
-                        <button class="btn btn-danger w-100 mw-200">Delete User</button>
-                    </form>
-                </div>
-            {% endif %}
-        </div>
+        <hr class="my-4">
+        {% if not request.user == user %}
+        <h2 class="my-4 fs-4">Permissions</h2>
+            <div class="mt-4 d-flex flex-lg-column">
+                <form class="me-2" method="POST" action="{% url 'set-permissions' pk=user.pk %}">
+                    {% csrf_token %}
+                    <button class="btn btn-primary me-lg-0 mb-lg-2 w-100 mw-200">Toggle admin</button>
+                </form>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
