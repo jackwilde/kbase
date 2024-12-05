@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError, PermissionDenied
 from django.core.validators import RegexValidator
 from django.db import models, IntegrityError
-from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 
 # Create your models here.
@@ -9,11 +9,21 @@ class CustomUserManager(BaseUserManager):
     def create_user(self, email, first_name, last_name, password=None):
         """
         Creates and saves a new user
-        :param email: Email address
-        :param first_name: First Name
-        :param last_name: Last Name
-        :param password: Password
-        :return: user object
+
+        Parameters
+        ----------
+        email: str
+            user email
+        first_name: str
+            first name
+        last_name: str
+            last name
+        password: str
+            user password
+
+        Returns
+        -------
+        user object
         """
         if not email:
             raise ValidationError("Users must have an email address")
@@ -54,7 +64,7 @@ class User(AbstractBaseUser):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        # Add the user to "All Users' group if not already a member
+        # Add the user to 'All Users' group if not already a member
         group = Group.objects.get(pk=1)
         if not self.groups.filter(pk=group.pk).exists():
             self.groups.add(group)
@@ -66,6 +76,7 @@ class User(AbstractBaseUser):
 class Group(models.Model):
     name = models.CharField(max_length=150, null=False, blank=False, unique=True,
         validators=[
+            # Verify group name is using allowed characters
             RegexValidator(
                 regex=r'^[\w\s-]+$',
                 message='Group name can only contain letters, numbers, spaces, hyphens, and underscores.',

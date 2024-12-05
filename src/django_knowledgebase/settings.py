@@ -38,7 +38,6 @@ ALLOWED_HOSTS = django_settings.allowed_hosts
 if django_settings.csfr_trusted_origin:
     CSRF_TRUSTED_ORIGINS = django_settings.csfr_trusted_origin
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -63,6 +62,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.auth.middleware.LoginRequiredMiddleware',
 ]
+# 'django.contrib.auth.middleware.LoginRequiredMiddleware' sets default view behaviour to login required.
 
 ROOT_URLCONF = 'django_knowledgebase.urls'
 
@@ -85,7 +85,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'django_knowledgebase.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
@@ -106,9 +105,6 @@ if 'test' in argv:
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': ':memory:'
     }
-
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -145,7 +141,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
@@ -158,5 +153,3 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-

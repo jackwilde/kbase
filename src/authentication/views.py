@@ -7,8 +7,7 @@ from django.views.generic import FormView
 from .forms import SignUpForm, SignInForm
 from .models import User
 
-
-# Create your views here.
+# Decorator required because by default ALL views require login
 @method_decorator(login_not_required, name='dispatch')
 class SignInView(LoginView):
     template_name = 'authentication/sign-in.html'
@@ -26,6 +25,7 @@ class SignOutView(LogoutView):
     next_page = reverse_lazy('sign-in')
 
 
+# Decorator required because by default ALL views require login
 @method_decorator(login_not_required, name='dispatch')
 class SignUpView(FormView):
     template_name = 'authentication/sign-up.html'

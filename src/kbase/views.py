@@ -7,7 +7,6 @@ from .forms import ArticleForm
 from .models import Article
 
 
-# Create your views here.
 class DashboardView(ListView):
     template_name = 'kbase/dashboard.html'
     model = Article

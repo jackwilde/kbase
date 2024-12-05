@@ -63,6 +63,7 @@ class UserDeleteAdminView(AdminRequiredMixin, DeleteView):
 class UserSetPermissionsAdminView(AdminRequiredMixin, View):
     def post(self, request, pk, *args, **kwargs):
         user = User.objects.get(pk=pk)
+        # Prevent user removing or adding admin permissions to themselves
         if request.user == user:
             messages.error(self.request, "You cannot toggle admin for yourself.")
         else:
