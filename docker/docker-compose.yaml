@@ -54,7 +54,7 @@ services:
 
   nginx:
     container_name: ${COMPOSE_PROJECT_NAME}-nginx
-    image: nginx:1.27
+    image: nginx:1.27.3-alpine
     depends_on:
       init-static:
         condition: service_completed_successfully

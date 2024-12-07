@@ -35,7 +35,7 @@ web:
   nginx:
     securityContext: {}
     image:
-      tag: "1.27"
+      tag: "1.27-alpine"
       pullPolicy: Always
     env: []
     envFrom: []
