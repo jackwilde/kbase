@@ -81,7 +81,7 @@ postgres:
     storageClass: ""
     accessModes:
       - ReadWriteOnce
-    size: 10G
+    size: 1G
   settings:
     postgres_db: ""
     postgres_user: ""
