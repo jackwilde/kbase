@@ -1,4 +1,4 @@
 Django==5.1.2
 psycopg
+zipp==3.19.1
 gunicorn
-zipp@3.19.1
