@@ -52,6 +52,8 @@ class DjangoSettings:
         server timezone. (default is UTC)
     debug: str
         debug mode. (default is False)
+    domain: str
+
     allowed_hosts: str
         list of approved hostnames for the website
     csfr_trusted_origin: str
@@ -63,9 +65,8 @@ class DjangoSettings:
             self.secret_key = environ.get('SECRET_KEY')
             self.time_zone = environ.get('TIME_ZONE', 'UTC')
             self.debug = (environ.get('DEBUG', 'false').lower() == 'true')
+            self.site_url = environ.get('SITE_URL')
             self.allowed_hosts = environ.get('ALLOWED_HOST', '').split(',')
-            self.csfr_trusted_origin = environ.get('CSRF_TRUSTED_ORIGINS').split(',') if environ.get(
-                'CSRF_TRUSTED_ORIGINS') else []
         except KeyError as e:
             print(f'An error occurred: {e} not set')
             raise SystemExit(1)

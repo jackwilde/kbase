@@ -34,10 +34,14 @@ else:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = django_settings.debug
 
+SITE_URL = django_settings.site_url
+
 ALLOWED_HOSTS = django_settings.allowed_hosts
 
-if django_settings.csfr_trusted_origin:
-    CSRF_TRUSTED_ORIGINS = django_settings.csfr_trusted_origin
+if SITE_URL:
+    CSRF_TRUSTED_ORIGINS = [
+        SITE_URL
+    ]
 
 # Application definition
 
