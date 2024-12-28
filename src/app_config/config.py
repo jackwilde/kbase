@@ -52,12 +52,10 @@ class DjangoSettings:
         server timezone. (default is UTC)
     debug: str
         debug mode. (default is False)
-    domain: str
-
+    site_url: str
+        Full url of site including protocol, eg https://example.com
     allowed_hosts: str
         list of approved hostnames for the website
-    csfr_trusted_origin: str
-        list of approved hostnames for CSFR protection
     """
 
     def __init__(self):
