@@ -69,3 +69,36 @@ class DjangoSettings:
         except KeyError as e:
             print(f'An error occurred: {e} not set')
             raise SystemExit(1)
+
+
+class EmailSettings:
+    """
+    Creates an EmailSettings object for this application from environment variables.
+
+    Attributes
+    ----------
+    host : str
+        SMTP server address
+    port: str
+        SMTP server port
+    use_tls: bool
+        use TLS (default is True)
+    user: str
+        SMTP user name
+    password: str
+        SMTP password
+    default_from_email: str
+        Default sender email
+    """
+
+    def __init__(self):
+        try:
+            self.host = environ.get('EMAIL_HOST')
+            self.port = environ.get('EMAIL_PORT', "587")
+            self.use_tls = (environ.get('EMAIL_USE_TLS', 'true').lower() == 'true')
+            self.user = environ.get('EMAIL_HOST_USER')
+            self.password = environ.get('EMAIL_HOST_PASSWORD')
+            self.default_from_email = environ.get('DEFAULT_FROM_EMAIL')
+        except KeyError as e:
+            print(f'An error occurred: {e} not set')
+            raise SystemExit(1)
