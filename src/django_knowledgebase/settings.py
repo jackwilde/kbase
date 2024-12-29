@@ -66,6 +66,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.auth.middleware.LoginRequiredMiddleware',
+    'django_knowledgebase.middleware.VerifiedUserMiddleware'
 ]
 # 'django.contrib.auth.middleware.LoginRequiredMiddleware' sets default view behaviour to login required.
 

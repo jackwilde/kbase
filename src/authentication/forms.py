@@ -1,4 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.forms import Form, EmailField, EmailInput
+
 from .models import User
 
 
@@ -41,3 +43,10 @@ class SignInForm(AuthenticationForm):
         self.fields['password'].widget.attrs.update({'placeholder': 'Password'})
 
 
+
+class VerificationForm(Form):
+    email = EmailField(
+        max_length=254,
+        widget=EmailInput(attrs={'class': 'form-control', 'placeholder': 'Enter your email address'}),
+        label='Email'
+    )
