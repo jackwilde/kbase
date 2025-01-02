@@ -69,7 +69,7 @@ class UnauthenticatedUserViewsTestCase(TestCase):
         # Test sign in view returns the correct template successfully
         response = self.client.get(reverse('re-verify'))
         self.assertEqual(response.status_code, 302)
-        self.assertTemplateUsed(response, 'authentication/re-verify.html')
+        self.assertRedirects(response, f'{reverse('sign-in')}?next={reverse('re-verify')}')
 
 
 class UnverifiedUserViewsTestCase(TestCase):
@@ -103,7 +103,7 @@ class UnverifiedUserViewsTestCase(TestCase):
         # Test sign in view returns the correct template successfully
         response = self.client.get(reverse('re-verify'))
         self.assertEqual(response.status_code, 200)
-        f'{reverse('sign-in')}?next={reverse('re-verify')}'
+        self.assertTemplateUsed(response, 'authentication/re-verify.html')
 
 
 
