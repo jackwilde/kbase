@@ -105,7 +105,20 @@ class UnverifiedUserViewsTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'authentication/re-verify.html')
 
+    def test_sign_out_view(self):
+        # Test unverified users can still sign out
 
+        # Test user is authenticated with 200 response from re-verify
+        response = self.client.get(reverse('re-verify'))
+        self.assertEqual(response.status_code, 200)
+
+        # Test user logout. Should return 302 and redirect to sign-in
+        response = self.client.post(reverse('sign-out'))
+        self.assertRedirects(response, reverse('sign-in'))
+
+        # Test user is unauthenticated if / redirects to sign-in
+        response = self.client.get('/')
+        self.assertRedirects(response, f'{reverse('sign-in')}?next=/')
 
 
 class AuthenticatedViewsTestCase(TestCase):
