@@ -1,6 +1,9 @@
 from django.test import TestCase
 from authentication.models import User
 from kbase.forms import ArticleForm
+from django.utils.crypto import get_random_string
+
+TEST_USER_PASSWORD = get_random_string(length=24)
 
 class ArticleFormTestCase(TestCase):
     def setUp(self):
@@ -9,7 +12,7 @@ class ArticleFormTestCase(TestCase):
             email='existinguser@example.com',
             first_name='Existing',
             last_name='User',
-            password='djangopassword123'
+            password=TEST_USER_PASSWORD
         )
 
     def test_form_valid(self):
