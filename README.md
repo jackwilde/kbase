@@ -55,20 +55,24 @@ The minimum required values that must be set for the application to launch are l
 The following environment variables can be used to configure the application. The provided Helm chart and Docker compose
 will assist in setting these.
 
-| Environment Variable | Required | Default Value | Description                                                                          |
-|----------------------|----------|---------------|--------------------------------------------------------------------------------------|
-| POSTGRES_DB          | Yes      |               | The name of the database where the application will store its data                   |
-| POSTGRES_HOST        | Yes      |               | The IP address or hostname of the Postgres database server                           |
-| POSTGRES_PORT        |          | 5432          | The TCP port the Postgres server is listening on                                     |
-| POSTGRES_USER        | Yes      |               | The name of the Postgres user with owner permission to the database                  |
-| POSTGRES_PASSWORD    | Yes      |               | The password for the Postgres user                                                   |
-| SECRET_KEY           | Yes      |               | The Django secret key use for cryptographic signing                                  | 
-| TIME_ZONE            |          | UTC           | The time zone of the Django server                                                   |
-| DEBUG                |          | False         | The status of Django debug mode                                                      |
-| ALLOWED_HOSTS        | Yes      |               | Comma separated list of approved hostnames for the website                           | 
-| CSRF_TRUSTED_ORIGINS | Yes      |               | Comma separated list of approved hostnames for the website including protocol prefix |
-
-
+| Environment Variable | Required | Default Value | Description                                                         |
+|----------------------|----------|---------------|---------------------------------------------------------------------|
+| POSTGRES_DB          | Yes      |               | The name of the database where the application will store its data  |
+| POSTGRES_HOST        | Yes      |               | The IP address or hostname of the Postgres database server          |
+| POSTGRES_PORT        |          | 5432          | The TCP port the Postgres server is listening on                    |
+| POSTGRES_USER        | Yes      |               | The name of the Postgres user with owner permission to the database |
+| POSTGRES_PASSWORD    | Yes      |               | The password for the Postgres user                                  |
+| SECRET_KEY           | Yes      |               | The Django secret key use for cryptographic signing                 | 
+| TIME_ZONE            |          | UTC           | The time zone of the Django server                                  |
+| DEBUG                |          | False         | The status of Django debug mode                                     |
+| ALLOWED_HOSTS        | Yes      |               | Comma separated list of approved hostnames for the website          | 
+| SITE_URL             | Yes      |               | Fully qualified site URL include protocol prefix                    |
+| EMAIL_HOST           | Yes      |               | SMTP server host address                                            |
+| EMAIL_PORT           |          | 587           | SMTP server port                                                    |
+| EMAIL_USE_TLS        |          | True          | Enable TLS connection to SMTP server                                |
+| EMAIL_HOST_USER      | Yes      |               | Username for connection to SMTP server                              |
+| EMAIL_HOST_PASSWORD  | Yes      |               | Password for connection to SMTP server                              |
+| DEFAULT_FROM_EMAIL   | Yes      |               | Default email sending address                                       |
 
 
 ## Using the application
