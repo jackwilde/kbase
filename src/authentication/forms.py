@@ -41,12 +41,3 @@ class SignInForm(AuthenticationForm):
         super().__init__(*args, **kwargs)
         self.fields['username'].widget.attrs.update({'placeholder': 'Email'})
         self.fields['password'].widget.attrs.update({'placeholder': 'Password'})
-
-
-
-class VerificationForm(Form):
-    email = EmailField(
-        max_length=254,
-        widget=EmailInput(attrs={'class': 'form-control', 'placeholder': 'Enter your email address'}),
-        label='Email'
-    )
