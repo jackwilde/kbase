@@ -4,17 +4,12 @@
 
 {% block content %}
     <div class="container mw-400 mt-5 mx-auto text-center">
-        <h1 class="fs-4 fw-light mb-4">Resend Verification Email</h1>
-        <form method="POST">
+        <h1 class="fs-3 fw-light mb-4">Unverified Account</h1>
+        <p>You need to verify your account before you can use this application.</p>
+        <p>Please check your email for a verification link or request a new one.</p>
+        <form method="POST" action="{% url 're-verify' %}">
             {% csrf_token %}
-            {% for field in form %}
-                <div class="mb-3">
-                    <label class="form-label d-none" for="{{ field.id_for_label }}">{{ field.label }}</label>
-                    {{ field|add_class:"form-control w-100" }}
-                </div>
-            {% endfor %}
-            <button type="submit" class="btn btn-primary w-50">Resend</button>
+            <button id="resend-btn" class="btn btn-primary" type="submit">Resend Verification</button>
         </form>
-        <a class="fw-bold text-decoration-none fs-6 d-block mt-3" href="{% url 'sign-in' %}">Already registered? Sign in</a>
     </div>
 {% endblock %}

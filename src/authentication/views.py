@@ -1,15 +1,14 @@
 from django.contrib.auth.decorators import login_not_required
 from django.contrib.auth.views import LoginView, LogoutView
-from django.core.mail import send_mail
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import FormView
 from django.conf import settings
 from django.views.generic.base import View
 from django.contrib import messages
-from .forms import SignUpForm, SignInForm, VerificationForm
-from .utils import EmailVerificationTokenGenerator, InvalidTokenError
+from .forms import SignUpForm, SignInForm
+from .utils import EmailVerificationTokenGenerator, InvalidTokenError, send_verification_email, EmailRequestTooSoonError
 from .models import User
 
 # Decorator required because by default ALL views require login
@@ -56,12 +55,7 @@ class SignUpView(FormView):
 
         token = EmailVerificationTokenGenerator().make_token(user)
         verification_link = f"{settings.SITE_URL}/verify/{token}/"
-        send_mail(
-            subject="Verify Your Email",
-            message=f"Hi {user.first_name},\n\nPlease verify your email by clicking the link below:\n{verification_link}\n\nThank you!",
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[user.email],
-        )
+        send_verification_email(user, verification_link)
         messages.success(self.request, 'Thank you for signing up! Please check your email for verification link.')
         return super().form_valid(form)
 
@@ -114,26 +108,22 @@ class VerifyEmailView(View):
         return redirect(reverse_lazy('re-verify'))
 
 
-class ReVerifyEmailView(FormView):
+class ReVerifyEmailView(View):
     template_name = 'authentication/re-verify.html'
-    form_class = VerificationForm
     success_url = reverse_lazy('dashboard')
 
-    def form_valid(self, form):
-        email = form.cleaned_data['email']
-        try:
-            user = User.objects.get(email=email)
-            if not user.is_verified:
-                token = EmailVerificationTokenGenerator().make_token(user)
-                verification_link = f"{settings.SITE_URL}/verify/{token}/"
-                send_mail(
-                    subject="Verify Your Email",
-                    message=f"Hi {user.first_name},\n\nPlease verify your email by clicking the link below:\n{verification_link}\n\nThank you!",
-                    from_email=settings.DEFAULT_FROM_EMAIL,
-                    recipient_list=[user.email],
-                )
-        except User.DoesNotExist:
-            pass
-        messages.success(self.request, 'If the email is registered to an account a new verification link has been sent.')
-        # Redirect to the success URL
-        return super().form_valid(form)
+    def get(self, request, *args, **kwargs):
+        return render(request, 'authentication/re-verify.html')
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        if not user.is_verified:
+            token = EmailVerificationTokenGenerator().make_token(user)
+            verification_link = f"{settings.SITE_URL}/verify/{token}/"
+            try:
+                send_verification_email(user, verification_link)
+                messages.success(request, 'Verification email has been sent.')
+            except EmailRequestTooSoonError:
+                messages.warning(self.request, 'A verification link has been sent been sent recently. '
+                                             'Please check your emails or try again later.')
+            return render(request, 'authentication/re-verify.html')
