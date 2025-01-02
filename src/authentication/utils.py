@@ -1,6 +1,24 @@
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.core.mail import send_mail
+from django.utils.timezone import now
+from datetime import timedelta
+from django.conf import settings
 from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+
+
+class InvalidTokenError(Exception):
+    """
+    Custom exception to raise when an invalid token is used.
+    """
+    pass
+
+
+class EmailRequestTooSoonError(Exception):
+    """
+    Custom exception to raise when an email is reqested too soon.
+    """
+    pass
 
 
 class EmailVerificationTokenGenerator(PasswordResetTokenGenerator):
@@ -41,8 +59,21 @@ class EmailVerificationTokenGenerator(PasswordResetTokenGenerator):
         return f"{user.pk}{user.password}{joined_timestamp}{timestamp}{email}"
 
 
-class InvalidTokenError(Exception):
+def send_verification_email(user, verification_link):
     """
-    Custom exception to raise when an invalid token is used.
+    Sends a verification email to user and updates the database with the date and time sent.
     """
-    pass
+    # Check that the user hasn't requested an email in the last 15 minutes
+    if user.last_verification_email_sent and now() < user.last_verification_email_sent + timedelta(minutes=15):
+        raise EmailRequestTooSoonError
+
+    send_mail(
+        subject="Verify Your Email",
+        message=f"Hi {user.first_name},\n\nPlease verify your email by clicking the link below:\n{verification_link}\n\nThank you!",
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        recipient_list=[user.email],
+    )
+
+    # Update the database with the time email sent.
+    user.last_verification_email_sent = now()
+    user.save()
