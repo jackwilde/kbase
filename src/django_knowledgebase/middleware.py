@@ -17,7 +17,7 @@ class VerifiedUserMiddleware(MiddlewareMixin):
             're-verify'
         )
 
-    def process_view(self, request):
+    def process_view(self, request, view_func, view_args, view_kwargs):
         """
         Checks if the user is verified and redirects them to the re-verification page if they are not.
         """
