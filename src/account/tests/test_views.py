@@ -25,6 +25,8 @@ class AuthenticatedUserViewsTestCase(TestCase):
             last_name='User',
             password='djangopassword123'
         )
+        self.user.is_verified = True
+        self.user.save()
         # Log user in
         self.client.login(email='testuser@example.com', password='djangopassword123')
 
