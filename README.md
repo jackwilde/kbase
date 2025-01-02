@@ -18,6 +18,8 @@ details.
 In addition to the kbase application a **Postgres** database and **Nginx** reverse proxy are required. The Kubernetes deployment
 guide will automate the set up of both of these.
 
+A working SMTP server is required to run the application as user sign ups require email verification.
+
 ### Kubernetes
 In a production environment it is recommended to deploy the application with Kubernetes using the provided Helm Chart.
 1. Add the kbase Helm repository
