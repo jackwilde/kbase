@@ -100,12 +100,20 @@ class VerifyEmailView(View):
                 return redirect(reverse_lazy('sign-in'))
 
         except (InvalidTokenError, User.DoesNotExist):
-            messages.warning(request, 'Verification link is invalid or expired. Please request a new verification link.')
-            return redirect(reverse_lazy('re-verify'))
+            # If user is logged in send them to reverification page
+            if self.request.user.is_authenticated:
+                messages.warning(request, 'Verification link is invalid or expired. '
+                                          'Please request a new verification link.')
+                return redirect(reverse_lazy('re-verify'))
+            # If user is not logged in send them to sign in
+            else:
+                messages.warning(request, 'Verification link is invalid or expired. '
+                                          'Please sign in to request a new verification link.')
+                return redirect(reverse_lazy('sign-in'))
 
         # Fallback error message for unexpected issues
         messages.warning(request, 'An unexpected error occurred. Please request a new verification link.')
-        return redirect(reverse_lazy('re-verify'))
+        return redirect(reverse_lazy('sign-in'))
 
 
 class ReVerifyEmailView(View):

@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
+from django.utils.crypto import get_random_string
 
 class UrlsTestCase(TestCase):
     def test_redirect_root_url(self):
@@ -21,3 +22,14 @@ class UrlsTestCase(TestCase):
         # Test sign-out URL redirects
         response = self.client.post(reverse('sign-out'))
         self.assertEqual(response.status_code, 302)
+
+    def test_verify_url(self):
+        # Test verify URL redirects
+        response = self.client.get(reverse('verify-email', kwargs={'token': get_random_string(32)}))
+        self.assertEqual(response.status_code, 302)
+
+    def test_re_verify_url(self):
+        # Test re-verify URL redirects
+        response = self.client.get(reverse('re-verify'))
+        self.assertEqual(response.status_code, 302)
+

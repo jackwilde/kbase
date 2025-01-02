@@ -111,7 +111,7 @@ class UserModelTestCase(TestCase):
                 email='testuser@example.com',
                 first_name='Second',
                 last_name='User',
-                password='djangopassword321'
+                password=get_random_string(length=24)
             )
 
     def test_create_user_with_invalid_first_name(self):

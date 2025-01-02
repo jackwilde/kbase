@@ -15,6 +15,8 @@ class SignUpFormTestCase(TestCase):
             last_name='User',
             password=TEST_USER_PASSWORD
         )
+        self.user.is_verified = True
+        self.user.save()
 
 
     def test_form_valid(self):
