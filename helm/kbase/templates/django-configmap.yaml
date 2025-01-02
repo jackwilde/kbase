@@ -8,4 +8,4 @@ data:
   TIME_ZONE: "{{ .Values.web.django.settings.time_zone }}"
   POSTGRES_PORT: "{{ .Values.postgres.service.port }}"
   POSTGRES_HOST: {{ include "kbase.fullname" . }}-db
-  SITE_URL: "{{ .Values.web.django.settings.site_URL }}"
+  SITE_URL: "{{ .Values.web.django.settings.site_url }}"
