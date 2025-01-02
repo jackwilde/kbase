@@ -31,7 +31,12 @@ web:
       allowed_hosts: "localhost"
       debug: False
       time_zone: GMT
-      csrf_trusted_origins: "http://localhost:8000"
+      site_url: "http://localhost:8000"
+      email_host: ""
+      email_host_user: ""
+      email_host_password: ""
+      default_from_email: ""
+
   nginx:
     securityContext: {}
     image:

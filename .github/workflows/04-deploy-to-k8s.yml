@@ -29,8 +29,11 @@ jobs:
                 tag: "latest"
               settings:
                 secret_key: "${{ secrets.SECRET_KEY }}" # Secure
-                csrf_trusted_origins: "https://${{ secrets.SITE_URL }}"
-          
+                site_url: "https://${{ secrets.SITE_URL }}"
+                email_host: "${{ secrets.EMAIL_HOST }}"
+                email_host_user: "${{ secrets.EMAIL_HOST_USER }}"
+                email_host_password: "${{ secrets.EMAIL_HOST_PASSWORD }}"
+                default_from_email: "${{ secrets.DEFAULT_FROM_EMAIL }}"
           postgres:
             storage:
               storageClass: "managed-csi"
