@@ -54,6 +54,7 @@ class User(AbstractBaseUser):
         RegexValidator(regex='^[A-Za-z]+$', message='Last name can only contain letters')
     ])
     date_joined = models.DateTimeField(auto_now_add=True)
+    last_verification_email_sent = models.DateTimeField(null=True, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
