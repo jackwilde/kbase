@@ -16,6 +16,29 @@ class UnauthenticatedUserViewsTestCase(TestCase):
         self.assertRedirects(response, f'{reverse('sign-in')}?next={reverse('change-password')}')
 
 
+class UnverifiedUserViewsTestCase(TestCase):
+    def setUp(self):
+        # Create test user
+        self.user = User.objects.create_user(
+            email='testuser@example.com',
+            first_name='Test',
+            last_name='User',
+            password='djangopassword123'
+        )
+        # Log user in
+        self.client.login(email='testuser@example.com', password='djangopassword123')
+
+    def test_my_account_redirect(self):
+        # Check that unverified users get sent to re-verify page
+        response = self.client.get(reverse('my-account'))
+        self.assertRedirects(response, reverse('re-verify'))
+
+    def test_change_password_redirect(self):
+        # Check that unverified users get sent to re-verify page
+        response = self.client.get(reverse('change-password'))
+        self.assertRedirects(response, reverse('re-verify'))
+
+
 class AuthenticatedUserViewsTestCase(TestCase):
     def setUp(self):
         # Create test user
