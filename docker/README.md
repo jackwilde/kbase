@@ -17,6 +17,10 @@ steps required to run kbase with Docker are listed here.
    POSTGRES_DB=<postgres_database_name>
    POSTGRES_USER=<postgres_user>
    POSTGRES_PASSWORD=<postgres_user_password>
+   EMAIL_HOST=<smtp_server_address>
+   EMAIL_HOST_USER=<smtp_server_username>
+   EMAIL_HOST_PASSWORD=<smtp_server_password>
+   DEFAULT_FROM_EMAIL=<default_sender_email>
    ```
 4. _(Optional)_ Edit [docker-compose.yaml](./docker-compose.yaml) to suit requirements
 5. Start the application \
