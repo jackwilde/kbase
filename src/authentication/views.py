@@ -121,6 +121,8 @@ class ReVerifyEmailView(View):
     success_url = reverse_lazy('dashboard')
 
     def get(self, request, *args, **kwargs):
+        if request.user.is_verified:
+            return redirect(reverse_lazy('dashboard'))
         return render(request, 'authentication/re-verify.html')
 
     def post(self, request, *args, **kwargs):
