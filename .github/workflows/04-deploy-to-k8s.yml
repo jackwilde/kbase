@@ -50,14 +50,14 @@ jobs:
               nginx.ingress.kubernetes.io/rewrite-target: /
               nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
             hosts:
-              - host: "${{ secrets.SITE_HOSTNAME }}"
+              - host: "${{ secrets.SITE_URL }}"
                 paths:
                   - path: /
                     pathType: Prefix
             tls:
               hosts:
-                - "${{ secrets.SITE_HOSTNAME }}"
-              secretName: "${{ secrets.SITE_HOSTNAME }}-tls"
+                - "${{ secrets.SITE_URL }}"
+              secretName: "${{ secrets.SITE_URL }}-tls"
           
           networkPolicy:
             enabled: true
