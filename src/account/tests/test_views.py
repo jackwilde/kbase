@@ -1,8 +1,9 @@
 from django.test import TestCase
 from django.urls import reverse
-
+from django.utils.crypto import get_random_string
 from authentication.models import User
 
+TEST_USER_PASSWORD = get_random_string(length=24)
 
 class UnauthenticatedUserViewsTestCase(TestCase):
     def test_my_account_redirect(self):
@@ -23,10 +24,10 @@ class UnverifiedUserViewsTestCase(TestCase):
             email='testuser@example.com',
             first_name='Test',
             last_name='User',
-            password='djangopassword123'
+            password=TEST_USER_PASSWORD
         )
         # Log user in
-        self.client.login(email='testuser@example.com', password='djangopassword123')
+        self.client.login(email='testuser@example.com', password=TEST_USER_PASSWORD)
 
     def test_my_account_redirect(self):
         # Check that unverified users get sent to re-verify page
@@ -46,12 +47,12 @@ class AuthenticatedUserViewsTestCase(TestCase):
             email='testuser@example.com',
             first_name='Test',
             last_name='User',
-            password='djangopassword123'
+            password=TEST_USER_PASSWORD
         )
         self.user.is_verified = True
         self.user.save()
         # Log user in
-        self.client.login(email='testuser@example.com', password='djangopassword123')
+        self.client.login(email='testuser@example.com', password=TEST_USER_PASSWORD)
 
     def test_my_account_view(self):
         # Check that authenticated users get the correct template and data
@@ -80,10 +81,11 @@ class AuthenticatedUserViewsTestCase(TestCase):
 
     def test_change_password_view_post(self):
         # Check that view accepts post with valid data and redirects
+        NEW_TEST_USER_PASSWORD = get_random_string(length=24)
         data= {
-            'old_password': 'djangopassword123',
-            'new_password1': 'newdjangopassword123',
-            'new_password2': 'newdjangopassword123',
+            'old_password': TEST_USER_PASSWORD,
+            'new_password1': NEW_TEST_USER_PASSWORD,
+            'new_password2': NEW_TEST_USER_PASSWORD,
         }
         response = self.client.post(reverse('change-password'), data)
         # Check that view accepts post
