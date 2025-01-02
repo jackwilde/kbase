@@ -1,8 +1,10 @@
 from django.test import TestCase
 from django.urls import reverse
-
+from django.utils.crypto import get_random_string
 from authentication.models import User, Group
 
+# Generate a random user password for test accounts
+TEST_USER_PASSWORD = get_random_string(length=24)
 
 class UrlsTestCase(TestCase):
     # All these tests should redirect unauthenticated user to the sign-in page
@@ -55,20 +57,23 @@ class AuthenticatedUrlsTestCase(TestCase):
             email='testuser@example.com',
             first_name='Test',
             last_name='User',
-            password='djangopassword123'
+            password=TEST_USER_PASSWORD
         )
+        self.user.is_verified = True
+        self.user.save()
+
         self.user2 = User.objects.create_user(
             email='seconduser@example.com',
             first_name='Second',
             last_name='User',
-            password='djangopassword123'
+            password=get_random_string(length=24)
         )
 
         # Create test group
         self.group = Group.objects.create(name='testgroup')
 
         # Log user in
-        self.client.login(email='testuser@example.com', password='djangopassword123')
+        self.client.login(email='testuser@example.com', password=TEST_USER_PASSWORD)
 
     def test_admin_dashboard_url(self):
         response = self.client.get(reverse('admin-dashboard'))
@@ -112,3 +117,140 @@ class AuthenticatedUrlsTestCase(TestCase):
     def test_group_delete_url(self):
         response = self.client.post(reverse('group-delete', kwargs={'pk': self.group.pk}))
         self.assertRedirects(response, reverse('dashboard'))
+
+class UnverifiedUserUrlsTestCase(TestCase):
+    # These test authenticated non admin, non verified user. They should all redirect to standard re-verify
+    def setUp(self):
+        # Create test users
+        self.user = User.objects.create_user(
+            email='testuser@example.com',
+            first_name='Test',
+            last_name='User',
+            password=TEST_USER_PASSWORD
+        )
+
+        self.user2 = User.objects.create_user(
+            email='seconduser@example.com',
+            first_name='Second',
+            last_name='User',
+            password=get_random_string(length=24)
+        )
+
+        # Create test group
+        self.group = Group.objects.create(name='testgroup')
+
+        # Log user in
+        self.client.login(email='testuser@example.com', password=TEST_USER_PASSWORD)
+
+    def test_admin_dashboard_url(self):
+        response = self.client.get(reverse('admin-dashboard'))
+        self.assertRedirects(response, reverse('re-verify'))
+
+    def test_all_users_url(self):
+        response = self.client.get(reverse('all-users'))
+        self.assertRedirects(response, reverse('re-verify'))
+
+    def test_user_detail_url(self):
+        response = self.client.get(reverse('user-detail', kwargs={'pk': self.user2.pk}))
+        self.assertRedirects(response, reverse('re-verify'))
+
+    def test_user_delete_url(self):
+        # Test against another user as there is protection in place to stop user deleting themselves
+        response = self.client.post(reverse('user-delete', kwargs={'pk': self.user2.pk}))
+        self.assertRedirects(response, reverse('re-verify'))
+
+    def test_set_permissions_url(self):
+        # Test against another user as there is protection in place to stop user changing their permissions
+        response = self.client.post(reverse('set-permissions', kwargs={'pk': self.user2.pk}))
+        self.assertRedirects(response, reverse('re-verify'))
+
+    def test_all_groups_url(self):
+        response = self.client.get(reverse('all-groups'))
+        self.assertRedirects(response, reverse('re-verify'))
+
+    def test_create_group_url(self):
+        response = self.client.get(reverse('create-group'))
+        self.assertRedirects(response, reverse('re-verify'))
+
+    def test_group_detail_url(self):
+        response = self.client.get(reverse('group-detail', kwargs={'pk': self.group.pk}))
+        self.assertRedirects(response, reverse('re-verify'))
+
+    def test_group_edit_url(self):
+        # Don't test against group id 1 because it's protected
+        response = self.client.get(reverse('group-edit', kwargs={'pk': self.group.pk}))
+        self.assertRedirects(response, reverse('re-verify'))
+
+    def test_group_delete_url(self):
+        response = self.client.post(reverse('group-delete', kwargs={'pk': self.group.pk}))
+        self.assertRedirects(response, reverse('re-verify'))
+
+
+class UnverifiedAdminUrlsTestCase(TestCase):
+    # Similar to previous test but with unverified admin user. They should all redirect to standard re-verify
+    def setUp(self):
+        # Create test users
+        self.user = User.objects.create_user(
+            email='testuser@example.com',
+            first_name='Test',
+            last_name='User',
+            password=TEST_USER_PASSWORD
+        )
+        self.user.is_admin = True
+        self.user.save()
+
+        self.user2 = User.objects.create_user(
+            email='seconduser@example.com',
+            first_name='Second',
+            last_name='User',
+            password=get_random_string(length=24)
+        )
+
+        # Create test group
+        self.group = Group.objects.create(name='testgroup')
+
+        # Log user in
+        self.client.login(email='testuser@example.com', password=TEST_USER_PASSWORD)
+
+    def test_admin_dashboard_url(self):
+        response = self.client.get(reverse('admin-dashboard'))
+        self.assertRedirects(response, reverse('re-verify'))
+
+    def test_all_users_url(self):
+        response = self.client.get(reverse('all-users'))
+        self.assertRedirects(response, reverse('re-verify'))
+
+    def test_user_detail_url(self):
+        response = self.client.get(reverse('user-detail', kwargs={'pk': self.user2.pk}))
+        self.assertRedirects(response, reverse('re-verify'))
+
+    def test_user_delete_url(self):
+        # Test against another user as there is protection in place to stop user deleting themselves
+        response = self.client.post(reverse('user-delete', kwargs={'pk': self.user2.pk}))
+        self.assertRedirects(response, reverse('re-verify'))
+
+    def test_set_permissions_url(self):
+        # Test against another user as there is protection in place to stop user changing their permissions
+        response = self.client.post(reverse('set-permissions', kwargs={'pk': self.user2.pk}))
+        self.assertRedirects(response, reverse('re-verify'))
+
+    def test_all_groups_url(self):
+        response = self.client.get(reverse('all-groups'))
+        self.assertRedirects(response, reverse('re-verify'))
+
+    def test_create_group_url(self):
+        response = self.client.get(reverse('create-group'))
+        self.assertRedirects(response, reverse('re-verify'))
+
+    def test_group_detail_url(self):
+        response = self.client.get(reverse('group-detail', kwargs={'pk': self.group.pk}))
+        self.assertRedirects(response, reverse('re-verify'))
+
+    def test_group_edit_url(self):
+        # Don't test against group id 1 because it's protected
+        response = self.client.get(reverse('group-edit', kwargs={'pk': self.group.pk}))
+        self.assertRedirects(response, reverse('re-verify'))
+
+    def test_group_delete_url(self):
+        response = self.client.post(reverse('group-delete', kwargs={'pk': self.group.pk}))
+        self.assertRedirects(response, reverse('re-verify'))

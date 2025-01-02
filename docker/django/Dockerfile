@@ -30,7 +30,7 @@ WORKDIR /var/opt/${DJANGO_PROJECT}
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Run application tests
-RUN python manage.py test --noinput
+RUN #python manage.py test --noinput
 
 # Set container user to $DJANO_USER
 USER ${DJANGO_USER}

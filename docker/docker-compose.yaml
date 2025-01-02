@@ -32,7 +32,7 @@ services:
       TIME_ZONE: GMT
       POSTGRES_PORT: 5432
       POSTGRES_HOST: ${COMPOSE_PROJECT_NAME}-postgres
-      CSRF_TRUSTED_ORIGINS: "http://localhost:8080,https://localhost:8443"
+      SITE_URL: "http://localhost:8080"
     env_file:
       - .env
 

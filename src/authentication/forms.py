@@ -1,4 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.forms import Form, EmailField, EmailInput
+
 from .models import User
 
 
@@ -39,5 +41,3 @@ class SignInForm(AuthenticationForm):
         super().__init__(*args, **kwargs)
         self.fields['username'].widget.attrs.update({'placeholder': 'Email'})
         self.fields['password'].widget.attrs.update({'placeholder': 'Password'})
-
-

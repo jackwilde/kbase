@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% block title %}Resend Verification{% endblock %}
+
+{% block content %}
+    <div class="container mw-400 mt-5 mx-auto text-center">
+        <h1 class="fs-3 fw-light mb-4">Unverified Account</h1>
+        <p>You need to verify your account before you can use this application.</p>
+        <p>Please check your email for a verification link or request a new one.</p>
+        <form method="POST" action="{% url 're-verify' %}">
+            {% csrf_token %}
+            <button id="resend-btn" class="btn btn-primary" type="submit">Resend Verification</button>
+        </form>
+    </div>
+{% endblock %}

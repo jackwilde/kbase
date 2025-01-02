@@ -18,6 +18,8 @@ class BasicViewsTestCase(TestCase):
             last_name='User',
             password=TEST_USER_PASSWORD,
         )
+        self.user1.is_verified = True
+        self.user1.save()
 
         # Log user in
         self.client.login(email='testuser@example.com', password=TEST_USER_PASSWORD)
@@ -110,18 +112,23 @@ class AdvancedViewsTestCase(TestCase):
             last_name='User',
             password=TEST_USER_PASSWORD,
         )
+        self.user1.is_verified = True
+        self.user1.save()
         self.user2 = User.objects.create_user(
             email='testuser2@example.com',
             first_name='Test',
             last_name='User',
             password=TEST_USER_PASSWORD,
         )
+        self.user2.is_verified = True
+        self.user2.save()
         self.user3 = User.objects.create_user(
             email='testuser3@example.com',
             first_name='Test',
             last_name='User',
             password=TEST_USER_PASSWORD,
         )
+        self.user3.is_verified = True
         self.user3.is_admin = True
         self.user3.save()
 

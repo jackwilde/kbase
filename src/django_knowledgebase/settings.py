@@ -12,10 +12,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from sys import argv
-from app_config import DjangoSettings, DbSettings, generate_secret_key
+from app_config import DjangoSettings, DbSettings, EmailSettings, generate_secret_key
 
 django_settings = DjangoSettings()
 db_settings = DbSettings()
+email_settings = EmailSettings()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -33,10 +34,14 @@ else:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = django_settings.debug
 
+SITE_URL = django_settings.site_url
+
 ALLOWED_HOSTS = django_settings.allowed_hosts
 
-if django_settings.csfr_trusted_origin:
-    CSRF_TRUSTED_ORIGINS = django_settings.csfr_trusted_origin
+if SITE_URL:
+    CSRF_TRUSTED_ORIGINS = [
+        SITE_URL
+    ]
 
 # Application definition
 
@@ -61,6 +66,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.auth.middleware.LoginRequiredMiddleware',
+    'django_knowledgebase.middleware.VerifiedUserMiddleware'
 ]
 # 'django.contrib.auth.middleware.LoginRequiredMiddleware' sets default view behaviour to login required.
 
@@ -153,3 +159,12 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Email Settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = email_settings.host
+EMAIL_PORT = email_settings.port
+EMAIL_USE_TLS = email_settings.use_tls
+EMAIL_HOST_USER = email_settings.user
+EMAIL_HOST_PASSWORD = email_settings.password
+DEFAULT_FROM_EMAIL = email_settings.default_from_email

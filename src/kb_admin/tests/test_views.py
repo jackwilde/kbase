@@ -21,6 +21,7 @@ class AuthenticatedUrlsTestCase(TestCase):
             last_name='User',
             password=TEST_USER_PASSWORD,
         )
+        self.user1.is_verified = True
         self.user1.is_admin = True
         self.user1.save()
         self.user2 = User.objects.create_user(
