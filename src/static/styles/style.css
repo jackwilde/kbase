@@ -56,6 +56,10 @@
     font-size: 0.75rem;
 }
 
+.text-justify {
+    text-align: justify;
+}
+
 .bg-purple {
     background-color: #5d586f;
 }

@@ -114,11 +114,10 @@ class VerifyEmailView(View):
         return redirect(reverse_lazy('re-verify'))
 
 
-@method_decorator(login_not_required, name='dispatch')
 class ReVerifyEmailView(FormView):
     template_name = 'authentication/re-verify.html'
     form_class = VerificationForm
-    success_url = reverse_lazy('sign-in')
+    success_url = reverse_lazy('dashboard')
 
     def form_valid(self, form):
         email = form.cleaned_data['email']
@@ -138,9 +137,3 @@ class ReVerifyEmailView(FormView):
         messages.success(self.request, 'If the email is registered to an account a new verification link has been sent.')
         # Redirect to the success URL
         return super().form_valid(form)
-
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated and request.user.is_verified:
-            return redirect(reverse_lazy('dashboard'))
-
-        return super().dispatch(request, *args, **kwargs)
