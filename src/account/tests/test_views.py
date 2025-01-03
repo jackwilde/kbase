@@ -77,7 +77,7 @@ class AuthenticatedUserViewsTestCase(TestCase):
         }
         response = self.client.post(reverse('my-account'), data)
         # Check that view accepts post
-        self.assertRedirects(response, reverse('dashboard'))
+        self.assertRedirects(response, reverse('my-account'))
 
     def test_change_password_view_post(self):
         # Check that view accepts post with valid data and redirects
