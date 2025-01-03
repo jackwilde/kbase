@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, UpdateView, ListView, DeleteView
 from .forms import ArticleForm
 from .models import Article
+from django.contrib import messages
 
 
 class DashboardView(ListView):
@@ -46,6 +47,7 @@ class NewArticleView(CreateView):
 
     def get_success_url(self):
         slug = self.object.slug
+        messages.success(self.request, 'Article created successfully.')
         return reverse_lazy(viewname='article', kwargs={'slug': slug})
 
     def form_valid(self, form):
@@ -98,11 +100,13 @@ class EditArticleView(UpdateView):
 
     def get_success_url(self):
         slug = self.object.slug
+        messages.success(self.request, 'Article updated successfully.')
         return reverse_lazy(viewname='article', kwargs={'slug': slug})
 
     def dispatch(self, request, *args, **kwargs):
         article = self.get_object()
         if not article.get_permissions(self.request.user) == 'edit':
+            messages.error(self.request, 'You do not have permission to edit this article.')
             raise PermissionDenied()
         return super().dispatch(request, *args, **kwargs)
 
@@ -119,5 +123,10 @@ class DeleteArticleView(DeleteView):
     def dispatch(self, request, *args, **kwargs):
         article = self.get_object()
         if not article.get_permissions(self.request.user) == 'edit':
+            messages.error(self.request, 'You do not have permission to delete this article.')
             raise PermissionDenied()
         return super().dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+        messages.success(self.request, 'Article deleted successfully.')
+        return super().get_success_url()

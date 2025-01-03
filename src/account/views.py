@@ -17,7 +17,7 @@ class AccountView(UpdateView):
         return self.request.user
 
     def get_success_url(self):
-        messages.success(self.request, "Account details updated successfully.")
+        messages.success(self.request, 'Account details updated successfully.')
         return super().get_success_url()
 
 
@@ -30,5 +30,5 @@ class ResetPasswordView(PasswordChangeView):
         return self.request.user
 
     def get_success_url(self):
-        messages.success(self.request, "Password changed successfully.")
+        messages.success(self.request, 'Password changed successfully.')
         return super().get_success_url()
