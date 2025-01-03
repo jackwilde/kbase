@@ -1,8 +1,7 @@
-from django.core.exceptions import ValidationError, PermissionDenied
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, DeleteView, View, CreateView, UpdateView
-
 from .forms import GroupForm
 from .mixins import AdminRequiredMixin
 from kbase.models import Article
@@ -45,6 +44,7 @@ class UserDeleteAdminView(AdminRequiredMixin, DeleteView):
     context_object_name = 'user'
     success_url = reverse_lazy('all-users')
 
+
     def dispatch(self, request, *args, **kwargs):
         user = self.get_object()
         # Prevent self-deletion
@@ -55,24 +55,23 @@ class UserDeleteAdminView(AdminRequiredMixin, DeleteView):
 
         return super().dispatch(request, *args, **kwargs)
 
-    def delete(self, request, *args, **kwargs):
-        messages.success(request, "User deleted successfully.")
-        return super().delete(request, *args, **kwargs)
-
+    def get_success_url(self):
+        messages.success(self.request, 'User deleted successfully.')
+        return super().get_success_url()
 
 class UserSetPermissionsAdminView(AdminRequiredMixin, View):
     def post(self, request, pk, *args, **kwargs):
         user = User.objects.get(pk=pk)
         # Prevent user removing or adding admin permissions to themselves
         if request.user == user:
-            messages.error(self.request, "You cannot toggle admin for yourself.")
+            messages.error(self.request, 'You cannot toggle admin for yourself.')
         else:
             user.is_admin = not user.is_admin
             user.save()
             if user.is_admin:
-                messages.success(request, f"{user.username} is now an admin.")
+                messages.success(self.request, f'{user.full_name} is now an admin.')
             else:
-                messages.success(request, f"{user.username} is no longer an admin.")
+                messages.success(self.request, f'{user.full_name} is no longer an admin.')
 
         return redirect(reverse_lazy('user-detail', kwargs={'pk': user.pk}))
 
@@ -102,6 +101,7 @@ class CreateGroupAdminView(AdminRequiredMixin, CreateView):
     form_class = GroupForm
 
     def get_success_url(self):
+        messages.success(self.request, 'Group created successfully.')
         return reverse_lazy(viewname='group-detail', kwargs={'pk': self.object.pk})
 
 
@@ -112,6 +112,7 @@ class EditGroupAdminView(AdminRequiredMixin, UpdateView):
     object_name = 'group'
 
     def get_success_url(self):
+        messages.success(self.request, 'Group updated successfully.')
         return reverse_lazy(viewname='group-detail', kwargs={'pk': self.object.pk})
 
     def get_context_data(self, **kwargs):
@@ -122,6 +123,7 @@ class EditGroupAdminView(AdminRequiredMixin, UpdateView):
     def dispatch(self, request, *args, **kwargs):
         group = self.get_object()
         if group.pk == 1:
+            messages.error(self.request, 'You cannot edit the "All Users" group.')
             raise PermissionDenied('You cannot edit the "All Users" group.')
         return super().dispatch(request, *args, **kwargs)
 
@@ -134,5 +136,10 @@ class GroupDeleteAdminView(AdminRequiredMixin, DeleteView):
     def dispatch(self, request, *args, **kwargs):
         group = self.get_object()
         if group.pk == 1:
-            raise PermissionDenied('You cannot edit the "All Users" group.')
+            messages.error(self.request, 'You cannot delete the "All Users" group.')
+            raise PermissionDenied('You cannot delete the "All Users" group.')
         return super().dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+        messages.success(self.request, "Group deleted successfully.")
+        return super().get_success_url()
